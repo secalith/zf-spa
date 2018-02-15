@@ -26,6 +26,14 @@ class ConfigProvider extends CommonConfigProvider
                         ],
                         'service_gateway' => "Route\\Gateway",
                     ],
+                    'route_routes' => [
+                        'database' => [
+                            'db' => [
+                                'table' => 'route_routes',
+                            ],
+                        ],
+                        'service_gateway' => "Route\\Routes\\Gateway",
+                    ],
                 ],
             ], // application
         ];
@@ -35,14 +43,13 @@ class ConfigProvider extends CommonConfigProvider
     {
         return [
             'factories'  => [
-                "Route\\Table" => 'Route\Service\Factory\TableServiceFactory',
-                "Route\\Gateway" => 'Route\Service\Factory\TableGatewayFactory',
-                "Route\\Service" => 'Route\Service\Factory\RouteServiceFactory',
-                "Router\\Listener" => 'Route\Listener\Factory\DatabaseRouteListenerFactory',
+                "Route\\Table" => \Route\Service\Factory\RouteTableServiceFactory::class,
+                "Route\\Gateway" => \Route\Service\Factory\RouteTableGatewayFactory::class,
+                "Route\\Service" => \Route\Service\Factory\RouteServiceFactory::class,
+                "Route\\Routes\\Table" => \Route\Service\Factory\RouteRoutesTableServiceFactory::class,
+                "Route\\Routes\\Gateway" => \Route\Service\Factory\RouteRoutesTableGatewayFactory::class,
+                "Route\\Routes\\Service" => \Route\Service\Factory\RouteRoutesServiceFactory::class,
             ],
-            'listeners' => array(
-                "Router\\Listener"
-            ),
         ];
     }
 

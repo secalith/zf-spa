@@ -9,11 +9,11 @@ namespace Route\Service;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class RouteService
+class RouteRoutesService
 {
     protected $route_config;
 
-    protected $identifier = 'route';
+    protected $identifier = 'route_routes';
 
     /**
      * Constructor
@@ -40,7 +40,7 @@ class RouteService
     }
 
     /**
-     * @return string
+     * @return mixed
      */
     public function getIdentifier()
     {

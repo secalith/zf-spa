@@ -6,13 +6,13 @@
  */
 namespace Route\Service\Factory;
 
-use Route\Model\Model as Model;
+use Route\Model\RouteModel as Model;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
 use Zend\ServiceManager\FactoryInterface as FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface as ServiceLocatorInterface;
 
-class TableGatewayFactory implements FactoryInterface
+class RouteTableGatewayFactory implements FactoryInterface
 {
     public function __invoke(\Interop\Container\ContainerInterface $container, $requestedName, array $options = null)
     {

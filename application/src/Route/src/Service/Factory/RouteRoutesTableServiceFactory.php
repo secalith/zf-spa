@@ -6,16 +6,16 @@
  */
 namespace Route\Service\Factory;
 
-use Route\Model\Table as Table;
+use Route\Model\RouteTable as Table;
 use Zend\ServiceManager\FactoryInterface as FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface as ServiceLocatorInterface;
 
-class TableServiceFactory implements FactoryInterface
+class RouteRoutesTableServiceFactory implements FactoryInterface
 {
     /**
      * @var string
      */
-    protected $identifier = "route";
+    protected $identifier = "route_routes";
 
     /**
      * @param \Interop\Container\ContainerInterface $container
@@ -30,7 +30,7 @@ class TableServiceFactory implements FactoryInterface
 
     /**
      * @param \Zend\ServiceManager\ServiceLocatorInterface $serviceLocator
-     * @return null|\Route\Model\Table
+     * @return null|\Route\Model\RouteTable
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {

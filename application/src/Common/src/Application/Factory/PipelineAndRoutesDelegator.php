@@ -38,6 +38,19 @@ class PipelineAndRoutesDelegator
         $app->pipeDispatchMiddleware();
         $app->pipe(NotFoundHandler::class);
 
+        $e = $container->has("Route\\Table");
+
+
+//        var_dump($e);
+//
+        $items = $container->get("Route\\Routes\\Table")
+            ->fetchAll();
+
+        foreach($items as $item){
+//            var_dump($item);
+        }
+
+
         $app->get('/', \App\Action\HomePageAction::class, 'home');
         $app->get('/api/ping', \App\Action\PingAction::class, 'api.ping');
 

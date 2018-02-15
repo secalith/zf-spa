@@ -8,7 +8,7 @@ namespace Route\Model;
 
 use Zend\Db\TableGateway\TableGateway;
 
-class Table
+class RouteTable
 {
     protected $tableGateway;
 

@@ -6,7 +6,7 @@
  */
 namespace Route\Model;
 
-class Model
+class RouteModel
 {
     public $uid;
     public $route_name;

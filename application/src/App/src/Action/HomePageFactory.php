@@ -17,12 +17,26 @@ class HomePageFactory
                 ->fetchAll();
 
             foreach($items as $item){
-                var_dump($item);
+                //var_dump($item);
             }
 //            var_dump($items);
 
         } else {
             echo 'The Configuration not set;';
+        }
+
+        if (null!=$container->has("Route\\Routes\\Table")) {
+            $items = $container->get("Route\\Routes\\Table")
+                ->fetchAll();
+
+            foreach($items as $item){
+        //        var_dump($item);
+            }
+//            var_dump($items);
+
+        } else {
+//            var_dump('sad');
+//            echo 'The Routes not set;';
         }
 
         $router   = $container->get(RouterInterface::class);

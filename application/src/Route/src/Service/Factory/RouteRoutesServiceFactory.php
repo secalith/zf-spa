@@ -3,9 +3,9 @@
 namespace Route\Service\Factory;
 
 use Common\Service\Factory\CommonServiceFactory;
-use Route\Service\RouteService as RequestedService;
+use Route\Service\RouteRoutesService as RequestedService;
 
-class RouteServiceFactory extends CommonServiceFactory
+class RouteRoutesServiceFactory extends CommonServiceFactory
 {
 
     public function __invoke(\Interop\Container\ContainerInterface $container, $requestedName, array $options = null)
