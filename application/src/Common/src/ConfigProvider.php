@@ -37,6 +37,11 @@ class ConfigProvider
                 Helper\RouteHelper::class           => Helper\RouteHelperFactory::class,
                 Helper\RouteHelperMiddleware::class => Helper\RouteHelperMiddlewareFactory::class,
             ],
+            'delegators' => [
+                \Zend\Expressive\Application::class => [
+                    \Common\Application\Factory\PipelineAndRoutesDelegator::class,
+                ],
+            ],
         ];
     }
 

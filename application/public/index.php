@@ -20,8 +20,8 @@ call_user_func(function () {
 
     // Import programmatic/declarative middleware pipeline and routing
     // configuration statements
-    require 'config/pipeline.php';
-    require 'config/routes.php';
+//    require 'config/pipeline.php';
+//    require 'config/routes.php';
 
     $app->run();
 });
