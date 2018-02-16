@@ -14,6 +14,8 @@ use Zend\ServiceManager\ServiceLocatorInterface as ServiceLocatorInterface;
 
 class RouteTableGatewayFactory implements FactoryInterface
 {
+    protected $identifier = "route";
+
     public function __invoke(\Interop\Container\ContainerInterface $container, $requestedName, array $options = null)
     {
         return $this->createService($container);
@@ -26,6 +28,6 @@ class RouteTableGatewayFactory implements FactoryInterface
         $resultSetPrototype = new ResultSet();
         $resultSetPrototype->setArrayObjectPrototype(new Model());
 
-        return new TableGateway($moduleConfig['database']['db']['table'], $dbAdapter, null, $resultSetPrototype);
+        return new TableGateway($moduleConfig[$this->identifier]['database']['db']['table'], $dbAdapter, null, $resultSetPrototype);
     }
 }

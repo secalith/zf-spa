@@ -62,6 +62,9 @@ class RouteRoutesEntity
      */
     protected $constraints;
 
+    protected $methods;
+
+
     /**
      * @param string $name
      * @return RouteRoutesEntity
@@ -275,4 +278,41 @@ class RouteRoutesEntity
     {
         return $this->constraints;
     }
+
+    /**
+     * @return string
+     */
+    public function getScenario()
+    {
+        return $this->scenario;
+    }
+
+    /**
+     * @param string $scenario
+     * @return RouteRoutesEntity
+     */
+    public function setScenario($scenario)
+    {
+        $this->scenario = $scenario;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMethods()
+    {
+        return $this->methods;
+    }
+
+    /**
+     * @param mixed $methods
+     * @return RouteRoutesEntity
+     */
+    public function setMethods($methods)
+    {
+        $this->methods = $methods;
+        return $this;
+    }
+
 }

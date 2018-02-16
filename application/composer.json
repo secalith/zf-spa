@@ -32,7 +32,12 @@
         "psr-4": {
             "App\\": "src/App/src/",
             "Common\\": "src/Common/src/",
-            "Route\\": "src/Route/src/"
+            "Route\\": "src/Route/src/",
+            "Page\\": "src/Page/src/",
+            "Template\\": "src/Template/src/",
+            "Area\\": "src/Area/src/",
+            "Block\\": "src/Block/src/",
+            "Content\\": "src/Content/src/"
         }
     },
     "autoload-dev": {

@@ -4,18 +4,18 @@
  * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
-namespace Route\Service\Factory;
+namespace Page\Service\Factory;
 
-use Route\Model\RouteTable as Table;
+use Page\Model\PageTable as Table;
 use Zend\ServiceManager\FactoryInterface as FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface as ServiceLocatorInterface;
 
-class RouteTableServiceFactory implements FactoryInterface
+class PageTableServiceFactory implements FactoryInterface
 {
     /**
      * @var string
      */
-    protected $identifier = "route";
+    protected $identifier = "page";
 
     /**
      * @param \Interop\Container\ContainerInterface $container
@@ -36,10 +36,10 @@ class RouteTableServiceFactory implements FactoryInterface
     {
         $config = $serviceLocator->get("config");
 
-        $modulesConfig = $config['application']['module'];
+        $moduleConfig = $serviceLocator->get("Route\\Service")->getRouteConfig();
 
-        if (null!==$modulesConfig && array_key_exists($this->identifier, $modulesConfig)) {
-            $routeTableGateway = $serviceLocator->get($modulesConfig[$this->identifier]['service_gateway']);
+        if (null!==$moduleConfig && array_key_exists($this->identifier, $moduleConfig)) {
+            $routeTableGateway = $serviceLocator->get($moduleConfig[$this->identifier]['service_gateway']);
             $table = new Table($routeTableGateway);
 
             return $table;

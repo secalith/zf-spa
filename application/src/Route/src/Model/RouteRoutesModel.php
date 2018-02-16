@@ -16,6 +16,7 @@ class RouteRoutesModel
     public $name;
     public $child_routes;
     public $constraints;
+    public $methods;
 
     public function getUid()
     {
@@ -118,6 +119,24 @@ class RouteRoutesModel
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getMethods()
+    {
+        return $this->methods;
+    }
+
+    /**
+     * @param mixed $methods
+     * @return RouteRoutesModel
+     */
+    public function setMethods($methods)
+    {
+        $this->methods = $methods;
+        return $this;
+    }
+
     public function exchangeArray($data)
     {
         $this->uid = (!empty($data['uid'])) ? $data['uid'] : null;
@@ -132,6 +151,7 @@ class RouteRoutesModel
         $this->module = (!empty($data['module'])) ? $data['module'] : null;
         $this->name = (!empty($data['name'])) ? $data['name'] : null;
         $this->child_routes = (!empty($data['child_routes'])) ? $data['child_routes'] : null;
-        //$this->constraints = (!empty(json_decode($data['constraints']))) ? json_decode($data['constraints']) : null;
+        $this->constraints = (!empty(json_decode($data['constraints']))) ? json_decode($data['constraints']) : null;
+        $this->methods = (!empty(json_decode($data['methods']))) ? json_decode($data['methods']) : null;
     }
 }

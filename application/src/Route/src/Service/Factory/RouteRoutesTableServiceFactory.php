@@ -34,12 +34,9 @@ class RouteRoutesTableServiceFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $config = $serviceLocator->get("config");
-
-        $modulesConfig = $config['application']['module'];
-
-        if (null!==$modulesConfig && array_key_exists($this->identifier, $modulesConfig)) {
-            $routeTableGateway = $serviceLocator->get($modulesConfig[$this->identifier]['service_gateway']);
+        $moduleConfig = $serviceLocator->get("Route\\Service")->getRouteConfig();
+        if (null!==$moduleConfig && array_key_exists($this->identifier, $moduleConfig)) {
+            $routeTableGateway = $serviceLocator->get($moduleConfig[$this->identifier]['service_gateway']);
             $table = new Table($routeTableGateway);
 
             return $table;

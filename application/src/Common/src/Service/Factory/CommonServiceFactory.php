@@ -24,9 +24,10 @@ class CommonServiceFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         $instance = new $this->requested_service();
-        $config = $serviceLocator->get('config');
 
-        $instance->setRouteConfig($config['application']['module'][$instance->getIdentifier()]);
+        $moduleConfig = $serviceLocator->get("Route\\Service")->getRouteConfig();
+
+        $instance->setRouteConfig($moduleConfig[$instance->getIdentifier()]);
 
 //        $routeResult = $serviceLocator->get(RouteHelper::class);
         return $instance;

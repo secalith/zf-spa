@@ -19,20 +19,22 @@ class ConfigProvider extends CommonConfigProvider
             'application' => [
                 'module' => [
                     'route' => [
-                        'database' => [
-                            'db' => [
-                                'table' => 'route',
+                        'route' => [
+                            'database' => [
+                                'db' => [
+                                    'table' => 'route',
+                                ],
                             ],
+                            'service_gateway' => "Route\\Gateway",
                         ],
-                        'service_gateway' => "Route\\Gateway",
-                    ],
-                    'route_routes' => [
-                        'database' => [
-                            'db' => [
-                                'table' => 'route_routes',
+                        'route_routes' => [
+                            'database' => [
+                                'db' => [
+                                    'table' => 'route_routes',
+                                ],
                             ],
+                            'service_gateway' => "Route\\Routes\\Gateway",
                         ],
-                        'service_gateway' => "Route\\Routes\\Gateway",
                     ],
                 ],
             ], // application
