@@ -6,45 +6,11 @@
  */
 namespace Page\Service\Factory;
 
-use Page\Model\PageTable as Table;
-use Zend\ServiceManager\FactoryInterface as FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface as ServiceLocatorInterface;
+use Common\Service\Factory\CommonTableServiceFactory;
 
-class PageTableServiceFactory implements FactoryInterface
+class PageTableServiceFactory extends CommonTableServicefactory
 {
-    /**
-     * @var string
-     */
     protected $identifier = "page";
-
-    /**
-     * @param \Interop\Container\ContainerInterface $container
-     * @param string $requestedName
-     * @param array|null $options
-     * @return null|\SinglePageApplication\Route\Model\Table
-     */
-    public function __invoke(\Interop\Container\ContainerInterface $container, $requestedName, array $options = null)
-    {
-        return $this->createService($container);
-    }
-
-    /**
-     * @param \Zend\ServiceManager\ServiceLocatorInterface $serviceLocator
-     * @return null|\Route\Model\RouteTable
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        $config = $serviceLocator->get("config");
-
-        $moduleConfig = $serviceLocator->get("Route\\Service")->getRouteConfig();
-
-        if (null!==$moduleConfig && array_key_exists($this->identifier, $moduleConfig)) {
-            $routeTableGateway = $serviceLocator->get($moduleConfig[$this->identifier]['service_gateway']);
-            $table = new Table($routeTableGateway);
-
-            return $table;
-        }
-
-        return null;
-    }
+    protected $requestedGateway = "Page\\Gateway";
+    protected $requestedTable = \Page\Model\PageTable::class;
 }

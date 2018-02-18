@@ -63,7 +63,7 @@ class AreaTable extends CommonTableGateway
                     if(method_exists($item,"getName")) {
                         $result[$item->getName()] = $item;
                     } else {
-                        $result[$item->getRole()] = $item;
+                        $result[$item->getUid()] = $item;
                     }
                 }
                 $this->cache->removeItem($cacheNamespace);
@@ -71,12 +71,12 @@ class AreaTable extends CommonTableGateway
             }
         } else {
             $result = null;
-            $resultSet = $this->tableGateway->select();
+            $resultSet = $this->tableGateway->select([$name=>$value]);
             foreach ($resultSet as $item) {
                 if(method_exists($item,"getName")) {
                     $result[$item->getName()] = $item;
                 } else {
-                    $result[$item->getRole()] = $item;
+                    $result[$item->getUid()] = $item;
                 }
             }
         }

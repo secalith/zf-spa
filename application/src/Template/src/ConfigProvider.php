@@ -25,7 +25,17 @@ class ConfigProvider extends CommonConfigProvider
                                     'table' => 'template',
                                 ],
                             ],
-                            'service_gateway' => "Template\\Gateway",
+                            'gateway' => [
+                                "adapter" => "Application\Db\LocalAdapter",
+                                'service' => ["name"=>"Template\\Gateway",],
+                                'hydrator' => [
+                                    "class" => \Common\Hydrator\CommonTableEntityHydrator::class,
+                                    "map" => [
+                                        "routeName" => "route_name",
+                                        "uid" => "uid",
+                                    ],
+                                ],
+                            ],
                         ],
                     ],
                 ],

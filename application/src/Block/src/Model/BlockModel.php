@@ -19,6 +19,27 @@ class BlockModel
     public $template;
     public $order;
     public $name;
+    public $parent_uid;
+
+    /**
+     * @return mixed
+     */
+    public function getParentUid()
+    {
+        return $this->parent_uid;
+    }
+
+    /**
+     * @param mixed $parent_uid
+     * @return BlockModel
+     */
+    public function setParentUid($parent_uid)
+    {
+        $this->parent_uid = $parent_uid;
+        return $this;
+    }
+
+
 
     /**
      * @return mixed
@@ -215,5 +236,6 @@ class BlockModel
         $this->setOptions($this->getOptions());
         $this->name = (!empty($data['name'])) ? $data['name'] : null;
         $this->order = (!empty($data['order'])) ? $data['order'] : null;
+        $this->parend_uid = (!empty($data['parend_uid'])) ? $data['parend_uid'] : null;
     }
 }

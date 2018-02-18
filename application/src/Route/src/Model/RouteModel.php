@@ -9,21 +9,17 @@ namespace Route\Model;
 class RouteModel
 {
     public $uid;
-    public $route_name;
-
-    public function getUid()
-    {
-        return $this->uid;
-    }
-
-    public function getRouteName()
-    {
-        return $this->route_name;
-    }
+    public $routeName;
 
     public function exchangeArray($data)
     {
         $this->uid = (!empty($data['uid'])) ? $data['uid'] : null;
-        $this->route_name = (!empty($data['route_name'])) ? $data['route_name'] : null;
+        $this->routeName = (!empty($data['route_name'])) ? $data['route_name'] : null;
+
+    }
+
+    public function getArrayCopy()
+    {
+        return get_object_vars($this);
     }
 }

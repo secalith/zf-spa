@@ -22,6 +22,15 @@ class ConfigProvider
         return [
             'dependencies' => $this->getDependencies(),
             'templates'    => $this->getTemplates(),
+            'view_helpers' => [
+                'invokables'=> [
+                    'openTag' => View\Helper\OpenTagHelper::class,
+                    'closeTag' => View\Helper\CloseTagHelper::class,
+                    'displayArea' => View\Helper\AreaHelper::class,
+                    'displayBlock' => View\Helper\BlockHelper::class,
+                    'displayContent' => View\Helper\ContentHelper::class,
+                ],
+            ]
         ];
     }
 

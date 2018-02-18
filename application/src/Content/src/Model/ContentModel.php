@@ -9,7 +9,7 @@ namespace Content\Model;
 use Common\Model\CommonModel as CommonModel;
 use Zend\Json\Json as Json;
 
-class Model
+class ContentModel
 {
     public $uid;
     public $block;
@@ -17,8 +17,10 @@ class Model
     public $content;
     public $attributes;
     public $parameters;
+    public $options;
     public $template;
     public $type;
+
 
     /**
      * @return mixed
@@ -84,7 +86,7 @@ class Model
 
     /**
      * @param mixed $uid
-     * @return Model
+     * @return ContentModel
      */
     public function setUid($uid)
     {
@@ -102,7 +104,7 @@ class Model
 
     /**
      * @param mixed $attributes
-     * @return Model
+     * @return ContentModel
      */
     public function setAttributes($attributes)
     {
@@ -120,7 +122,7 @@ class Model
 
     /**
      * @param mixed $parameters
-     * @return Model
+     * @return ContentModel
      */
     public function setParameters($parameters)
     {
@@ -138,7 +140,7 @@ class Model
 
     /**
      * @param mixed $template
-     * @return Model
+     * @return ContentModel
      */
     public function setTemplate($template)
     {
@@ -156,11 +158,29 @@ class Model
 
     /**
      * @param mixed $type
-     * @return Model
+     * @return ContentModel
      */
     public function setType($type)
     {
         $this->type = $type;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
+    /**
+     * @param mixed $options
+     * @return ContentModel
+     */
+    public function setOptions($options)
+    {
+        $this->options = $options;
         return $this;
     }
 
@@ -176,6 +196,8 @@ class Model
         $this->setAttributes($this->getAttributes());
         $this->parameters = (!empty($data['parameters'])) ? $data['parameters'] : null;
         $this->setParameters($this->getParameters());
+        $this->options = (!empty($data['options'])) ? $data['options'] : null;
+        $this->setOptions($this->getOptions());
     }
 
     public function toArray()
@@ -204,6 +226,9 @@ class Model
         }
         if (null!==$this->getParameters()) {
             $properties['parameters'] = $this->getParameters();
+        }
+        if (null!==$this->getOptions()) {
+            $properties['options'] = $this->getOptions();
         }
         return $properties;
     }

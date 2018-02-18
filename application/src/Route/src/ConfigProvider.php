@@ -25,7 +25,18 @@ class ConfigProvider extends CommonConfigProvider
                                     'table' => 'route',
                                 ],
                             ],
-                            'service_gateway' => "Route\\Gateway",
+                            'gateway' => [
+                                "adapter" => "Application\Db\LocalAdapter",
+                                'service' => ["name"=>"Route\\Gateway",],
+                                'hydrator' => [
+                                    "class" => \Common\Hydrator\CommonTableEntityHydrator::class,
+                                    "map" => [
+                                        "routeName" => "route_name",
+                                        "uid" => "uid",
+                                    ],
+                                ],
+                            ],
+
                         ],
                         'route_routes' => [
                             'database' => [
@@ -33,7 +44,17 @@ class ConfigProvider extends CommonConfigProvider
                                     'table' => 'route_routes',
                                 ],
                             ],
-                            'service_gateway' => "Route\\Routes\\Gateway",
+                            'gateway' => [
+                                "adapter" => "Application\Db\LocalAdapter",
+                                'service' => ["name"=>"Route\\Routes\\Gateway",],
+                                'hydrator' => [
+                                    "class" => \Common\Hydrator\CommonTableEntityHydrator::class,
+                                    "map" => [
+                                        "routeName" => "route_name",
+                                        "uid" => "uid",
+                                    ],
+                                ],
+                            ],
                         ],
                     ],
                 ],

@@ -9,7 +9,7 @@ namespace Content\Model;
 use Common\Model\CommonTableGateway;
 use Zend\Db\TableGateway\TableGateway;
 
-class Table extends CommonTableGateway
+class ContentTable extends CommonTableGateway
 {
     protected $cache_namespace = "content_model_table";
 
@@ -26,23 +26,38 @@ class Table extends CommonTableGateway
 
     public function fetchAllBy($value, $name = "uid")
     {
-        $cacheNamespace = sprintf("%s_%s_%s",$this->cache_namespace,$name,$value);
-        if(null!==$this->cache&&$this->cache->getItem($cacheNamespace)) {
-            $result = $this->cache->getItem($cacheNamespace);
-        } else {
-            $contentResult = $this->tableGateway->select(function ($select) use ($name, $value) {
-                $select->where->in($name, [$value]);
-                $select->order(array('order'=>'asc'));
-            });
-            $c = null;
-            $result = null;
-            if($contentResult) {
-                foreach ($contentResult as $content) {
-                    $result[] = $content;
+        if(null!==$this->cache) {
+            $cacheNamespace = sprintf("%s_%s_%s",$this->cache_namespace,$value,$name);
+            if($this->cache->getItem($cacheNamespace)) {
+                $result = $this->cache->getItem($cacheNamespace);
+            } else {
+                $result = null;
+                $resultSet = $this->tableGateway->select([$name=>$value]);
+                foreach ($resultSet as $item) {
+                    if(method_exists($item,"getName")) {
+                        $result[$item->getName()] = $item;
+                    } else {
+                        $result[$item->getUid()] = $item;
+                    }
                 }
-                if(null!==$this->cache) {
-                    $this->cache->removeItem($cacheNamespace);
-                    $this->cache->setItem($cacheNamespace, $result);
+                $this->cache->removeItem($cacheNamespace);
+                $this->cache->setItem($cacheNamespace, $result);
+            }
+        } else {
+            $result = null;
+            if(is_array($value)){
+                $resultSet = $this->tableGateway->select($value);
+            } else {
+                $resultSet = $this->tableGateway->select([$name=>$value]);
+            }
+
+            if($resultSet->count() > 0) {
+                foreach ($resultSet as $item) {
+                    if(method_exists($item,"getName")) {
+                        $result[$item->getName()] = $item;
+                    } else {
+                        $result[$item->getUid()] = $item;
+                    }
                 }
             }
         }
@@ -70,7 +85,7 @@ class Table extends CommonTableGateway
         return $row;
     }
 
-    public function saveItem(Model $item)
+    public function saveItem(ContentModel $item)
     {
         $data = array(
             'uid' => $item->uid,

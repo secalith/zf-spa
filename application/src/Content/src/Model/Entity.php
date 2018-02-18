@@ -31,7 +31,7 @@ class Entity
 
     /**
      * @param mixed $attributes
-     * @return Model
+     * @return ContentModel
      */
     public function setAttributes($attributes)
     {
@@ -49,7 +49,7 @@ class Entity
 
     /**
      * @param mixed $block
-     * @return Model
+     * @return ContentModel
      */
     public function setBlock($block)
     {
@@ -67,7 +67,7 @@ class Entity
 
     /**
      * @param mixed $content
-     * @return Model
+     * @return ContentModel
      */
     public function setContent($content)
     {
@@ -85,7 +85,7 @@ class Entity
 
     /**
      * @param mixed $options
-     * @return Model
+     * @return ContentModel
      */
     public function setOptions($options)
     {
@@ -103,7 +103,7 @@ class Entity
 
     /**
      * @param mixed $order
-     * @return Model
+     * @return ContentModel
      */
     public function setOrder($order)
     {
@@ -121,7 +121,7 @@ class Entity
 
     /**
      * @param mixed $parameters
-     * @return Model
+     * @return ContentModel
      */
     public function setParameters($parameters)
     {
@@ -139,7 +139,7 @@ class Entity
 
     /**
      * @param mixed $template
-     * @return Model
+     * @return ContentModel
      */
     public function setTemplate($template)
     {
@@ -157,7 +157,7 @@ class Entity
 
     /**
      * @param mixed $type
-     * @return Model
+     * @return ContentModel
      */
     public function setType($type)
     {
@@ -175,7 +175,7 @@ class Entity
 
     /**
      * @param mixed $uid
-     * @return Model
+     * @return ContentModel
      */
     public function setUid($uid)
     {

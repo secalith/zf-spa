@@ -22,6 +22,46 @@ class BlockTable extends CommonTableGateway
         $resultSet = $this->tableGateway->select();
         return $resultSet;
     }
+    public function fetchAllBy($value, $name = "uid")
+    {
+        if(null!==$this->cache) {
+            $cacheNamespace = sprintf("%s_%s_%s",$this->cache_namespace,$value,$name);
+            if($this->cache->getItem($cacheNamespace)) {
+                $result = $this->cache->getItem($cacheNamespace);
+            } else {
+                $result = null;
+                $resultSet = $this->tableGateway->select([$name=>$value]);
+                foreach ($resultSet as $item) {
+                    if(method_exists($item,"getName")) {
+                        $result[$item->getName()] = $item;
+                    } else {
+                        $result[$item->getUid()] = $item;
+                    }
+                }
+                $this->cache->removeItem($cacheNamespace);
+                $this->cache->setItem($cacheNamespace, $result);
+            }
+        } else {
+            $result = null;
+            if(is_array($value)){
+                $resultSet = $this->tableGateway->select($value);
+            } else {
+                $resultSet = $this->tableGateway->select([$name=>$value]);
+            }
+
+            if($resultSet->count() > 0) {
+                foreach ($resultSet as $item) {
+                    if(method_exists($item,"getName")) {
+                        $result[$item->getUid()] = $item;
+                    } else {
+                        $result[] = $item;
+                    }
+                }
+            }
+        }
+//        var_dump($result);
+        return $result;
+    }
 
     public function getItem($uid)
     {

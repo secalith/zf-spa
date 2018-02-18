@@ -40,8 +40,7 @@ class PipelineAndRoutesDelegator
 
         $items = $container->get("Route\\Routes\\Table")
             ->fetchAll();
-
-        foreach($items as $item){
+        foreach($items as $item) {
             $app->get($item->getRoute(), \App\Action\HomePageAction::class, $item->getName());
         }
 

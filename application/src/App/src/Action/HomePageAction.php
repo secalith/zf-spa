@@ -19,6 +19,8 @@ class HomePageAction implements ServerMiddlewareInterface
 
     private $template;
 
+    private $page_view;
+
     public function __construct(Router\RouterInterface $router, Template\TemplateRendererInterface $template = null)
     {
         $this->router   = $router;
@@ -58,6 +60,35 @@ class HomePageAction implements ServerMiddlewareInterface
             $data['templateDocs'] = 'https://docs.zendframework.com/zend-view/';
         }
 
-        return new HtmlResponse($this->template->render('app::home-page', $data));
+        $data['pageView'] = $this->getPageView();
+
+        $templateName = sprintf(
+            "%s::%s",
+            $data['pageView']['template']->getLocation(),
+            $data['pageView']['template']->getName()
+        );
+
+        $this->template->addDefaultParam(Template\TemplateRendererInterface::TEMPLATE_ALL,'pageView',$data['pageView']);
+
+        return new HtmlResponse($this->template->render($templateName, $data));
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPageView()
+    {
+        return $this->page_view;
+    }
+
+    /**
+     * @param mixed $page_view
+     * @return HomePageAction
+     */
+    public function setPageView($page_view)
+    {
+        $this->page_view = $page_view;
+        return $this;
+    }
+
 }

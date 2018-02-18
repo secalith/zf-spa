@@ -1,32 +1,16 @@
 <?php
+/**
+ * @link      http://github.com/zendframework/ZendSkeletonApplication for the canonical source repository
+ * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ */
 namespace Template\Service\Factory;
 
-use Template\Model\AreaTable as Table;
-use Zend\ServiceManager\FactoryInterface as FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface as ServiceLocatorInterface;
+use Common\Service\Factory\CommonTableServiceFactory;
 
-class TemplateTableServiceFactory implements FactoryInterface
+class TemplateTableServiceFactory extends CommonTableServicefactory
 {
     protected $identifier = "template";
-
-    public function __invoke(\Interop\Container\ContainerInterface $container, $requestedName, array $options = null)
-    {
-        return $this->createService($container);
-    }
-
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        $config = $serviceLocator->get("config");
-
-        $moduleConfig = $serviceLocator->get("Route\\Service")->getRouteConfig();
-
-        if (null!==$moduleConfig && array_key_exists($this->identifier, $moduleConfig)) {
-            $routeTableGateway = $serviceLocator->get($moduleConfig[$this->identifier]['service_gateway']);
-            $table = new Table($routeTableGateway);
-
-            return $table;
-        }
-
-        return null;
-    }
+    protected $requestedGateway = "Template\\Gateway";
+    protected $requestedTable = \Template\Model\TemplateTable::class;
 }
