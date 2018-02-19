@@ -85,25 +85,6 @@ class HomePageFactory
                                 }
                             }
                         }
-
-//                        $blocksForView[$rootBlock->getUid()]['content'] = $rootBlockContent;
-                        // check for nested blocks:
-//                        $childBlocks = $container->get("Block\\Table")
-//                            ->fetchAllBy(['area'=>$area->getUid(),'template'=>$template->getUid(),'parent_uid'=>$rootBlock->getUid()]);
-//                        if( null !== $childBlocks) {
-//                            foreach($childBlocks as $childBlock){
-//                                $blocksForView[$rootBlock->getUid()]['block'][$childBlock->getUid()]['data'] = $childBlock;
-//                                 check for content
-//                                $childBlockContent = $container->get("Content\\Table")
-//                                    ->fetchAllBy(['block' => $childBlock->getUid(), 'template' => $page->getTemplate(), 'parent_uid'=>'0']);
-//                                $blocksForView[$rootBlock->getUid()]['block'][$childBlock->getUid()]['content'] = $childBlockContent;
-//
-//                            }
-//                        }
-
-
-//                        $pageView['area'][$area->getMachineName()][$area->getUid()]['block'] = $blocksForView;
-
                     }
                 }
 

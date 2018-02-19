@@ -49,12 +49,6 @@ class BlockHelper extends AbstractHelper
                 }
             }
 
-
-//            $content = $item['data']->getContent();
-//            var_dump(array_key_exists('block',$item));
-//            echo '<pre>';
-//            var_dump($item);
-//            echo '</pre>';
             if(array_key_exists('block',$item) && ! empty($item['block'])&&1==4){
                 foreach($item['block'] as $childData) {
 //                    var_dumP($childData);

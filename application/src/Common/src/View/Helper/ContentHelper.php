@@ -35,6 +35,27 @@ class ContentHelper extends AbstractHelper
 
             $output .= $this->getView()->plugin('openTag')($params,$attrs);
 
+            // outer wrapper
+            if(array_key_exists('wrapper',$options)) {
+                if(array_key_exists('inner',$options['wrapper'])) {
+                    // open outer tag
+                    $options['wrapper']['inner']['attributes'] =
+                        (array_key_exists('attributes',$options['wrapper']['inner']))
+                            ? $options['wrapper']['inner']['attributes']
+                            : []
+                    ;
+                    $options['wrapper']['inner']['parameters'] =
+                        (array_key_exists('parameters',$options['wrapper']['inner']))
+                            ? $options['wrapper']['inner']['parameters']
+                            : []
+                    ;
+                    $output .= $this->getView()->plugin('openTag')(
+                        $options['wrapper']['inner']['parameters'],
+                        $options['wrapper']['inner']['attributes']
+                    );
+                }
+            }
+
             $content = $item['data']->getContent();
             if(isset($item['content'])) {
                 foreach($item['content'] as $childUid => $childData){
@@ -55,6 +76,12 @@ class ContentHelper extends AbstractHelper
                     $output .= $this->getView()->plugin('closeTag')(
                         $options['wrapper']['outer']['parameters'],
                         $options['wrapper']['outer']['attributes']
+                    );
+                }
+                if(array_key_exists('inner',$options['wrapper'])) {
+                    $output .= $this->getView()->plugin('closeTag')(
+                        $options['wrapper']['inner']['parameters'],
+                        $options['wrapper']['inner']['attributes']
                     );
                 }
             }

@@ -16,6 +16,7 @@ class AreaHelper extends AbstractHelper
                 $options = json_decode($area['data']->getOptions(),true);
 
                 $output .= $this->getView()->plugin('openTag')($params,$attrs,$area['data']);
+
                 if( array_key_exists('block',$area) && ! empty($area['block'])){
                     /* @var $block \Block\Model\BlockModel*/
                     foreach($area['block'] as $block) {
