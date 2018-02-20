@@ -1,7 +1,6 @@
 <?php $this->headTitle('Home'); ?>
 
-<?php
+<?=$this->displayArea($pageView['area']->getArea('content_main_jumbotron'));?>
 
-echo $this->displayArea($pageView['area'],'content_main_jumbotron');
-echo $this->displayArea($pageView['area'],'content_main');
-//var_dump($pageView['area']['content_main']);
+<?=$this->displayArea($pageView['area']->getArea('content_main'));?>
+

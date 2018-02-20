@@ -137,14 +137,5 @@ class AreaModel
         return $this;
     }
 
-    public function exchangeArray($data)
-    { 
-        $this->uid     = (!empty($data['uid'])) ? $data['uid'] : null;
-        $this->template = (!empty($data['template'])) ? $data['template'] : null;
-        $this->machine_name = (!empty($data['machine_name'])) ? $data['machine_name'] : null;
-        $this->attributes = (!empty($data['attributes'])) ? $data['attributes'] : null;
-        $this->parameters = (!empty($data['parameters'])) ? $data['parameters'] : null;
-        $this->options = (!empty($data['options'])) ? $data['options'] : null;
-        $this->scope = (!empty($data['scope'])) ? $data['scope'] : null;
-    }
+
 }

@@ -16,6 +16,11 @@ class ConfigProvider extends CommonConfigProvider
         return [
             'dependencies' => $this->getDependencies(),
             'templates'    => $this->getTemplates(),
+            'view_helpers' => [
+                'invokables'=> [
+                    'displayArea' => View\Helper\AreaHelper::class,
+                ],
+            ],
             'application' => [
                 'module' => [
                     'route' => [

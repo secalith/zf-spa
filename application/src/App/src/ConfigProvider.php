@@ -23,6 +23,27 @@ class ConfigProvider
             'dependencies' => $this->getDependencies(),
             'templates'    => $this->getTemplates(),
             'routes'    => $this->getRoutes(),
+            'application'   =>  [
+                'cache' => [
+                    'database' => [
+                        'enabled' => false,
+                        'adapter' => [
+//                    'name' => 'memcache',
+                            'name' => 'filesystem',
+                            'options' => [
+                                'cache_dir' => 'data/cache/text',
+                                'ttl' => 0,
+                            ],
+                        ],
+                        'plugins' => [
+                            'exception_handler' => [
+                                'throw_exceptions' => false,
+                            ],
+                            'serializer',
+                        ],
+                    ],
+                ],
+            ],
         ];
     }
 
