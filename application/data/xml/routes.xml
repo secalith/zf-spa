@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes>
+    <route>
+        <uid>page-001</uid>
+        <name>home</name>
+        <template>template-001</template>
+        <route>route-001</route>
+        <page_cache>0</page_cache>
+        <template>template_full</template>
+        <constraints>{}</constraints>
+    </route>
+    <route>
+        <uid>page-004</uid>
+        <name>page</name>
+        <template>template-005</template>
+        <route>route-001</route>
+        <page_cache>0</page_cache>
+        <template>template_full</template>
+        <constraints>{}</constraints>
+    </route>
+</routes>
