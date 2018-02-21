@@ -1,5 +1,7 @@
 # Secalith Single Page Applciation #
 
+v.: 0.1
+
 Routemap:
 * 0.1   Content
 * 0.2   Forms, AJAX content
@@ -13,3 +15,9 @@ Routemap:
 * 0.10  Admin [advanced]
 * 0.11  Multi Data Storage
 * 0.12  Cache
+
+### Prerequisites ###
+
+* PHP-7.1 installed
+* PHP extensions: intl, xml, mbstring, dom
+* uses local *sqlite* database by default
