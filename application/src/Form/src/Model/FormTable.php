@@ -4,14 +4,14 @@
  * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
-namespace Content\Model;
+namespace Form\Model;
 
 use Common\Model\CommonTableGateway;
 use Zend\Db\TableGateway\TableGateway;
 
-class ContentTable extends CommonTableGateway
+class FormTable extends CommonTableGateway
 {
-    protected $cache_namespace = "content_model_table";
+    protected $cache_namespace = "form_model_table";
 
     public function __construct(TableGateway $tableGateway)
     {
@@ -85,7 +85,7 @@ class ContentTable extends CommonTableGateway
         return $row;
     }
 
-    public function saveItem( $item)
+    public function saveItem(FormModel $item)
     {
         $data = array(
             'uid' => $item->uid,

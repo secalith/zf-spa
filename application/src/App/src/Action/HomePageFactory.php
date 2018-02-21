@@ -35,7 +35,6 @@ class HomePageFactory
             /* @var array $areas @var \Area\Model\AreaModel $area */
             foreach($areas as $area){
                 $areaView->setArea($area);
-//                $pageView['area'][$area->getMachineName()][$area->getUid()]['data'] = $area;
 // get root blocks
                 $rootBlocksDB = $container->get("Block\\Table")
                     ->fetchAllBy(['area'=>$area->getUid(),'template'=>$template->getUid(),'parent_uid'=>'0']);
@@ -43,22 +42,18 @@ class HomePageFactory
                     $blocksForView = [];
                     /* @var array $rootBlocksDB @var \Block\Model\BlockModel $rootBlock */
                     foreach ($rootBlocksDB as $rootBlock) {
-//                        $pageView['area'][$area->getMachineName()][$area->getUid()]['block'][$rootBlock->getUid()]['data'] = $rootBlock;
                         $areaView->getArea($area)->setBlock($rootBlock);
 // get content for the root block
                         $rootBlockContent = $container->get("Content\\Table")
                             ->fetchAllBy(['block' => $rootBlock->getUid(), 'template' => $page->getTemplate(), 'parent_uid'=>'0']);
                         if( ! empty($rootBlockContent)) {
                             foreach($rootBlockContent as $rootBlockContentData) {
-//                                $pageView['area'][$area->getMachineName()][$area->getUid()]['block'][$rootBlock->getUid()]['content'][$rootBlockContentData->getUid()]['data']=$rootBlockContentData;
                                 $areaView->getArea($area)->getBlock($rootBlock)->setContent($rootBlockContentData);
-//                                    var_dump($areaView->getArea($area)->getBlock($rootBlock));
 // get content for the content
                                 $rootBlockContentChild = $container->get("Content\\Table")
                                     ->fetchAllBy(['block' => $rootBlock->getUid(), 'template' => $page->getTemplate(), 'parent_uid'=>$rootBlockContentData->getUid()]);
                                 if( ! empty($rootBlockContentChild)) {
                                     foreach ($rootBlockContentChild as $rootBlockContentChildData) {
-//                                        $pageView['area'][$area->getMachineName()][$area->getUid()]['block'][$rootBlock->getUid()]['content'][$rootBlockContentData->getUid()]['content'][$rootBlockContentChildData->getUid()]['data'] = $rootBlockContentChildData;
                                         $areaView->getArea($area)->getBlock($rootBlock)->getContent($rootBlockContentData)->setContent($rootBlockContentChildData);
                                     }
                                 }
@@ -70,21 +65,18 @@ class HomePageFactory
                         if( ! empty($childBlocksDB)) {
                             foreach($childBlocksDB as $childBlock){
                                 $areaView->getArea($area)->getBlock($rootBlock)->setBlock($childBlock);
-//                                $pageView['area'][$area->getMachineName()][$area->getUid()]['block'][$rootBlock->getUid()]['block'][$childBlock->getUid()]['data']=$childBlock;
 // get content for childBlock
                                 $childBlockContent = $container->get("Content\\Table")
                                     ->fetchAllBy(['block' => $childBlock->getUid(), 'template' => $page->getTemplate(), 'parent_uid'=>'0']);
                                 if( ! empty($childBlockContent)) {
                                     foreach($childBlockContent as $childBlockContentItem){
                                         $areaView->getArea($area)->getBlock($rootBlock)->getBlock($childBlock)->setContent($childBlockContentItem);
-//                                        $pageView['area'][$area->getMachineName()][$area->getUid()]['block'][$rootBlock->getUid()]['block'][$childBlock->getUid()]['content'][$childBlockContentItem->getUid()]['data']=$childBlockContentItem;
 //get (child) content for content
                                         $childBlockContentChildContent = $container->get("Content\\Table")
                                             ->fetchAllBy(['block' => $childBlock->getUid(), 'template' => $page->getTemplate(), 'parent_uid'=>$childBlockContentItem->getUid()]);
                                         if( null !== $childBlockContentChildContent) {
                                             foreach($childBlockContentChildContent as $childBlockContentChildItem){
                                                 $areaView->getArea($area)->getBlock($rootBlock)->getBlock($childBlock)->getContent($childBlockContentItem)->setContent($childBlockContentChildItem);
-//                                                $pageView['area'][$area->getMachineName()][$area->getUid()]['block'][$rootBlock->getUid()]['block'][$childBlock->getUid()]['content'][$childBlockContentItem->getUid()]['content'][$childBlockContentChildItem->getUid()]['data']=$childBlockContentChildItem;
 // check for content-content content
                                                 $childBlockContentChildContentChild = $container->get("Content\\Table")
                                                     ->fetchAllBy(['block' => $childBlock->getUid(), 'template' => $page->getTemplate(), 'parent_uid'=>$childBlockContentChildItem->getUid()]);

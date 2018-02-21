@@ -20,6 +20,8 @@ class OpenTagHelper extends AbstractHelper
         $attributes = json_decode($item->getData()->getAttributes(),true);
         $options = json_decode($item->getData()->getOptions(),true);
 
+        $attributes['data-type'] = $item->getType();
+
         if(array_key_exists('wrapper',$options)) {
             if(array_key_exists('outer',$options['wrapper'])) {
                 $param = (array_key_exists('parameters',$options['wrapper']['outer']))
@@ -44,11 +46,15 @@ class OpenTagHelper extends AbstractHelper
                             }
 
                         }
+
                         $output .= sprintf(' %s="%s"',$attrName,trim($attrCombined));
                     }
                 }
+
+                $output .= sprintf(' %s="%s"','data-wrapper','outer');
+
                 if(in_array($param['html_tag'],$this->tagsNotAllowed)) {
-                    $output .= '/';
+                    $output .= ' /';
                 }
                 $output .= '>';
             }
@@ -70,6 +76,7 @@ class OpenTagHelper extends AbstractHelper
                     $output .= sprintf(' %s="%s"',$attrName,trim($attrCombined));
                 }
             }
+            $output .= sprintf(' %s="%s"','data-wrapper','main');
             if(in_array($parameters['html_tag'],$this->tagsNotAllowed)) {
                 $output .= ' /';
             } elseif(in_array($parameters['html_tag'],$this->tagsNotAllowedSpecial)){
@@ -106,6 +113,7 @@ class OpenTagHelper extends AbstractHelper
                         $output .= sprintf(' %s="%s"',$attrName,trim($attrCombined));
                     }
                 }
+                $output .= sprintf(' %s="%s"','data-wrapper','inner');
                 if( in_array($param['html_tag'],$this->tagsNotAllowed)) {
                     $output .= '/';
                 }

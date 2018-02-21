@@ -38,7 +38,8 @@
             "Template\\": "src/Template/src/",
             "Area\\": "src/Area/src/",
             "Block\\": "src/Block/src/",
-            "Content\\": "src/Content/src/"
+            "Content\\": "src/Content/src/",
+            "Form\\": "src/Form/src/"
         }
     },
     "autoload-dev": {

@@ -50,7 +50,11 @@ $this->inlineScript()
     <footer class="app-footer">
             <?=$this->displayArea($pageView['area']->getArea('footer'));?>
     </footer>
-
+<script>
+    window.onbeforeunload = function (e) {
+        console.log(e);
+    }
+</script>
     <?php echo $this->inlineScript(); ?>
 </body>
 </html>

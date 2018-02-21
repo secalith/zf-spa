@@ -1,6 +1,6 @@
 <?php
 
-namespace Common\Application\Factory;
+namespace App\Application\Factory;
 
 use Common\Helper\RouteHelperMiddleware as RouteHelperMiddleware;
 

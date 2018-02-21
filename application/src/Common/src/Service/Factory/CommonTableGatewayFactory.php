@@ -1,6 +1,7 @@
 <?php
 namespace Common\Service\Factory;
 
+use Common\Hydrator\JsonHydrator;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
 use Zend\ServiceManager\FactoryInterface as FactoryInterface;
@@ -25,6 +26,9 @@ class CommonTableGatewayFactory implements FactoryInterface
 
         $hydratorMap = $moduleConfig[$this->identifier]['gateway']['hydrator']['map'];
         $hydrator = new $moduleConfig[$this->identifier]['gateway']['hydrator']['class']($hydratorMap);
+        $hydrator->addStrategy('attributes', new JsonHydrator());
+        $hydrator->addStrategy('parameters', new JsonHydrator());
+        $hydrator->addStrategy('options', new JsonHydrator());
 
         $resultSet = new \Zend\Db\ResultSet\HydratingResultSet(
             $hydrator, new $this->model()

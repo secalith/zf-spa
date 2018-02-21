@@ -2,6 +2,8 @@
 
 namespace App\Action;
 
+use Form\FormAwareInterface;
+use Form\FormAwareTrait;
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface as ServerMiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -13,8 +15,10 @@ use Zend\Expressive\Plates\PlatesRenderer;
 use Zend\Expressive\Twig\TwigRenderer;
 use Zend\Expressive\ZendView\ZendViewRenderer;
 
-class HomePageAction implements ServerMiddlewareInterface
+class HomePageAction implements ServerMiddlewareInterface, FormAwareInterface
 {
+    use FormAwareTrait;
+
     private $router;
 
     private $template;

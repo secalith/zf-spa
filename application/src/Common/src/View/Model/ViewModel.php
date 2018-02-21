@@ -22,6 +22,10 @@ class ViewModel
     protected $block;
 
     /**
+     * @var string
+     */
+    protected $type;
+    /**
      * @var ContentModel|null
      */
     protected $content;
@@ -30,6 +34,20 @@ class ViewModel
     {
         if(! empty($item)) {
             $this->data = $item;
+            if(is_object($item)) {
+                switch(get_class($item)){
+                    case 'Area\Model\AreaModel':
+                        $this->setType('area');
+                        break;
+                    case 'Block\Model\BlockModel':
+                        $this->setType('block');
+                        break;
+                    case 'Content\Model\ContentModel':
+                        $this->setType('content');
+                        break;
+                    default:
+                }
+            }
         }
     }
 
@@ -130,6 +148,24 @@ class ViewModel
     public function setContent(ContentModel $content)
     {
         $this->content[$content->getUid()] = new ViewModel($content);
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     * @return ViewModel
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
         return $this;
     }
 

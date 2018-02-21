@@ -45,7 +45,7 @@ class ConfigProvider
             ],
             'delegators' => [
                 \Zend\Expressive\Application::class => [
-                    \Common\Application\Factory\PipelineAndRoutesDelegator::class,
+                    \App\Application\Factory\PipelineAndRoutesDelegator::class,
                 ],
             ],
         ];

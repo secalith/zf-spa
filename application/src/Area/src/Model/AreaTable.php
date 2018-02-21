@@ -52,6 +52,22 @@ class AreaTable extends CommonTableGateway
 
     public function fetchAllBy($value, $name = "uid")
     {
+
+//        $mapNamingStrategy = new MapNamingStrategy(['published' => 'isPublished']);
+//        $underscoreNamingStrategy = new UnderscoreNamingStrategy();
+//        $namingStrategy = new CompositeNamingStrategy([
+             Extraction:
+//            'isPublished'  => $mapNamingStrategy,
+//            'publishedOn'  => $underscoreNamingStrategy,
+//            'updatedOn'    => $underscoreNamingStrategy,
+//
+             Hydration:
+//            'published'    => $mapNamingStrategy,
+//            'published_on' => $underscoreNamingStrategy,
+//            'updated_on'   => $underscoreNamingStrategy,
+//        ]);
+
+
         if(null!==$this->cache) {
             $cacheNamespace = sprintf("%s_%s_%s",$this->cache_namespace,$value,$name);
             if($this->cache->getItem($cacheNamespace)) {
