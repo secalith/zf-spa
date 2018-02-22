@@ -36,8 +36,7 @@ class ConfigProvider extends CommonConfigProvider
     public function getDependencies()
     {
         return [
-            'invokables' => [
-            ],
+            'invokables' => [],
             'factories' => [
                 Action\LoginAction::class => Action\LoginActionFactory::class,
                 AuthenticationService::class => Service\LocalAuthenticationServiceFactory::class,
