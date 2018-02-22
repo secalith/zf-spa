@@ -13,3 +13,6 @@ Routemap:
 * 0.10  Admin [advanced]
 * 0.11  Multi Data Storage
 * 0.12  Cache
+
+
+* https://framework.zend.com/blog/2017-04-26-authentication-middleware.html

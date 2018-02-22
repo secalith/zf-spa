@@ -34,9 +34,9 @@ $this->inlineScript()
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <?=$this->displayArea($pageView['area']->getArea('logo_area'));?>
+                    <?=(isset($pageView))?$this->displayArea($pageView['area']->getArea('logo_area')):null;?>
                 </div>
-                <?=$this->displayArea($pageView['area']->getArea('menu_main'));?>
+                <?=(isset($pageView))?$this->displayArea($pageView['area']->getArea('menu_main')):null;?>
             </div>
         </nav>
     </header>
@@ -48,7 +48,7 @@ $this->inlineScript()
     </div>
 
     <footer class="app-footer">
-            <?=$this->displayArea($pageView['area']->getArea('footer'));?>
+            <?=(isset($pageView))?$this->displayArea($pageView['area']->getArea('footer')):null;?>
     </footer>
 <script>
     window.onbeforeunload = function (e) {

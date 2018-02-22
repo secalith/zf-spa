@@ -45,6 +45,9 @@ class PipelineAndRoutesDelegator
             $app->get($item->getRoute(), \App\Action\HomePageAction::class, $item->getName());
         }
 
+        $app->get('/login', \Auth\Action\LoginAction::class, 'auth_login');
+
+
         return $app;
     }
 }
