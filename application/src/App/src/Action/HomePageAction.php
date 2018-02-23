@@ -14,10 +14,13 @@ use Zend\Expressive\Template;
 use Zend\Expressive\Plates\PlatesRenderer;
 use Zend\Expressive\Twig\TwigRenderer;
 use Zend\Expressive\ZendView\ZendViewRenderer;
+use View\Controller\PageViewAwareInterface;
+use View\Controller\PageViewAwareTrait;
 
-class HomePageAction implements ServerMiddlewareInterface, FormAwareInterface
+class HomePageAction implements ServerMiddlewareInterface, FormAwareInterface, PageViewAwareInterface
 {
     use FormAwareTrait;
+    use PageViewAwareTrait;
 
     private $router;
 
@@ -68,13 +71,13 @@ class HomePageAction implements ServerMiddlewareInterface, FormAwareInterface
 
         $templateName = sprintf(
             "%s::%s",
-            $data['pageView']['template']->getLocation(),
-            $data['pageView']['template']->getName()
+            $data['pageView']->getVariable('template')->getLocation(),
+            $data['pageView']->getVariable('template')->getName()
         );
 
         $this->template->addDefaultParam(Template\TemplateRendererInterface::TEMPLATE_ALL,'pageView',$data['pageView']);
-
-        return new HtmlResponse($this->template->render($templateName, $data));
+//
+        return new HtmlResponse($this->template->render($templateName, $data['pageView']));
     }
 
     /**

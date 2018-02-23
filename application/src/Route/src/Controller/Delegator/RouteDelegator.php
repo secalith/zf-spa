@@ -21,7 +21,7 @@ class RouteDelegator implements DelegatorFactoryInterface
         $requestedName,
         $callback
     ) {
-        /* @var $targetInstance \Route\RouteAwareInterface */
+        /* @var $targetInstance \Route\PageViewAwareInterface */
         $targetInstance = $callback();
         $parentLocator = $serviceLocator;
         $commonRouteService = $parentLocator->get("Route\\Service");

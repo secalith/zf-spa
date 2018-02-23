@@ -76,6 +76,7 @@ class ConfigProvider
         return [
             'paths' => [
                 'app'    => [__DIR__ . '/../templates/app'],
+                'apptest'    => [__DIR__ . '/../templates/app/test.phtml'],
                 'error'  => [__DIR__ . '/../templates/error'],
                 'layout' => [__DIR__ . '/../templates/layout'],
             ],

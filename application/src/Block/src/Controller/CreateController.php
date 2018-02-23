@@ -24,8 +24,8 @@ use InternalServices\InternalServicesAwareInterface as InternalServicesAwareInte
 use InternalServices\InternalServicesAwareTrait as InternalServicesAwareTrait;
 use Page\PageAwareInterface as PageAwareInterface;
 use Page\PageAwareTrait as PageAwareTrait;
-use Route\RouteAwareInterface as RouteAwareInterface;
-use Route\RouteAwareTrait as RouteAwareTrait;
+use Route\PageViewAwareInterface as RouteAwareInterface;
+use Route\PageViewAwareTrait as RouteAwareTrait;
 use Template\TemplateAwareInterface as TemplateAwareInterface;
 use Template\TemplateAwareTrait as TemplateAwareTrait;
 use Zend\Form\Annotation\AnnotationBuilder;
@@ -36,7 +36,7 @@ class CreateController extends AbstractActionController implements
     CommonControllerInterface,
     ConfigurationAwareInterface,
     InternalServicesAwareInterface,
-    RouteAwareInterface,
+    PageViewAwareInterface,
     PageAwareInterface,
     TemplateAwareInterface,
     AreaAwareInterface,
@@ -48,7 +48,7 @@ class CreateController extends AbstractActionController implements
     use CommonControllerTrait;
     use ConfigurationAwareTrait;
     use InternalServicesAwareTrait;
-    use RouteAwareTrait;
+    use PageViewAwareTrait;
     use PageAwareTrait;
     use TemplateAwareTrait;
     use AreaAwareTrait;

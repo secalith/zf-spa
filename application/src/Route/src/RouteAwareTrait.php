@@ -22,7 +22,7 @@ trait RouteAwareTrait
 
     /**
      * @param mixed $route
-     * @return RouteAwareTrait
+     * @return PageViewAwareTrait
      */
     public function setRoute($route)
     {

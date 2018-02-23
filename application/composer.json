@@ -40,7 +40,8 @@
             "Block\\": "src/Block/src/",
             "Content\\": "src/Content/src/",
             "Form\\": "src/Form/src/",
-            "Auth\\": "src/Auth/src/"
+            "Auth\\": "src/Auth/src/",
+            "View\\": "src/View/src/"
         }
     },
     "autoload-dev": {

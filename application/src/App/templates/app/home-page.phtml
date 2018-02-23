@@ -1,6 +1,7 @@
 <?php $this->headTitle('Home'); ?>
 
-<?=$this->displayArea($pageView['area']->getArea('content_main_jumbotron'));?>
+<?=(isset($pageView))?$this->displayArea($pageView->getVariable('area')->getArea('content_main_jumbotron')):null;?>
 
-<?=$this->displayArea($pageView['area']->getArea('content_main'));?>
-
+<?=(isset($pageView))?$this->displayArea($pageView->getVariable('area')->getArea('content_main')):null;?>
+<?php
+echo($this->test);
