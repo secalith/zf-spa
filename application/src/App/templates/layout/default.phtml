@@ -16,6 +16,87 @@ $this->inlineScript()
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <?php echo $this->headMeta(); ?>
     <?php echo $this->headLink(); ?>
+    <link href="/assets/styles/mode-edit.css" media="screen" rel="stylesheet" type="text/css">
+    <script type="text/javascript">
+        if (document.addEventListener) { // IE >= 9; other browsers
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+
+                e = e || window.event;
+                var target = e.target || e.srcElement,
+                    text = target.textContent || text.innerText;
+
+                var clickedElement = e.args;
+                console.log(text);
+                // var id = clickedElement.id;
+
+                if(document.getElementsByClassName('context-menu').length>0) {
+                    document.getElementsByClassName('context-menu').remove();
+                }
+
+                var div = document.createElement("div");//.setAttribute('style','position:absolute;top:'+getMouseY()+';left:'+getMouseX()+';');
+                var t = document.createTextNode("Edit Content");
+
+                var list = document.createElement('ul');
+                var listItemEdit = document.createElement('li');
+                var linkItemEdit = document.createElement('a');
+                linkItemEdit.setAttribute('href','#');
+                linkItemEdit.setAttribute('onclick','javascript:return false;');
+                linkItemEdit.appendChild(document.createTextNode("Edit Content"));
+                listItemEdit.appendChild(linkItemEdit);
+                list.appendChild(listItemEdit);
+
+                div.appendChild(list);
+                div.setAttribute('style','height:100px;position:absolute;top:'+getMouseY()+'px;left:'+getMouseX()+'px;');
+                div.setAttribute('class','context-menu');
+
+                document.body.appendChild(div);
+            }, false);
+
+            console.log(getMouseX());
+
+        } else { // IE < 9
+            document.attachEvent('oncontextmenu', function() {
+                alert("You've tried to open context menu");
+                window.event.returnValue = false;
+            });
+        }
+        var x = null;
+        var y = null;
+
+        document.addEventListener('mousemove', onMouseUpdate, false);
+        document.addEventListener('mouseenter', onMouseUpdate, false);
+        // document.addEventListener('oncontextmenu', onMouseUpdate, false);
+
+        function position(){
+
+        }
+        function onMouseUpdate(e) {
+            x = e.pageX;
+            y = e.pageY;
+        }
+
+        function getMouseX() {
+            return x;
+        }
+
+        function getMouseY() {
+            return y;
+        }
+
+
+        Element.prototype.remove = function() {
+            this.parentElement.removeChild(this);
+        }
+        NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+            for(var i = this.length - 1; i >= 0; i--) {
+                if(this[i] && this[i].parentElement) {
+                    this[i].parentElement.removeChild(this[i]);
+                }
+            }
+        }
+
+    </script>
     <style>
         body { padding-top: 60px; }
         .app { display: flex; min-height: 100vh; flex-direction: column; }
