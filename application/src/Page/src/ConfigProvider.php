@@ -54,6 +54,8 @@ class ConfigProvider extends CommonConfigProvider
                 "Page\\Table" => \Page\Service\Factory\PageTableServiceFactory::class,
                 "Page\\Gateway" => \Page\Service\Factory\PageTableGatewayFactory::class,
                 "Page\\Service" => \Page\Service\Factory\PageServiceFactory::class,
+                Action\PageAction::class => Action\PageFactory::class,
+                Action\EditPageAction::class => Action\EditPageFactory::class,
             ],
         ];
     }

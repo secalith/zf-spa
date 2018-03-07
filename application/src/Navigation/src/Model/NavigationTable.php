@@ -1,13 +1,13 @@
 <?php
 
-namespace Area\Model;
+namespace Navigation\Model;
 
 use Common\Model\CommonTableGateway;
 use Zend\Db\TableGateway\TableGateway;
 
-class AreaTable extends CommonTableGateway
+class NavigationTable extends CommonTableGateway
 {
-    protected $cache_namespace = "template_model_table";
+    protected $cache_namespace = "navigation_model_table";
 
     public function fetchBy($value, $name = "uid")
     {

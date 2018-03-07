@@ -23,8 +23,12 @@ class ConfigProvider extends CommonConfigProvider
     {
         return [
             'delegators' => [
-                \App\Action\HomePageAction::class => [
+                \Page\Action\PageAction::class => [
                     \View\Controller\Delegator\PageViewDelegatorFactory::class,
+                ],
+                \Page\Action\EditPageAction::class => [
+                    \View\Controller\Delegator\PageViewDelegatorFactory::class,
+                    \View\Controller\Delegator\EditPageViewDelegatorFactory::class,
                 ],
             ],
         ];

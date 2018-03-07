@@ -56,7 +56,7 @@ class ConfigProvider
     {
         return [
             'factories'  => [
-                Action\HomePageAction::class => Action\HomePageFactory::class,
+//                Action\HomePageAction::class => Action\HomePageFactory::class,
             ],
             'delegators' => [
 //                Action\HomePageAction::class => [

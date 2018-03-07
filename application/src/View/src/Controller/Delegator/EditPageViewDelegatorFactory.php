@@ -13,7 +13,7 @@ use View\Controller\PageViewAwareInterface;
  *
  * @package View\Controller
  */
-class PageViewDelegatorFactory implements DelegatorFactoryInterface
+class EditPageViewDelegatorFactory implements DelegatorFactoryInterface
 {
 
     /**
@@ -29,6 +29,7 @@ class PageViewDelegatorFactory implements DelegatorFactoryInterface
         if ( ! call_user_func($callback) instanceof PageViewAwareInterface) {
             return call_user_func($callback);
         } else {
+
             $routeName = $container->get(\Common\Helper\RouteHelper::class)->getMatchedRouteName();
 
             if($routeName==='page.edit') {
@@ -37,8 +38,25 @@ class PageViewDelegatorFactory implements DelegatorFactoryInterface
                     ->getRouteResult()->getMatchedParams();
                 if(array_key_exists('uid',$matchedParams)) {
                     $requestedRoute = $container->get("Route\\Table")->getItem($matchedParams['uid']);
+                    $displayMode = 'edit';
                     // get route by page
                     $routeName = $requestedRoute->getRouteName();
+
+                    $res = call_user_func($callback)->getPageView();
+
+                    if($res) {
+                        foreach($res->getVariable('area')->getArea() as $area){
+                            foreach($area as $areaa){
+                                if( ! empty($areaa->getData()->getAttributes())) {
+
+                                } else {
+                                   // $areaa->getData()->setAttributes(['data-type'=>['area'],'data-uid'=>$areaa->getData()->getUid()]);
+                                }
+                            }
+                        }
+                    }
+
+//                    var_dumP($res->getVariable('area'));
                 }
             }
 

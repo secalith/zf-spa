@@ -13,14 +13,24 @@ class OpenTagHelper extends AbstractHelper
         'i'
     ];
 
+    protected $mode;
+
+    public function __construct($mode='display')
+    {
+        $this->mode = $mode;
+    }
+
+    public function getMode(){
+        return $this->mode;
+    }
+
     public function __invoke($item)
     {
         $output = '';
         $parameters = json_decode($item->getData()->getParameters(),true);
-        $attributes = json_decode($item->getData()->getAttributes(),true);
+        $attributes = $item->getData()->getAttributes();
         $options = json_decode($item->getData()->getOptions(),true);
 
-        $attributes['data-type'] = $item->getType();
 
         if(array_key_exists('wrapper',$options)) {
             if(array_key_exists('outer',$options['wrapper'])) {
@@ -32,6 +42,11 @@ class OpenTagHelper extends AbstractHelper
                     ?$options['wrapper']['outer']['attributes']
                     :[]
                 ;
+                if('edit' === $this->getMode()) {
+                    $attr['data-uid'] = $item->getData()->getUid();
+                    $attr['data-wrapper'] = 'outer';
+                    $attr['data-type'] = $item->getType();
+                }
 
                 $output .= sprintf('<%s',$param['html_tag']);
 
@@ -51,8 +66,6 @@ class OpenTagHelper extends AbstractHelper
                     }
                 }
 
-                $output .= sprintf(' %s="%s"','data-wrapper','outer');
-
                 if(in_array($param['html_tag'],$this->tagsNotAllowed)) {
                     $output .= ' /';
                 }
@@ -62,6 +75,11 @@ class OpenTagHelper extends AbstractHelper
 
         if( ! empty($parameters) && array_key_exists('html_tag',$parameters)) {
             $output .= sprintf('<%s',$parameters['html_tag']);
+            if('edit' === $this->getMode()) {
+                $attributes['data-uid'] = $item->getData()->getUid();
+                $attributes['data-wrapper'] = 'main';
+                $attributes['data-type'] = $item->getType();
+            }
             if( ! empty($attributes)) {
                 foreach($attributes as $attrName=>$attrValue) {
                     $attrCombined = '';
@@ -76,7 +94,7 @@ class OpenTagHelper extends AbstractHelper
                     $output .= sprintf(' %s="%s"',$attrName,trim($attrCombined));
                 }
             }
-            $output .= sprintf(' %s="%s"','data-wrapper','main');
+
             if(in_array($parameters['html_tag'],$this->tagsNotAllowed)) {
                 $output .= ' /';
             } elseif(in_array($parameters['html_tag'],$this->tagsNotAllowedSpecial)){
@@ -97,7 +115,11 @@ class OpenTagHelper extends AbstractHelper
                     ?$options['wrapper']['inner']['attributes']
                     :[]
                 ;
-
+                if('edit' === $this->getMode()) {
+                    $attr['data-uid'] = $item->getData()->getUid();
+                    $attr['data-wrapper'] = 'inner';
+                    $attr['data-type'] = $item->getType();
+                }
                 $output .= sprintf('<%s',$param['html_tag']);
                 if( ! empty($attr)) {
                     foreach($attr as $attrName=>$attrValue) {
@@ -113,7 +135,7 @@ class OpenTagHelper extends AbstractHelper
                         $output .= sprintf(' %s="%s"',$attrName,trim($attrCombined));
                     }
                 }
-                $output .= sprintf(' %s="%s"','data-wrapper','inner');
+
                 if( in_array($param['html_tag'],$this->tagsNotAllowed)) {
                     $output .= '/';
                 }

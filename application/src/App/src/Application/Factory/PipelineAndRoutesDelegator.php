@@ -4,13 +4,13 @@ namespace App\Application\Factory;
 
 use Common\Helper\RouteHelperMiddleware as RouteHelperMiddleware;
 
+use Navigation\Navigation;
 use Zend\Expressive\Helper\ServerUrlMiddleware;
 use Zend\Expressive\Helper\UrlHelperMiddleware;
 use Zend\Expressive\Middleware\ImplicitHeadMiddleware;
 use Zend\Expressive\Middleware\ImplicitOptionsMiddleware;
 use Zend\Expressive\Middleware\NotFoundHandler;
 use Zend\Stratigility\Middleware\ErrorHandler;
-
 use Interop\Container\ContainerInterface;
 
 class PipelineAndRoutesDelegator
@@ -38,12 +38,13 @@ class PipelineAndRoutesDelegator
         $app->pipeDispatchMiddleware();
         $app->pipe(NotFoundHandler::class);
 
-        $items = $container->get("Route\\Routes\\Table")
-            ->fetchAll();
+        $items = $container->get("Route\\Routes\\Table")->fetchAll();
         /* @var $item \Route\Model\RouteRoutesModel */
         foreach($items as $item) {
-            $app->get($item->getRoute(), \App\Action\HomePageAction::class, $item->getName());
+            $app->get($item->getRoute(), \Page\Action\PageAction::class, $item->getName());
         }
+
+        $app->get('/edit/page/:uid',\Page\Action\EditPageAction::class,'page.edit');
 
         return $app;
     }

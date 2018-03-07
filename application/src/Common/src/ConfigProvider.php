@@ -24,8 +24,13 @@ class ConfigProvider
             'templates'    => $this->getTemplates(),
             'view_helpers' => [
                 'invokables'=> [
-                    'openTag' => View\Helper\OpenTagHelper::class,
                     'closeTag' => View\Helper\CloseTagHelper::class,
+                ],
+                'factories' => [
+                    'openTag' => View\Helper\OpenTagHelperFactory::class,
+                ],
+                'aliases' => [
+
                 ],
             ]
         ];

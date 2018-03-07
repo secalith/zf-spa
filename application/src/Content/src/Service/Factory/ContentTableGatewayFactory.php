@@ -1,6 +1,7 @@
 <?php
 namespace Content\Service\Factory;
 
+
 use Common\Service\Factory\CommonTableGatewayFactory;
 
 class ContentTableGatewayFactory extends CommonTableGatewayFactory

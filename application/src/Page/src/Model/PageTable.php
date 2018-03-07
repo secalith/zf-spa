@@ -122,7 +122,7 @@ class PageTable extends CommonTable
         $rowset = $this->tableGateway->select(array($name => $value));
         $row = $rowset->current();
         if (!$row) {
-            throw new \Exception("Could not find row $value");
+//            throw new \Exception("Could not find row $value");
         }
         return $row;
     }

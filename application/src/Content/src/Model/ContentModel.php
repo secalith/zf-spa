@@ -99,16 +99,20 @@ class ContentModel
      */
     public function getAttributes()
     {
-        return $this->attributes;
+        return json_decode($this->attributes,true);
     }
 
     /**
      * @param mixed $attributes
-     * @return FormModel
+     * @return NavigationModel
      */
     public function setAttributes($attributes)
     {
-        $this->attributes = $attributes;
+        if(is_array($attributes)) {
+            $this->attributes = json_encode($this->attributes);
+        } else {
+            $this->attributes = $attributes;
+        }
         return $this;
     }
 

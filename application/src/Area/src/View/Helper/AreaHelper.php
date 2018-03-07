@@ -8,6 +8,9 @@ class AreaHelper extends AbstractHelper
 {
     public function __invoke($item)
     {
+        if(key($item)==='logo_area') {
+            var_dump($item);
+        }
         if(null===$item || ! is_object($item)) {
             return;
         }

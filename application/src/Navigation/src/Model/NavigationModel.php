@@ -1,15 +1,21 @@
 <?php
-namespace Area\Model;
 
-class AreaModel
+namespace Navigation\Model;
+
+use Common\Common\ConfigurationAwareInterface;
+use Common\Common\ConfigurationAwareTrait;
+
+class NavigationModel implements ConfigurationAwareInterface
 {
+
+    use ConfigurationAwareTrait;
+
     public $uid;
-    public $template;
-    public $machine_name;
-    public $attributes;
-    public $parameters;
-    public $options;
-    public $scope;
+    public $route;
+    public $label;
+    public $default_language;
+    public $name;
+    public $parent;
 
     /**
      * @return mixed
@@ -70,7 +76,7 @@ class AreaModel
      */
     public function getAttributes()
     {
-        return json_decode($this->attributes,true);
+        return $this->attributes;
     }
 
     /**
@@ -79,11 +85,7 @@ class AreaModel
      */
     public function setAttributes($attributes)
     {
-        if(is_array($attributes)) {
-            $this->attributes = json_encode($this->attributes);
-        } else {
-            $this->attributes = $attributes;
-        }
+        $this->attributes = $attributes;
         return $this;
     }
 
