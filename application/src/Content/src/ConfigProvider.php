@@ -60,6 +60,8 @@ class ConfigProvider extends CommonConfigProvider
             'factories'  => [
                 "Content\\Table" => \Content\Service\Factory\ContentTableServiceFactory::class,
                 "Content\\Gateway" => \Content\Service\Factory\ContentTableGatewayFactory::class,
+                Action\ReadAction::class => Action\ReadFactory::class,
+                Action\WriteAction::class => Action\WriteFactory::class,
             ],
         ];
     }

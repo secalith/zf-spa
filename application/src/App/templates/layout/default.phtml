@@ -38,16 +38,33 @@ $this->inlineScript()
                 var t = document.createTextNode("Edit Content");
 
                 var list = document.createElement('ul');
-                var listItemEdit = document.createElement('li');
-                var linkItemEdit = document.createElement('a');
-                linkItemEdit.setAttribute('href','#');
-                linkItemEdit.setAttribute('onclick','javascript:return false;');
-                linkItemEdit.appendChild(document.createTextNode("Edit Content"));
-                listItemEdit.appendChild(linkItemEdit);
-                list.appendChild(listItemEdit);
+                // Edit Content
+                var listItemEditContent = document.createElement('li');
+                var linkItemEditContent = document.createElement('a');
+                linkItemEditContent.setAttribute('href','#');
+                linkItemEditContent.setAttribute('onclick','javascript:return false;');
+                linkItemEditContent.appendChild(document.createTextNode("Edit Content"));
+                listItemEditContent.appendChild(linkItemEditContent);
+                list.appendChild(listItemEditContent);
+                // Edit Block
+                var listItemEditBlock = document.createElement('li');
+                var linkItemEditBlock = document.createElement('a');
+                linkItemEditBlock.setAttribute('href','#');
+                linkItemEditBlock.setAttribute('onclick','javascript:return false;');
+                linkItemEditBlock.appendChild(document.createTextNode("Edit Block"));
+                listItemEditBlock.appendChild(linkItemEditBlock);
+                list.appendChild(listItemEditBlock);
+                // Edit Area
+                var listItemEditArea = document.createElement('li');
+                var linkItemEditArea = document.createElement('a');
+                linkItemEditArea.setAttribute('href','#');
+                linkItemEditArea.setAttribute('onclick','javascript:return false;');
+                linkItemEditArea.appendChild(document.createTextNode("Edit Area"));
+                listItemEditArea.appendChild(linkItemEditArea);
+                list.appendChild(listItemEditArea);
 
                 div.appendChild(list);
-                div.setAttribute('style','height:100px;position:absolute;top:'+getMouseY()+'px;left:'+getMouseX()+'px;');
+                div.setAttribute('style','position:absolute;top:'+getMouseY()+'px;left:'+getMouseX()+'px;');
                 div.setAttribute('class','context-menu');
 
                 document.body.appendChild(div);
