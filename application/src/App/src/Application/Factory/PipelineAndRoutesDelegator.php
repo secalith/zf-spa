@@ -45,7 +45,7 @@ class PipelineAndRoutesDelegator
         }
 
         $app->get('/edit/page/:uid',\Page\Action\EditPageAction::class,'page.edit');
-        $app->get('/read/content/:uid',\Content\Action\ReadAction::class,'content.read');
+        $app->get('/read/content/:uid/:format',\Content\Action\ReadAction::class,'content.read');
         $app->get('/write/content/:uid',\Content\Action\WriteAction::class,'content.write');
 
         return $app;

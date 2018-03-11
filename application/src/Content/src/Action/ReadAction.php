@@ -17,6 +17,9 @@ use Zend\Expressive\ZendView\ZendViewRenderer;
 use View\Controller\PageViewAwareInterface;
 use View\Controller\PageViewAwareTrait;
 
+use Zend\Stdlib\Message;
+
+
 class ReadAction implements ServerMiddlewareInterface, FormAwareInterface, PageViewAwareInterface
 {
     use FormAwareTrait;
@@ -28,55 +31,72 @@ class ReadAction implements ServerMiddlewareInterface, FormAwareInterface, PageV
 
     private $page_view;
 
+    private $requested_data;
+
+    private $requested_format;
+
     public function __construct(Router\RouterInterface $router, Template\TemplateRendererInterface $template = null)
     {
         $this->router   = $router;
         $this->template = $template;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getRequestedData()
+    {
+        return $this->requested_data;
+    }
+
+    /**
+     * @param mixed $requested_data
+     * @return ReadAction
+     */
+    public function setRequestedData($requested_data)
+    {
+        $this->requested_data = $requested_data;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRequestedFormat()
+    {
+        return $this->requested_format;
+    }
+
+    /**
+     * @param mixed $requested_format
+     * @return ReadAction
+     */
+    public function setRequestedFormat($requested_format)
+    {
+        $this->requested_format = $requested_format;
+        return $this;
+    }
+
     public function process(ServerRequestInterface $request, DelegateInterface $delegate)
     {
-        if (! $this->template) {
-            return new JsonResponse([
-                'welcome' => 'Congratulations! You have installed the zend-expressive skeleton application.',
-                'docsUrl' => 'https://docs.zendframework.com/zend-expressive/',
-            ]);
+
+        $message = new Message();
+
+        $message->setContent($this->getRequestedData());
+
+        $requestedFormat = $this->getRequestedFormat();
+
+        switch($requestedFormat) {
+            case 'json':
+                return new JsonResponse($message->getContent());
+            break;
+            case 'form':
+                $updateForm = new \Content\Form\UpdateForm();
+                $updateForm->bind(new \Content\Model\ContentModel());
+                $updateForm->setData($this->getRequestedData());
+                break;
         }
-
-
-
-        $data = [];
-
-        if ($this->router instanceof Router\AuraRouter) {
-            $data['routerName'] = 'Aura.Router';
-            $data['routerDocs'] = 'http://auraphp.com/packages/2.x/Router.html';
-        } elseif ($this->router instanceof Router\FastRouteRouter) {
-            $data['routerName'] = 'FastRoute';
-            $data['routerDocs'] = 'https://github.com/nikic/FastRoute';
-        } elseif ($this->router instanceof Router\ZendRouter) {
-            $data['routerName'] = 'Zend Router';
-            $data['routerDocs'] = 'https://docs.zendframework.com/zend-router/';
-        }
-
-        if ($this->template instanceof PlatesRenderer) {
-            $data['templateName'] = 'Plates';
-            $data['templateDocs'] = 'http://platesphp.com/';
-        } elseif ($this->template instanceof TwigRenderer) {
-            $data['templateName'] = 'Twig';
-            $data['templateDocs'] = 'http://twig.sensiolabs.org/documentation';
-        } elseif ($this->template instanceof ZendViewRenderer) {
-            $data['templateName'] = 'Zend View';
-            $data['templateDocs'] = 'https://docs.zendframework.com/zend-view/';
-        }
-
-        $data['pageView'] = $this->getPageView();
-
-        $templateName = sprintf(
-            "%s::%s",
-            $data['pageView']->getVariable('template')->getLocation(),
-            $data['pageView']->getVariable('template')->getName()
-        );
-
+        
         $this->template->addDefaultParam(Template\TemplateRendererInterface::TEMPLATE_ALL,'pageView',$data['pageView']);
 //
         return new HtmlResponse($this->template->render($templateName, $data['pageView']));

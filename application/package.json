@@ -1,0 +1,32 @@
+{
+  "name": "secalith-spa",
+  "version": "1.0.0",
+  "description": "v.: 0.1 ; single page application by secalith ltd",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "bootstrap": "^3.0.0",
+    "components-font-awesome": "^5.0.6",
+    "jquery": "^3.3.1",
+    "jquery.scrollbar": "^0.2.11",
+    "summernote": "^0.8.10",
+    "yarn": "^1.5.1"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-clean": "*",
+    "grunt-contrib-concat": "*",
+    "grunt-contrib-copy": "*",
+    "grunt-contrib-cssmin": "*",
+    "grunt-contrib-less": "^1.4.1",
+    "grunt-contrib-uglify": "*",
+    "grunt-contrib-watch": "*"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

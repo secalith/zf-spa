@@ -1,0 +1,23 @@
+{
+  "name": "secalith-spa",
+  "homepage": "spa.secalith.uk",
+  "description": "single page application by secalith ltd",
+  "main": "",
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "^3.3.1",
+    "bootstrap": "^3.0.0",
+    "components-font-awesome": "^5.0.6",
+    "summernote": "^0.8.10"
+  },
+  "devDependencies": {
+    "grunt-contrib-less": "^1.4.1",
+    "grunt": "^1.0.1",
+    "grunt-contrib-clean": "*",
+    "grunt-contrib-concat": "*",
+    "grunt-contrib-cssmin": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-contrib-watch": "*"
+  }
+
+}

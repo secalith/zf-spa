@@ -1,3 +1,4 @@
+/** CONTEXT MENU: **/
 .context-menu {
     background-color:#cccccc;
     border:1px solid #666;
@@ -20,7 +21,11 @@
     text-decoration:none;
 }
 
+.summernote {
+    min-height:400px;
+}
 
+/** DEV PATHS **/
 [data-wrapper="outer"][data-type="area"] {
     border:1px dashed green;
 }

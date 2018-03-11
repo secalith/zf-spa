@@ -21,6 +21,15 @@ class ConfigProvider
     {
         return [
             'dependencies' => $this->getDependencies(),
+            'view_helpers' => [
+                'factories' => [
+//                    View\Helper\Menu::class => View\Helper\MenuFactory::class,
+//                    View\Helper\Breadcrumbs::class => \Zend\ServiceManager\Factory\InvokableFactory::class,
+//                ],
+//                'aliases' => [
+//                    'mainMenu' => View\Helper\Menu::class
+                ]
+            ]
         ];
     }
 
@@ -35,6 +44,7 @@ class ConfigProvider
             'invokables' => [
             ],
             'factories'  => [
+//                Service\NavigationManager::class => Service\NavigationManagerFactory::class,
             ],
         ];
     }

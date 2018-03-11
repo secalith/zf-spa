@@ -1,11 +1,23 @@
 <?php
 $this->headLink()
     ->prependStylesheet('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css')
-    ->prependStylesheet('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css');
+    ->prependStylesheet('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css')
+    ->appendStylesheet('/assets/styles/summernote.css')
+;
+
 
 $this->inlineScript()
     ->prependFile('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js')
-    ->prependFile('https://code.jquery.com/jquery-2.1.4.min.js');
+    ->prependFile('https://code.jquery.com/jquery-2.1.4.min.js')
+    ->appendFile('/assets/scripts/summernote.js')
+;
+
+
+if(1==1) {
+    $this->inlineScript()->prependFile('/assets/scripts/editor.js');
+    $this->headLink()->appendStylesheet('/assets/styles//mode-edit.css');
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -16,104 +28,7 @@ $this->inlineScript()
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <?php echo $this->headMeta(); ?>
     <?php echo $this->headLink(); ?>
-    <link href="/assets/styles/mode-edit.css" media="screen" rel="stylesheet" type="text/css">
-    <script type="text/javascript">
-        if (document.addEventListener) { // IE >= 9; other browsers
-            document.addEventListener('contextmenu', function(e) {
-                e.preventDefault();
 
-                e = e || window.event;
-                var target = e.target || e.srcElement,
-                    text = target.textContent || text.innerText;
-
-                var clickedElement = e.args;
-                console.log(text);
-                // var id = clickedElement.id;
-
-                if(document.getElementsByClassName('context-menu').length>0) {
-                    document.getElementsByClassName('context-menu').remove();
-                }
-
-                var div = document.createElement("div");//.setAttribute('style','position:absolute;top:'+getMouseY()+';left:'+getMouseX()+';');
-                var t = document.createTextNode("Edit Content");
-
-                var list = document.createElement('ul');
-                // Edit Content
-                var listItemEditContent = document.createElement('li');
-                var linkItemEditContent = document.createElement('a');
-                linkItemEditContent.setAttribute('href','#');
-                linkItemEditContent.setAttribute('onclick','javascript:return false;');
-                linkItemEditContent.appendChild(document.createTextNode("Edit Content"));
-                listItemEditContent.appendChild(linkItemEditContent);
-                list.appendChild(listItemEditContent);
-                // Edit Block
-                var listItemEditBlock = document.createElement('li');
-                var linkItemEditBlock = document.createElement('a');
-                linkItemEditBlock.setAttribute('href','#');
-                linkItemEditBlock.setAttribute('onclick','javascript:return false;');
-                linkItemEditBlock.appendChild(document.createTextNode("Edit Block"));
-                listItemEditBlock.appendChild(linkItemEditBlock);
-                list.appendChild(listItemEditBlock);
-                // Edit Area
-                var listItemEditArea = document.createElement('li');
-                var linkItemEditArea = document.createElement('a');
-                linkItemEditArea.setAttribute('href','#');
-                linkItemEditArea.setAttribute('onclick','javascript:return false;');
-                linkItemEditArea.appendChild(document.createTextNode("Edit Area"));
-                listItemEditArea.appendChild(linkItemEditArea);
-                list.appendChild(listItemEditArea);
-
-                div.appendChild(list);
-                div.setAttribute('style','position:absolute;top:'+getMouseY()+'px;left:'+getMouseX()+'px;');
-                div.setAttribute('class','context-menu');
-
-                document.body.appendChild(div);
-            }, false);
-
-            console.log(getMouseX());
-
-        } else { // IE < 9
-            document.attachEvent('oncontextmenu', function() {
-                alert("You've tried to open context menu");
-                window.event.returnValue = false;
-            });
-        }
-        var x = null;
-        var y = null;
-
-        document.addEventListener('mousemove', onMouseUpdate, false);
-        document.addEventListener('mouseenter', onMouseUpdate, false);
-        // document.addEventListener('oncontextmenu', onMouseUpdate, false);
-
-        function position(){
-
-        }
-        function onMouseUpdate(e) {
-            x = e.pageX;
-            y = e.pageY;
-        }
-
-        function getMouseX() {
-            return x;
-        }
-
-        function getMouseY() {
-            return y;
-        }
-
-
-        Element.prototype.remove = function() {
-            this.parentElement.removeChild(this);
-        }
-        NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
-            for(var i = this.length - 1; i >= 0; i--) {
-                if(this[i] && this[i].parentElement) {
-                    this[i].parentElement.removeChild(this[i]);
-                }
-            }
-        }
-
-    </script>
     <style>
         body { padding-top: 60px; }
         .app { display: flex; min-height: 100vh; flex-direction: column; }
@@ -146,11 +61,72 @@ $this->inlineScript()
     <footer class="app-footer">
             <?=(isset($pageView))?$this->displayArea($pageView->getVariable('area')->getArea('footer')):null;?>
     </footer>
+
+    <div class="modal fade" id="updateModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    <p>One fine body&hellip;</p>
+                    <textarea class="summernote"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <?php
+//    $this->mainMenu()->setItems([
+//        [
+//            'id' => 'home',
+//            'label' => 'Home',
+//            'link' => $this->url('home')
+//        ],
+//        [
+//            'id' => 'downloads',
+//            'label' => 'Downloads',
+//            'link' => $this->url("application", ['action'=>'downloads'])
+//        ],
+//        [
+//            'id' => 'support',
+//            'label' => 'Support',
+//            'dropdown' => [
+//                [
+//                    'id' => 'documentation',
+//                    'label' => 'Documentation',
+//                    'link' => $this->url('doc', ['page'=>'contents'])
+//                ],
+//                [
+//                    'id' => 'help',
+//                    'label' => 'Help',
+//                    'link' => $this->url('static', ['page'=>'help'])
+//                ]
+//            ]
+//        ],
+//        [
+//            'id' => 'about',
+//            'label' => 'About',
+//            'link' => $this->url('about')
+//        ],
+//    ]);
+
+//    echo $this->mainMenu()->render();
+    ?>
+    <?php echo $this->inlineScript(); ?>
 <script>
     window.onbeforeunload = function (e) {
         console.log(e);
     }
+    $(document).ready(function() {
+        //$('.summernote').summernote();
+    });
 </script>
-    <?php echo $this->inlineScript(); ?>
+
+
 </body>
 </html>

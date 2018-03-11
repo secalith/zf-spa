@@ -24,17 +24,16 @@ class ReadFactory
             // obtain the real routeName from the UID
             $matchedParams = $container->get(\Common\Helper\RouteHelper::class)
                 ->getRouteResult()->getMatchedParams();
+            $readAction = new ReadAction($router,$template);
             if(array_key_exists('uid',$matchedParams)) {
-                $requestedRoute = $container->get("Route\\Table")->getItem($matchedParams['uid']);
-
                 $contentResult = $container->get("Content\\Table")->getItem($matchedParams['uid']);
-
-                var_dump($contentResult);
-                die();
-
-                // get route by page
-                $routeName = $requestedRoute->getRouteName();
+                $readAction->setRequestedData($contentResult);
             }
+            if(array_key_exists('format',$matchedParams)) {
+                $requestedFormat = $matchedParams['format'];
+                $readAction->setRequestedFormat($requestedFormat);
+            }
+            return $readAction;
         }
 
         return new ReadAction($router, $template);
