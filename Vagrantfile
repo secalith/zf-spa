@@ -4,6 +4,7 @@
 VAGRANTFILE_API_VERSION = '2'
 
 @script = <<SCRIPT
+
 # Install dependencies
 
 sudo add-apt-repository ppa:ondrej/php
@@ -21,6 +22,9 @@ apt-get install -y php7.2-sqlite3 php7.2-xml php7.2-xsl php7.2-zip libapache2-mo
 echo "<VirtualHost *:80>
 	DocumentRoot \"/var/www/application/public\"
 	AllowEncodedSlashes On
+
+	ServerName "spa.local.vm";
+	ServerAlias "www.spa.local.vm";
 
 	<Directory \"/var/www/application/public\">
 		Options +Indexes +FollowSymLinks
@@ -64,15 +68,19 @@ else
 fi
 
 # Install NodeJS and managers
+
 cd ~
+
 curl -sL https://deb.nodesource.com/setup_8.x -o nodesource_setup.sh
+
 sudo bash nodesource_setup.sh
 sudo apt-get install nodejs -y
 sudo apt-get install build-essential -y
 sudo apt-get install npm -y
 #sudo npm install yarn
-#sudo npm install grunt-cli
-ln -s /usr/bin/nodejs /usr/bin/node
+sudo npm install grunt-cli
+
+#ln -s /usr/bin/nodejs /usr/bin/node
 
 # Install nodejs dependencies
 cd /var/www/application
@@ -85,19 +93,17 @@ if ! grep -q "cd /var/www/application" /home/vagrant/.profile; then
 fi
 
 # Install MySQL
-#echo "Install MySQL"
-#debconf-set-selections <<< 'mysql-server mysql-server/root_password password root'
-#debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password root'
-#apt-get update
-#apt-get install -y mysql-server
+# echo "Install MySQL"
+# debconf-set-selections <<< 'mysql-server mysql-server/root_password password root'
+# debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password root'
+# apt-get update
+# apt-get install -y mysql-server
 
 #mysql -u root -proot -e "CREATE DATABASE acorn;"
 #mysql -u root -proot acorn < /var/www/server/data/schema.sql
 
 # Install the Composer dependencies
-#cd /var/www/dev/assets/helpers/php/composer && composer install
-#cd /var/www/dev/helpers/php/composer && composer install
-
+cd /var/www/application && composer install
 
 echo "** Visit http://localhost:8083 in your browser for to view the application **"
 SCRIPT
@@ -107,6 +113,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network "forwarded_port", guest: 80, host: 8083
   config.vm.synced_folder '.', '/var/www'
   config.vm.provision 'shell', inline: @script
+  config.vm.host_name = 'spa.local.vm'
+
+  config.vm.network :public_network, ip: "192.168.0.202"
 
   config.vm.provider "virtualbox" do |vb|
     vb.customize ["modifyvm", :id, "--memory", "512"]
