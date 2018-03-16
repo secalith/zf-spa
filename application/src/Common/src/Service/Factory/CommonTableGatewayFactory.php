@@ -19,8 +19,15 @@ class CommonTableGatewayFactory implements FactoryInterface
 
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $dbAdapter = $serviceLocator->get('Application\Db\LocalAdapter');
+
         $moduleConfig = $serviceLocator->get("Route\\Service")->getRouteConfig();
+//         check if database-adapter is defined, if not use default one
+        if(array_key_exists('adapter',$moduleConfig[$this->identifier]['gateway'])
+            && $serviceLocator->has($moduleConfig[$this->identifier]['gateway']['adapter'])) {
+            $dbAdapter = $serviceLocator->get($moduleConfig[$this->identifier]['gateway']['adapter']);
+        } else {
+            $dbAdapter = $serviceLocator->get('Application\Db\LocalAdapter');
+        }
 
         $tableName = $moduleConfig[$this->identifier]['database']['db']['table'];
 

@@ -27,6 +27,7 @@ class ConfigProvider extends CommonConfigProvider
                             ],
                             'gateway' => [
                                 "adapter" => "Application\Db\LocalAdapter",
+//                                "adapter" => "Application\Db\DatabaseAdapter",
                                 'service' => ["name"=>"Route\\Gateway",],
                                 'hydrator' => [
                                     "class" => \Common\Hydrator\CommonTableEntityHydrator::class,
@@ -46,6 +47,7 @@ class ConfigProvider extends CommonConfigProvider
                             ],
                             'gateway' => [
                                 "adapter" => "Application\Db\LocalAdapter",
+//                                "adapter" => "Application\Db\DatabaseAdapter",
                                 'service' => ["name"=>"Route\\Routes\\Gateway",],
                                 'hydrator' => [
                                     "class" => \Common\Hydrator\CommonTableEntityHydrator::class,

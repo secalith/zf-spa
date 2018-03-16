@@ -104,6 +104,7 @@ fi
 
 # Install the Composer dependencies
 cd /var/www/application && composer install
+coposer development-enable
 
 echo "** Visit http://localhost:8083 in your browser for to view the application **"
 SCRIPT

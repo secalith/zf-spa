@@ -26,6 +26,7 @@ class ConfigProvider extends CommonConfigProvider
                                 ],
                             ],
                             'gateway' => [
+//                                "adapter" => "Application\Db\DatabaseAdapter",
                                 "adapter" => "Application\Db\LocalAdapter",
                                 'service' => ["name"=>"Template\\Gateway",],
                                 'hydrator' => [

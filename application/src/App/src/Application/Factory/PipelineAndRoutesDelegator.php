@@ -4,7 +4,7 @@ namespace App\Application\Factory;
 
 use Common\Helper\RouteHelperMiddleware as RouteHelperMiddleware;
 
-use Navigation\Navigation;
+//use Navigation\Navigation;
 use Zend\Expressive\Helper\ServerUrlMiddleware;
 use Zend\Expressive\Helper\UrlHelperMiddleware;
 use Zend\Expressive\Middleware\ImplicitHeadMiddleware;
@@ -47,6 +47,9 @@ class PipelineAndRoutesDelegator
         $app->get('/edit/page/:uid',\Page\Action\EditPageAction::class,'page.edit');
         $app->get('/read/content/:uid/:format',\Content\Action\ReadAction::class,'content.read');
         $app->get('/write/content/:uid',\Content\Action\WriteAction::class,'content.write');
+
+        $app->get('/list/user',\Auth\Action\ListUserAction::class,'user.list');
+
 
         return $app;
     }

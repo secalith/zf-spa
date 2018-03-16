@@ -58,6 +58,9 @@ class ConfigProvider
             'factories'  => [
 //                Action\HomePageAction::class => Action\HomePageFactory::class,
             ],
+            'abstract_factories' => [
+                    'Zend\Db\Adapter\AdapterAbstractServiceFactory',
+            ],
             'delegators' => [
 //                Action\HomePageAction::class => [
 //                    \Form\Delegator\FormDelegatorFactory::class,
