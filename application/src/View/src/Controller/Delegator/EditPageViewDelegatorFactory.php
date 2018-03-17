@@ -63,7 +63,7 @@ class EditPageViewDelegatorFactory implements DelegatorFactoryInterface
             $pageView = new \Zend\View\Model\ViewModel();
             if (false!=$container->has("Page\\Table"))
             {
-                /* @var \Page\Model\PageModel $page */
+                /* @var \Page\Model\UserModel $page */
                 $page = $container->get("Page\\Table")
                     ->fetchBy($routeName,'name');
                 if( ! empty($page)) {

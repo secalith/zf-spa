@@ -43,7 +43,7 @@ class PageModel
 
     /**
      * @param mixed $uid
-     * @return PageModel
+     * @return UserModel
      */
     public function setUid($uid)
     {
@@ -61,7 +61,7 @@ class PageModel
 
     /**
      * @param mixed $template
-     * @return PageModel
+     * @return UserModel
      */
     public function setTemplate($template)
     {
@@ -79,7 +79,7 @@ class PageModel
 
     /**
      * @param mixed $route
-     * @return PageModel
+     * @return UserModel
      */
     public function setRoute($route)
     {
@@ -97,7 +97,7 @@ class PageModel
 
     /**
      * @param mixed $route
-     * @return PageModel
+     * @return UserModel
      */
     public function setPageCache($page_cache)
     {
@@ -115,7 +115,7 @@ class PageModel
 
     /**
      * @param mixed $constraints
-     * @return PageModel
+     * @return UserModel
      */
     public function setConstraints($constraints)
     {

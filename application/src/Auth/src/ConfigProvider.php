@@ -15,11 +15,22 @@ class ConfigProvider extends CommonConfigProvider
     {
         return [
             'dependencies' => $this->getDependencies(),
-            'templates'    => $this->getTemplates(),
+            'templates' => $this->getTemplates(),
             'view_helpers' => [
-                'invokables'=> [
-                  //  'displayBlock' => View\Helper\BlockHelper::class,
+                'invokables' => [
+                    //  'displayBlock' => View\Helper\BlockHelper::class,
                 ],
+            ],
+            'application' => $this->getApplicationConfig(),
+        ];
+    }
+
+    public function getTemplates()
+    {
+        return [
+            'paths' => [
+                'user' => [__DIR__ . '/../templates/user'],
+                'auth' => [__DIR__ . '/../templates/auth'],
             ],
         ];
     }
@@ -27,12 +38,47 @@ class ConfigProvider extends CommonConfigProvider
     public function getDependencies()
     {
         return [
-            'factories'  => [
+            'factories' => [
                 \Zend\Authentication\AuthenticationService::class
-                    => Service\Factory\AuthenticationServiceFactory::class,
+                => Service\Factory\AuthenticationServiceFactory::class,
                 Action\ListUserAction::class => Action\ListUserFactory::class,
-//                "Block\\Table" => \Block\Service\Factory\BlockTableServiceFactory::class,
-//                "Block\\Gateway" => \Block\Service\Factory\BlockTableGatewayFactory::class,
+                "User\\Table" => \Auth\Service\Factory\UserTableServiceFactory::class,
+                "User\\Gateway" => \Auth\Service\Factory\UserTableGatewayFactory::class,
+            ],
+        ];
+    }
+
+    public function getApplicationConfig()
+    {
+        return [
+            'module' => [
+                'route' => [
+                    'user' => [
+                        'database' => [
+                            'db' => [
+                                'table' => 'user',
+                            ],
+                        ],
+                        'gateway' => [
+                            "adapter" => "Application\Db\LocalAdapter",
+//                                "adapter" => "Application\Db\DatabaseAdapter",
+                            'service' => ["name"=>"User\\Gateway",],
+                            'hydrator' => [
+                                "class" => \Common\Hydrator\CommonTableEntityHydrator::class,
+                                "map" => [
+                                    "uid" => "uid",
+                                    "email" => "email",
+                                    "full_name" => "full_name",
+                                    "password" => "password",
+                                    "status" => "status",
+                                    "date_created" => "date_created",
+                                    "pwd_reset_token" => "pwd_reset_token",
+                                    "pwd_reset_token_creation_date" => "pwd_reset_token_creation_date",
+                                ],
+                            ],
+                        ], // gateway
+                    ], // user
+                ], //
             ],
         ];
     }

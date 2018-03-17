@@ -1,9 +1,9 @@
-# Secalith Single Page Applciation #
+# Secalith Single Page Application #
 
 v.: 0.1
 
 Routemap:
-* 0.1   Content
+* 0.1   Content and Pages
 * 0.2   Forms, AJAX content
 * 0.3   Auth, RBAC I, Events
 * 0.4   Menu and Themes

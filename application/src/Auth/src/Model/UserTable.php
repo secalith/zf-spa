@@ -4,15 +4,15 @@
  * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
-namespace Page\Model;
+namespace Auth\Model;
 
 use Common\Model\CommonTableGateway as CommonTable;
-use Page\Entity\PageEntity as Entity;
-use Page\Model\UserModel as Model;
+use Auth\Entity\UserEntity as Entity;
+use Auth\Model\UserModel as Model;
 use Zend\Db\Sql\Select;
 use Zend\Db\TableGateway\TableGateway;
 
-class PageTable extends CommonTable
+class UserTable extends CommonTable
 {
     protected $tableGateway;
     protected $cache;

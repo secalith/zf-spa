@@ -2,70 +2,40 @@
 namespace Auth\Entity;
 
 
-class User
+class UserEntity
 {
     // User status constants.
     const STATUS_ACTIVE       = 1; // Active user.
     const STATUS_RETIRED      = 2; // Retired user.
 
-    /**
-     * @ORM\Id
-     * @ORM\Column(name="id")
-     * @ORM\GeneratedValue
-     */
-    protected $id;
+    protected $uid;
 
-    /**
-     * @ORM\Column(name="email")
-     */
     protected $email;
 
-    /**
-     * @ORM\Column(name="full_name")
-     */
     protected $fullName;
 
-    /**
-     * @ORM\Column(name="password")
-     */
     protected $password;
 
-    /**
-     * @ORM\Column(name="status")
-     */
     protected $status;
 
-    /**
-     * @ORM\Column(name="date_created")
-     */
     protected $dateCreated;
 
-    /**
-     * @ORM\Column(name="pwd_reset_token")
-     */
     protected $passwordResetToken;
 
-    /**
-     * @ORM\Column(name="pwd_reset_token_creation_date")
-     */
     protected $passwordResetTokenCreationDate;
 
-    /**
-     * Returns user ID.
-     * @return integer
-     */
-    public function getId()
+    public function getUid()
     {
-        return $this->id;
+        return $this->uid;
     }
 
     /**
      * Sets user ID.
      * @param int $id
      */
-    public function setId($id)
+    public function setUid($uid)
     {
-        $this->id = $id;
+        $this->uid = $uid;
     }
 
     /**

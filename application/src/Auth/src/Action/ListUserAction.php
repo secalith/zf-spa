@@ -77,7 +77,7 @@ class ListUserAction implements ServerMiddlewareInterface, PageViewAwareInterfac
 
         $this->template->addDefaultParam(Template\TemplateRendererInterface::TEMPLATE_ALL,'pageView',$data['pageView']);
 //
-        return new HtmlResponse($this->template->render($templateName, $data['pageView']));
+        return new HtmlResponse($this->template->render('user::list', $data['pageView']));
     }
 
     /**

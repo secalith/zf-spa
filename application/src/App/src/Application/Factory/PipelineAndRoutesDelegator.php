@@ -48,7 +48,7 @@ class PipelineAndRoutesDelegator
         $app->get('/read/content/:uid/:format',\Content\Action\ReadAction::class,'content.read');
         $app->get('/write/content/:uid',\Content\Action\WriteAction::class,'content.write');
 
-        $app->get('/list/user',\Auth\Action\ListUserAction::class,'user.list');
+        $app->get('/user/list',\Auth\Action\ListUserAction::class,'user.list');
 
 
         return $app;

@@ -1,11 +1,11 @@
 <?php
 
-namespace Page\Service\Factory;
+namespace Auth\Service\Factory;
 
 use Common\Service\Factory\CommonServiceFactory;
-use Page\Service\PageService as RequestedService;
+use Auth\Service\UserService as RequestedService;
 
-class PageServiceFactory extends CommonServiceFactory
+class UserServiceFactory extends CommonServiceFactory
 {
 
     public function __invoke(\Interop\Container\ContainerInterface $container, $requestedName, array $options = null)
@@ -13,5 +13,5 @@ class PageServiceFactory extends CommonServiceFactory
         $this->setRequestedService(new RequestedService());
         return parent::__invoke( $container, $requestedName, $options = null);
     }
-
+    
 }

@@ -45,7 +45,7 @@ class PageEntity
 
     /**
      * @param string $name
-     * @return PageEntity
+     * @return UserEntity
      */
     public function setUid($uid)
     {
@@ -63,7 +63,7 @@ class PageEntity
 
     /**
      * @param string $name
-     * @return PageEntity
+     * @return UserEntity
      */
     public function setName($name)
     {
@@ -81,7 +81,7 @@ class PageEntity
 
     /**
      * @param string $template
-     * @return PageEntity
+     * @return UserEntity
      */
     public function setTemplate($template)
     {
@@ -99,7 +99,7 @@ class PageEntity
 
     /**
      * @param string $template
-     * @return PageEntity
+     * @return UserEntity
      */
     public function setRoute($route)
     {
@@ -117,7 +117,7 @@ class PageEntity
 
     /**
      * @param string $template
-     * @return PageEntity
+     * @return UserEntity
      */
     public function setRouteUrl($route_url)
     {
@@ -135,7 +135,7 @@ class PageEntity
 
     /**
      * @param integer $page_cache
-     * @return PageEntity
+     * @return UserEntity
      */
     public function setPageCache($page_cache)
     {
@@ -161,7 +161,7 @@ class PageEntity
 
     /**
      * @param mixed $constraints
-     * @return PageEntity
+     * @return UserEntity
      */
     public function setConstraints($constraints)
     {
