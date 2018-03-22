@@ -15,6 +15,7 @@ use Auth\Entity\User;
  */
 class AuthAdapter implements AdapterInterface
 {
+    private $userTable;
     /**
      * User email.
      * @var string
@@ -28,17 +29,11 @@ class AuthAdapter implements AdapterInterface
     private $password;
 
     /**
-     * Entity manager.
-     * @var Doctrine\ORM\EntityManager
-     */
-    private $entityManager;
-
-    /**
      * Constructor.
      */
-    public function __construct($entityManager)
+    public function __construct($userTable)
     {
-        $this->entityManager = $entityManager;
+        $this->userTable = $userTable;
     }
 
     /**

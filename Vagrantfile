@@ -104,16 +104,21 @@ fi
 
 # Install the Composer dependencies
 cd /var/www/application && composer install
-coposer development-enable
+composer development-enable
 
 echo "** Visit http://localhost:8083 in your browser for to view the application **"
 SCRIPT
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
   config.vm.box = 'bento/ubuntu-16.04'
+
+#  config.vm.network :bridged
   config.vm.network "forwarded_port", guest: 80, host: 8083
+
   config.vm.synced_folder '.', '/var/www'
   config.vm.provision 'shell', inline: @script
+
   config.vm.host_name = 'spa.local.vm'
 
   config.vm.network :public_network, ip: "192.168.0.202"

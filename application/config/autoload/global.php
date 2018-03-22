@@ -7,7 +7,7 @@ return [
                 'dsn'    => 'sqlite:./data/database/spa.sqlite',
             ],
             'Application\Db\DatabaseAdapter' => [
-                'driver' => 'Mysqli',
+                'driver' => 'Pdo',
                 'dsn'    => 'mysql:dbname=spa_app;host=kj36968-001.dbaas.ovh.net;port=35266;',
                 'username' => 'spa_dev',
                 'password' => 'EchCovIlbonesE7'

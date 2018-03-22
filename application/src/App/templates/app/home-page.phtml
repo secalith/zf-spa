@@ -1,5 +1,5 @@
 <?php $this->headTitle('Home'); ?>
 
-<?=(isset($pageView))?$this->displayArea($pageView->getVariable('area')->getArea('content_main_jumbotron')):null;?>
+<?=(isset($pageView)&&null!==$pageView->getVariable('area'))?$this->displayArea($pageView->getVariable('area')->getArea('content_main_jumbotron')):null;?>
 
-<?=(isset($pageView))?$this->displayArea($pageView->getVariable('area')->getArea('content_main')):null;?>
+<?=(isset($pageView)&&null!==$pageView->getVariable('area'))?$this->displayArea($pageView->getVariable('area')->getArea('content_main')):null;?>

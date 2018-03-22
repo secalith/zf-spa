@@ -35,19 +35,22 @@ class FormDelegatorFactory implements DelegatorFactoryInterface
 
         // try to get the applications config attached to the routeName
         if (array_key_exists('application', $config)
-            && array_key_exists($currentRouteName, $config['application'])) {
+            && array_key_exists('form', $config['application']['module'])
+            && array_key_exists($currentRouteName, $config['application']['module']['form'])) {
             // get 'forms' config by the routeName
-            if (array_key_exists('forms', $config['application'][$currentRouteName])) {
+            if (array_key_exists('post', $config['application']['module']['form'][$currentRouteName])) {
                 // Load the form by the RouteName into local variable
-                $formsDeclarationConfig = $config['application'][$currentRouteName]['forms'];
+                $formsDeclarationConfig = $config['application']['module']['form'][$currentRouteName]['post'];
                 if (! empty($formsDeclarationConfig)) {
                     // there is some forms attached to the current route
-                    foreach ($formsDeclarationConfig as $formName => $formDeclaration) {
+                    foreach ($formsDeclarationConfig as $formDeclaration) {
                         // Get the name of the Form Object attached to the route
-                        $formDeclarationClass = $formDeclaration['form']['class'];
+                        $formDeclarationClass = $formDeclaration['fdqn'];
                         if (is_string($formDeclarationClass)) {
+                            $f = new $formDeclarationClass();
+                            echo $f->getName();
                             // as the called action is FormAware, add the current form to it
-                            $callback = call_user_func($callback)->addForm(new $formDeclarationClass(), $formName);
+                            $callback = call_user_func($callback)->addForm($f, $formDeclaration['name']);
                         }
                     }
                 }

@@ -7,8 +7,8 @@
 namespace Page\Model;
 
 use Common\Model\CommonTableGateway as CommonTable;
-use Page\Entity\PageEntity as Entity;
-use Page\Model\UserModel as Model;
+use Auth\Entity\PageEntity as Entity;
+use Auth\Model\UserModel as Model;
 use Zend\Db\Sql\Select;
 use Zend\Db\TableGateway\TableGateway;
 

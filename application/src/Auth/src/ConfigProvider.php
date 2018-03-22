@@ -2,7 +2,11 @@
 
 namespace Auth;
 
+use Zend\Session\Storage\SessionArrayStorage;
+use Zend\Session\Validator\RemoteAddr;
+use Zend\Session\Validator\HttpUserAgent;
 use Common\ConfigProvider as CommonConfigProvider;
+
 /**
  * The configuration provider for the App module
  *
@@ -20,6 +24,20 @@ class ConfigProvider extends CommonConfigProvider
                 'invokables' => [
                     //  'displayBlock' => View\Helper\BlockHelper::class,
                 ],
+            ],
+            'session_config' => [
+                'cookie_lifetime' => 60*60*1,
+                'gc_maxlifetime'     => 60*60*24*30,
+            ],
+            'session_manager' => [
+                'validators' => [
+                    RemoteAddr::class,
+                    HttpUserAgent::class,
+                ]
+            ],
+            // Session storage configuration.
+            'session_storage' => [
+                'type' => SessionArrayStorage::class
             ],
             'application' => $this->getApplicationConfig(),
         ];
@@ -40,10 +58,32 @@ class ConfigProvider extends CommonConfigProvider
         return [
             'factories' => [
                 \Zend\Authentication\AuthenticationService::class
-                => Service\Factory\AuthenticationServiceFactory::class,
+                    => \Auth\Service\Factory\AuthenticationServiceFactory::class,
                 Action\ListUserAction::class => Action\ListUserFactory::class,
+                Action\CreateUserAction::class => Action\CreateUserFactory::class,
+                \Auth\Action\LoginProcessAction::class => \Auth\Action\LoginProcessFactory::class,
+                \Auth\Service\AuthAdapter::class => \Auth\Service\Factory\AuthenticationAdapterFactory::class,
                 "User\\Table" => \Auth\Service\Factory\UserTableServiceFactory::class,
                 "User\\Gateway" => \Auth\Service\Factory\UserTableGatewayFactory::class,
+                \Auth\Service\AuthManager::class => \Auth\Service\Factory\AuthenticationManagerFactory::class,
+            ],
+            'delegators' => [
+                \Auth\Action\LoginProcessAction::class => [
+                    \Form\Delegator\FormDelegatorFactory::class,
+                    \Form\Delegator\FormFactoryDelegatorFactory::class,
+                ],
+                \Auth\Action\ListUserAction::class => [
+                    \View\Controller\Delegator\PageViewDelegatorFactory::class,
+                    \TableData\Action\Delegator\DataViewDelegatorFactory::class,
+                ],
+                \Auth\Action\ReadUserAction::class => [
+                    \View\Controller\Delegator\PageViewDelegatorFactory::class,
+                    \TableData\Action\Delegator\DataViewDelegatorFactory::class,
+                ],
+                \Auth\Action\CreateUserAction::class => [
+                    \View\Controller\Delegator\PageViewDelegatorFactory::class,
+                    \TableData\Action\Delegator\DataViewDelegatorFactory::class,
+                ],
             ],
         ];
     }
@@ -77,9 +117,26 @@ class ConfigProvider extends CommonConfigProvider
                                 ],
                             ],
                         ], // gateway
+                        'form' => [
+                            'user.create' => [
+                                'form-003' => [
+                                    'fdqn' => \Auth\Form\UserForm::class,
+                                ],
+                            ],
+                        ],
                     ], // user
-                ], //
-            ],
+                ], // route
+                'form' => [
+                    'login_process' => [
+                        'post' => [
+                            [
+                                'name' => 'form_login',
+                                'fdqn' => \Auth\Form\LoginForm::class,
+                            ],
+                        ],
+                    ],
+                ],
+            ], // module
         ];
     }
 

@@ -11,6 +11,9 @@ $cacheConfig = [
 ];
 
 $aggregator = new ConfigAggregator([
+    \Zend\I18n\ConfigProvider::class,
+    \Zend\Form\ConfigProvider::class,
+    \Zend\InputFilter\ConfigProvider::class,
     \Zend\Session\ConfigProvider::class,
     \Zend\Paginator\ConfigProvider::class,
     \Zend\Filter\ConfigProvider::class,
@@ -34,6 +37,7 @@ $aggregator = new ConfigAggregator([
     Form\ConfigProvider::class,
     Auth\ConfigProvider::class,
     View\ConfigProvider::class,
+    TableData\ConfigProvider::class,
 //    Navigation\ConfigProvider::class,
 
     // Load application config in a pre-defined order in such a way that local settings

@@ -7,6 +7,7 @@ use Zend\ServiceManager\DelegatorFactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Interop\Container\ContainerInterface;
 use View\Controller\PageViewAwareInterface;
+use Zend\Expressive\Helper\UrlHelper;
 
 /**
  * Class PageViewDelegatorFactory
@@ -45,9 +46,10 @@ class PageViewDelegatorFactory implements DelegatorFactoryInterface
             $pageView = new \Zend\View\Model\ViewModel();
             if (false!=$container->has("Page\\Table"))
             {
-                /* @var \Page\Model\UserModel $page */
+                /* @var \Page\Model\PageModel $page */
                 $page = $container->get("Page\\Table")
                     ->fetchBy($routeName,'name');
+
                 if( ! empty($page)) {
                     $pageView->setVariable('page',$page);
                     /* @var \Template\Model\TemplateModel $template */
@@ -55,38 +57,44 @@ class PageViewDelegatorFactory implements DelegatorFactoryInterface
                         ->fetchBy($page->getTemplate());
                     if( ! empty($template)) {
                         $pageView->setVariable('template',$template);
+                        $areaView = new ViewModel();
+
                         /* @var array $areas */
                         $areas = $container->get("Area\\Table")
                             ->fetchAllBy($template->getUid(),'template');
-                        $areaView = new ViewModel();
+
+                        // get global areas
+                        $globalAreas = $container->get("Area\\Table")
+                            ->fetchAllBy('global','scope');
+
+                        $areas = (!empty($areas)&&!empty($globalAreas))
+                            ? array_merge($globalAreas,$areas)
+                            : $globalAreas;
+
                         if( ! empty($areas)) {
                             /* @var array $areas @var \Area\Model\AreaModel $area */
                             foreach($areas as $area){
-                                $areaViewd = new \Zend\View\Model\ViewModel();
-                                $areaViewd->setVariable('data',new ViewModel($area));
-                                $areaViewd->setTemplate('app/test');
 
                                 $areaView->setArea($area);
 // get root blocks
                                 $rootBlocksDB = $container->get("Block\\Table")
-                                    ->fetchAllBy(['area'=>$area->getUid(),'template'=>$template->getUid(),'parent_uid'=>'0']);
+                                    ->fetchAllBy(['area'=>$area->getUid(),'parent_uid'=>'0']);
+
+
                                 if( null !== $rootBlocksDB ) {
                                     /* @var array $rootBlocksDB @var \Block\Model\BlockModel $rootBlock */
                                     foreach ($rootBlocksDB as $rootBlock) {
                                         $areaView->getArea($area)->setBlock($rootBlock);
-                                        $rootViewd = new \Zend\View\Model\ViewModel();
-                                        $rootViewd->setVariable('block',new ViewModel($rootBlock));
-                                        $rootViewd->setTemplate('app::test');
-                                        $areaViewd->addChild($rootViewd,'block');
 // get content for the root block
                                         $rootBlockContent = $container->get("Content\\Table")
-                                            ->fetchAllBy(['block' => $rootBlock->getUid(), 'template' => $page->getTemplate(), 'parent_uid'=>'0']);
+                                            ->fetchAllBy(['block' => $rootBlock->getUid(), 'parent_uid'=>'0']);
+                                        // set content for the Root Block
                                         if( ! empty($rootBlockContent)) {
                                             foreach($rootBlockContent as $rootBlockContentData) {
                                                 $areaView->getArea($area)->getBlock($rootBlock)->setContent($rootBlockContentData);
 // get content for the content
                                                 $rootBlockContentChild = $container->get("Content\\Table")
-                                                    ->fetchAllBy(['block' => $rootBlock->getUid(), 'template' => $page->getTemplate(), 'parent_uid'=>$rootBlockContentData->getUid()]);
+                                                    ->fetchAllBy(['block' => $rootBlock->getUid(), 'parent_uid'=>$rootBlockContentData->getUid()]);
                                                 if( ! empty($rootBlockContentChild)) {
                                                     foreach ($rootBlockContentChild as $rootBlockContentChildData) {
                                                         $areaView->getArea($area)->getBlock($rootBlock)->getContent($rootBlockContentData)->setContent($rootBlockContentChildData);
@@ -94,27 +102,61 @@ class PageViewDelegatorFactory implements DelegatorFactoryInterface
                                                 }
                                             }
                                         }
+//                                         check for forms attached to the Root Block
+                                        $rootBlockForm = $container->get("Form\\Block\\Table")
+                                            ->fetchAllBy(['block_uid' => $rootBlock->getUid()]);
+                                        if(null!==$rootBlockForm) {
+                                            foreach($rootBlockForm as $rootBlockFormData) {
+                                                if(null!==$rootBlockFormData->getFormFqdn()) {
+                                                    $formFqdn = $rootBlockFormData->getFormFqdn();
+                                                    $formClass = new $formFqdn();
+                                                    // get form from DB
+                                                    $rootForm = $container->get("Form\\Table")
+                                                        ->getItem($rootBlockFormData->getFormUid());
+                                                    $formAttributes = json_decode($rootForm->getAttributes());
+//                                                    var_dump($rootForm->getAttributes());
+                                                    if(!empty($formAttributes)) {
+                                                        $action = $formAttributes->action;
+                                                        $helper = $this->get_string_between($action,'[::',':');
+                                                        if( ! $helper) {
+
+                                                            $formClass->setAttribute('action',$action);
+                                                        } else {
+                                                            $routeNameForm = $this->get_string_between($action,$helper.':','::]');
+
+                                                            $t = $container->get(UrlHelper::class);
+
+                                                            $formClass->setAttribute('action',$t->generate($routeNameForm));
+                                                        }
+
+                                                    }
+                                                    $areaView->getArea($area)->getBlock($rootBlock)->setForm($formClass,$formClass->getName());
+                                                }
+                                            }
+                                        }
+
 // check for blocks (inside the Block)
                                         $childBlocksDB = $container->get("Block\\Table")
-                                            ->fetchAllBy(['area'=>$area->getUid(),'template'=>$template->getUid(),'parent_uid'=>$rootBlock->getUid()]);
+                                            ->fetchAllBy(['area'=>$area->getUid(),'parent_uid'=>$rootBlock->getUid()]);
+                                        // get the child block for the Root Block
                                         if( ! empty($childBlocksDB)) {
                                             foreach($childBlocksDB as $childBlock){
                                                 $areaView->getArea($area)->getBlock($rootBlock)->setBlock($childBlock);
 // get content for childBlock
                                                 $childBlockContent = $container->get("Content\\Table")
-                                                    ->fetchAllBy(['block' => $childBlock->getUid(), 'template' => $page->getTemplate(), 'parent_uid'=>'0']);
+                                                    ->fetchAllBy(['block' => $childBlock->getUid(), 'parent_uid'=>'0']);
                                                 if( ! empty($childBlockContent)) {
                                                     foreach($childBlockContent as $childBlockContentItem){
                                                         $areaView->getArea($area)->getBlock($rootBlock)->getBlock($childBlock)->setContent($childBlockContentItem);
 //get (child) content for content
                                                         $childBlockContentChildContent = $container->get("Content\\Table")
-                                                            ->fetchAllBy(['block' => $childBlock->getUid(), 'template' => $page->getTemplate(), 'parent_uid'=>$childBlockContentItem->getUid()]);
+                                                            ->fetchAllBy(['block' => $childBlock->getUid(), 'parent_uid'=>$childBlockContentItem->getUid()]);
                                                         if( null !== $childBlockContentChildContent) {
                                                             foreach($childBlockContentChildContent as $childBlockContentChildItem){
                                                                 $areaView->getArea($area)->getBlock($rootBlock)->getBlock($childBlock)->getContent($childBlockContentItem)->setContent($childBlockContentChildItem);
 // check for content-content content
                                                                 $childBlockContentChildContentChild = $container->get("Content\\Table")
-                                                                    ->fetchAllBy(['block' => $childBlock->getUid(), 'template' => $page->getTemplate(), 'parent_uid'=>$childBlockContentChildItem->getUid()]);
+                                                                    ->fetchAllBy(['block' => $childBlock->getUid(), 'parent_uid'=>$childBlockContentChildItem->getUid()]);
 
                                                                 if( ! empty($childBlockContentChildContentChild)) {
                                                                     foreach($childBlockContentChildContentChild as $childBlockContentChildContentChildContent) {
@@ -154,6 +196,16 @@ class PageViewDelegatorFactory implements DelegatorFactoryInterface
 
         return call_user_func($callback);
     }
+
+    public function get_string_between($string, $start, $end){
+        $string = ' ' . $string;
+        $ini = strpos($string, $start);
+        if ($ini == 0) return '';
+        $ini += strlen($start);
+        $len = strpos($string, $end, $ini) - $ini;
+        return substr($string, $ini, $len);
+    }
+
 
     public function createDelegatorWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName, $callback)
     {}

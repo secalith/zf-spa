@@ -8,9 +8,9 @@ namespace Form\Service\Factory;
 
 use Common\Service\Factory\CommonTableServiceFactory;
 
-class FormTableServiceFactory extends CommonTableServicefactory
+class FormBlockTableServiceFactory extends CommonTableServicefactory
 {
-    protected $identifier = "form";
-    protected $requestedGateway = "Form\\Gateway";
-    protected $requestedTable = \Form\Model\FormTable::class;
+    protected $identifier = "block_form";
+    protected $requestedGateway = "Form\\Block\\Gateway";
+    protected $requestedTable = \Form\Model\FormBlockTable::class;
 }

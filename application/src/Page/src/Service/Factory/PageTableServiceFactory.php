@@ -12,5 +12,5 @@ class PageTableServiceFactory extends CommonTableServicefactory
 {
     protected $identifier = "page";
     protected $requestedGateway = "Page\\Gateway";
-    protected $requestedTable = \Page\Model\UserTable::class;
+    protected $requestedTable = \Page\Model\PageTable::class;
 }

@@ -21,6 +21,8 @@ class ViewModel
      */
     protected $block;
 
+    protected $form;
+
     /**
      * @var string
      */
@@ -148,6 +150,32 @@ class ViewModel
     public function setContent(ContentModel $content)
     {
         $this->content[$content->getUid()] = new ViewModel($content);
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getForm($name)
+    {
+        return $this->form[$name];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getForms()
+    {
+        return $this->form;
+    }
+
+    /**
+     * @param mixed $form
+     * @return ViewModel
+     */
+    public function setForm($form)
+    {
+        $this->form[$form->getName()] = $form;
         return $this;
     }
 

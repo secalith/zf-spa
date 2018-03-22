@@ -2,8 +2,8 @@
 
 namespace Auth\Action;
 
-use Form\FormAwareInterface;
-use Form\FormAwareTrait;
+use TableData\TableDataAwareInterface;
+use TableData\TableDataAwareTrait;
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface as ServerMiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -17,9 +17,9 @@ use Zend\Expressive\ZendView\ZendViewRenderer;
 use View\Controller\PageViewAwareInterface;
 use View\Controller\PageViewAwareTrait;
 
-class ListUserAction implements ServerMiddlewareInterface, PageViewAwareInterface
+class ListUserAction implements ServerMiddlewareInterface, PageViewAwareInterface, TableDataAwareInterface
 {
-//    use FormAwareTrait;
+    use TableDataAwareTrait;
     use PageViewAwareTrait;
 
     private $router;
@@ -69,6 +69,9 @@ class ListUserAction implements ServerMiddlewareInterface, PageViewAwareInterfac
 
         $data['pageView'] = $this->getPageView();
 
+        $data['pageData'] = $this->getTableData('users');
+//        var_dump($data['pageView']);
+
 //        $templateName = sprintf(
 //            "%s::%s",
 //            $data['pageView']->getVariable('template')->getLocation(),
@@ -76,6 +79,7 @@ class ListUserAction implements ServerMiddlewareInterface, PageViewAwareInterfac
 //        );
 
         $this->template->addDefaultParam(Template\TemplateRendererInterface::TEMPLATE_ALL,'pageView',$data['pageView']);
+        $this->template->addDefaultParam(Template\TemplateRendererInterface::TEMPLATE_ALL,'pageData',$data['pageData']);
 //
         return new HtmlResponse($this->template->render('user::list', $data['pageView']));
     }

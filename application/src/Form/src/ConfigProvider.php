@@ -19,7 +19,32 @@ class ConfigProvider extends CommonConfigProvider
             'application' => [
                 'module' => [
                     'route' => [
-                        'formsd' => [
+                        'block_form' => [
+                            'database' => [
+                                'db' => [
+                                    'table' => 'block_form',
+                                ],
+                            ],
+                            'gateway' => [
+                                "adapter" => "Application\Db\LocalAdapter",
+//                                "adapter" => "Application\Db\DatabaseAdapter",
+                                'service' => ["name"=>"Form\\Block\\Gateway"],
+                                'hydrator' => [
+                                    "class" => \Common\Hydrator\CommonTableEntityHydrator::class,
+                                    "map" => [
+                                        "uid" => "uid",
+                                        "block" => "block",
+                                        "order" => "order",
+                                        "content" => "content",
+                                        "attributes" => "attributes",
+                                        "parameters" => "parameters",
+                                        "template" => "template",
+                                        "type" => "type",
+                                    ],
+                                ],
+                            ],
+                        ],
+                        'form' => [
                             'database' => [
                                 'db' => [
                                     'table' => 'form',
@@ -54,8 +79,10 @@ class ConfigProvider extends CommonConfigProvider
     {
         return [
             'factories'  => [
-//                "Form\\Table" => \Content\Service\Factory\ContentTableServiceFactory::class,
-//                "Form\\Gateway" => \Content\Service\Factory\ContentTableGatewayFactory::class,
+                "Form\\Gateway" => \Form\Service\Factory\FormTableGatewayFactory::class,
+                "Form\\Table" => \Form\Service\Factory\FormTableServiceFactory::class,
+                "Form\\Block\\Gateway" => \Form\Service\Factory\FormBlockTableGatewayFactory::class,
+                "Form\\Block\\Table" => \Form\Service\Factory\FormBlockTableServiceFactory::class,
             ],
         ];
     }

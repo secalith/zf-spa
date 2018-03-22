@@ -12,6 +12,7 @@ class BlockModel
     public $uid;
     public $area;
     public $content;
+    public $form;
     public $attributes;
     public $parameters;
     public $options;
@@ -20,6 +21,31 @@ class BlockModel
     public $order;
     public $name;
     public $parent_uid;
+
+    /**
+     * @return mixed
+     */
+    public function getForm($name)
+    {
+        return $this->form[$name];
+    }
+    /**
+     * @return mixed
+     */
+    public function getForms()
+    {
+        return $this->form;
+    }
+
+    /**
+     * @param mixed $form
+     * @return BlockModel
+     */
+    public function setForm($form,$name)
+    {
+        $this->form[$name] = $form;
+        return $this;
+    }
 
     /**
      * @return mixed
@@ -232,6 +258,7 @@ class BlockModel
         $this->type = (!empty($data['type'])) ? $data['type'] : null;
         $this->template = (!empty($data['template'])) ? $data['template'] : null;
         $this->content = (!empty($data['content'])) ? $data['content'] : null;
+        $this->form = (!empty($data['form'])) ? $data['form'] : null;
         $this->attributes = (!empty($data['attributes'])) ? $data['attributes'] : null;
         $this->setAttributes($this->getAttributes());
         $this->parameters = (!empty($data['parameters'])) ? $data['parameters'] : null;
@@ -240,6 +267,6 @@ class BlockModel
         $this->setOptions($this->getOptions());
         $this->name = (!empty($data['name'])) ? $data['name'] : null;
         $this->order = (!empty($data['order'])) ? $data['order'] : null;
-        $this->parend_uid = (!empty($data['parend_uid'])) ? $data['parend_uid'] : null;
+        $this->parent_uid = (!empty($data['parent_uid'])) ? $data['parent_uid'] : null;
     }
 }

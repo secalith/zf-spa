@@ -17,7 +17,7 @@ use Zend\Expressive\ZendView\ZendViewRenderer;
 use View\Controller\PageViewAwareInterface;
 use View\Controller\PageViewAwareTrait;
 
-class LoginAction implements ServerMiddlewareInterface, PageViewAwareInterface, TableDataAwareInterface
+class ReadUserAction implements ServerMiddlewareInterface, PageViewAwareInterface, TableDataAwareInterface
 {
     use TableDataAwareTrait;
     use PageViewAwareTrait;
@@ -36,11 +36,6 @@ class LoginAction implements ServerMiddlewareInterface, PageViewAwareInterface, 
 
     public function process(ServerRequestInterface $request, DelegateInterface $delegate)
     {
-
-        $formPostData = $request->getParsedBody();
-
-//        var_dump($formPostData);
-
         if (! $this->template) {
             return new JsonResponse([
                 'welcome' => 'Congratulations! You have installed the zend-expressive skeleton application.',

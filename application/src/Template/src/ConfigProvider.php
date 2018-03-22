@@ -54,4 +54,18 @@ class ConfigProvider extends CommonConfigProvider
         ];
     }
 
+    /**
+     * Returns the templates configuration
+     *
+     * @return array
+     */
+    public function getTemplates()
+    {
+        return [
+            'paths' => [
+                'template'    => [__DIR__ . '/../templates/template'],
+                'templatetest'    => [__DIR__ . '/../templates/template/test.phtml'],
+            ],
+        ];
+    }
 }
