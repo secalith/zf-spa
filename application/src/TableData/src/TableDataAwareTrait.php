@@ -26,7 +26,7 @@ trait TableDataAwareTrait
      */
     public function getTableData($name)
     {
-        if (array_key_exists($name, $this->tableData)) {
+        if ( ! empty($this->tableData) && array_key_exists($name, $this->tableData)) {
             return $this->tableData[$name];
         }
         return null;

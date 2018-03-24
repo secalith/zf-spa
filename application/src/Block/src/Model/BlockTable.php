@@ -8,7 +8,7 @@ namespace Block\Model;
 use Common\Model\CommonTableGateway;
 use Zend\Db\TableGateway\TableGateway;
 
-class BlockTable extends CommonTableGateway
+class BlockTable
 {
     protected $cache_namespace = "block_model_table";
 

@@ -5,7 +5,7 @@ namespace Area\Model;
 use Common\Model\CommonTableGateway;
 use Zend\Db\TableGateway\TableGateway;
 
-class AreaTable extends CommonTableGateway
+class AreaTable
 {
     protected $cache_namespace = "template_model_table";
 

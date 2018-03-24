@@ -1,0 +1,28 @@
+<h2>User List</h2>
+
+<a href="<?=$this->url('user.create')?>">Create User</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th class="col"></th>
+            <th class="col">Email</th>
+            <th class="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php foreach($pageData as $item):?>
+        <tr scope="row">
+            <td>
+                <?=$item->getUid();?>
+            </td>
+            <td>
+                <?=$item->getEmail();?>
+            </td>
+            <td>
+                <a href="<?=$this->url('user.read',['uid'=>$item->getUid()]);?>" class="btn btn-default">Details</a>
+            </td>
+        </tr>
+    <?php endforeach;?>
+    </tbody>
+
+</table>

@@ -1,12 +1,12 @@
 <?php
 
-namespace Auth\Action;
+namespace User\Action;
 
 use Psr\Container\ContainerInterface;
 use Zend\Expressive\Router\RouterInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
-class ListUserFactory
+class CreateProcessFactory
 {
     public function __invoke(ContainerInterface $container)
     {
@@ -15,7 +15,7 @@ class ListUserFactory
             ? $container->get(TemplateRendererInterface::class)
             : null;
 
-        $requestedAction = new ListUserAction($router,$template);
+        $requestedAction = new CreateProcessAction($router,$template);
 
         // get users and pass to the requested ctrl as list
         $dbResult = $container->get("User\\Table")->listAll();

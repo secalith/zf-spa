@@ -24,6 +24,10 @@ class ConfigProvider extends CommonConfigProvider
                 'invokables' => [
                     //  'displayBlock' => View\Helper\BlockHelper::class,
                 ],
+                'factories' => [
+                    'hasIdentity' => \Auth\View\Helper\HasIdentityFactory::class,
+                    'getIdentity' => \Auth\View\Helper\GetIdentityFactory::class,
+                ],
             ],
             'session_config' => [
                 'cookie_lifetime' => 60*60*1,
@@ -47,7 +51,7 @@ class ConfigProvider extends CommonConfigProvider
     {
         return [
             'paths' => [
-                'user' => [__DIR__ . '/../templates/user'],
+
                 'auth' => [__DIR__ . '/../templates/auth'],
             ],
         ];
@@ -59,30 +63,16 @@ class ConfigProvider extends CommonConfigProvider
             'factories' => [
                 \Zend\Authentication\AuthenticationService::class
                     => \Auth\Service\Factory\AuthenticationServiceFactory::class,
-                Action\ListUserAction::class => Action\ListUserFactory::class,
-                Action\CreateUserAction::class => Action\CreateUserFactory::class,
                 \Auth\Action\LoginProcessAction::class => \Auth\Action\LoginProcessFactory::class,
+                \Auth\Action\LogoutAction::class => \Auth\Action\LogoutFactory::class,
                 \Auth\Service\AuthAdapter::class => \Auth\Service\Factory\AuthenticationAdapterFactory::class,
-                "User\\Table" => \Auth\Service\Factory\UserTableServiceFactory::class,
-                "User\\Gateway" => \Auth\Service\Factory\UserTableGatewayFactory::class,
                 \Auth\Service\AuthManager::class => \Auth\Service\Factory\AuthenticationManagerFactory::class,
+                \Auth\Model\AuthStorage::class => \Auth\Model\AuthStorageFactory::class,
             ],
             'delegators' => [
                 \Auth\Action\LoginProcessAction::class => [
                     \Form\Delegator\FormDelegatorFactory::class,
                     \Form\Delegator\FormFactoryDelegatorFactory::class,
-                ],
-                \Auth\Action\ListUserAction::class => [
-                    \View\Controller\Delegator\PageViewDelegatorFactory::class,
-                    \TableData\Action\Delegator\DataViewDelegatorFactory::class,
-                ],
-                \Auth\Action\ReadUserAction::class => [
-                    \View\Controller\Delegator\PageViewDelegatorFactory::class,
-                    \TableData\Action\Delegator\DataViewDelegatorFactory::class,
-                ],
-                \Auth\Action\CreateUserAction::class => [
-                    \View\Controller\Delegator\PageViewDelegatorFactory::class,
-                    \TableData\Action\Delegator\DataViewDelegatorFactory::class,
                 ],
             ],
         ];
@@ -92,40 +82,6 @@ class ConfigProvider extends CommonConfigProvider
     {
         return [
             'module' => [
-                'route' => [
-                    'user' => [
-                        'database' => [
-                            'db' => [
-                                'table' => 'user',
-                            ],
-                        ],
-                        'gateway' => [
-                            "adapter" => "Application\Db\LocalAdapter",
-//                                "adapter" => "Application\Db\DatabaseAdapter",
-                            'service' => ["name"=>"User\\Gateway",],
-                            'hydrator' => [
-                                "class" => \Common\Hydrator\CommonTableEntityHydrator::class,
-                                "map" => [
-                                    "uid" => "uid",
-                                    "email" => "email",
-                                    "full_name" => "full_name",
-                                    "password" => "password",
-                                    "status" => "status",
-                                    "date_created" => "date_created",
-                                    "pwd_reset_token" => "pwd_reset_token",
-                                    "pwd_reset_token_creation_date" => "pwd_reset_token_creation_date",
-                                ],
-                            ],
-                        ], // gateway
-                        'form' => [
-                            'user.create' => [
-                                'form-003' => [
-                                    'fdqn' => \Auth\Form\UserForm::class,
-                                ],
-                            ],
-                        ],
-                    ], // user
-                ], // route
                 'form' => [
                     'login_process' => [
                         'post' => [

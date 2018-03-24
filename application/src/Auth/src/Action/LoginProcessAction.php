@@ -11,6 +11,7 @@ use Interop\Http\ServerMiddleware\MiddlewareInterface as ServerMiddlewareInterfa
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\JsonResponse;
+use Zend\Diactoros\Response\RedirectResponse;
 use Zend\Expressive\Router;
 use Zend\Expressive\Template;
 use Zend\Expressive\Plates\PlatesRenderer;
@@ -31,12 +32,14 @@ class LoginProcessAction implements ServerMiddlewareInterface, FormAwareInterfac
     private $page_view;
 
     private $authManager;
+    private $authService;
 
-    public function __construct(Router\RouterInterface $router, Template\TemplateRendererInterface $template = null, $authManager=null)
+    public function __construct(Router\RouterInterface $router, Template\TemplateRendererInterface $template = null, $authManager=null,$authService=null)
     {
         $this->router   = $router;
         $this->template = $template;
         $this->authManager = $authManager;
+        $this->authService = $authService;
     }
 
     public function process(ServerRequestInterface $request, DelegateInterface $delegate)
@@ -52,17 +55,28 @@ class LoginProcessAction implements ServerMiddlewareInterface, FormAwareInterfac
         $form->setData($formPostData);
         $this->addForm($form, 'form_login');
 
-        var_dump($this->getForm('form_login')->isValid());
+//        var_dump($this->getForm('form_login')->isValid());
 
         if (true===$this->getForm('form_login')->isValid()) {
 
             $data = $this->getForm('form_login')->getData();
-            var_dump($data);
-            var_dump($this->authManager);
+            $this->authService->getAdapter()
+                ->setEmail($data['email'])
+                ->setPassword($data['password']);
+
+            $result = $this->authService->authenticate();
+//            var_dump($this->authManager->login($data['email'],$data['email']));
+//            var_dump($result->getMessages());
+            if ($result->isValid()) {
+
+            }
+            return new RedirectResponse('/');
 // Perform login attempt.
             $result = $this->authManager->login($data['email'],
                 $data['password'], $data['remember_me']);
-var_dump($result);
+            return new RedirectResponse('/');
+
+            var_dump($result);
             // Check result.
 //            if ($result->getCode()==Result::SUCCESS) {
 //

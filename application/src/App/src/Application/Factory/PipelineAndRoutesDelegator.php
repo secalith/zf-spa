@@ -48,13 +48,13 @@ class PipelineAndRoutesDelegator
                     $app->get($item->getRoute(), \Auth\Action\LoginAction::class, $item->getName());
                     break;
                 case '\Auth\Action\LoginProcessAction':
-//                    $app->get($item->getRoute(), \Auth\Action\LoginAction::class, $item->getName());
                     $app->post($item->getRoute(), \Auth\Action\LoginProcessAction::class, $item->getName());
-//                    $app->get('ddd', \Auth\Action\LoginAction::class, 'ssss');
-//                    echo $item->getRoute();
-//                    echo $item->getName();
-//                    $app->get($item->getRoute(), \Auth\Action\LoginAction::class, $item->getName());
-
+                    break;
+                case '\Auth\Action\LogoutAction':
+                    $app->get($item->getRoute(), \Auth\Action\LogoutAction::class, $item->getName());
+                    break;
+                case '\User\Action\ReadAction':
+                    $app->get($item->getRoute(), \User\Action\ReadAction::class, $item->getName());
                     break;
                 default:
                 case '\Page\Action\PageAction':
@@ -66,15 +66,20 @@ class PipelineAndRoutesDelegator
         }
 
         // content actions
+        $app->get('/page/list',\Page\Action\PageAction::class,'page.list');
+        $app->get('/user/list',\User\Action\ListAction::class,'user.list');
+        $app->get('/user/account',\Page\Action\PageAction::class,'user.account');
         $app->get('/edit/page/:uid',\Page\Action\EditPageAction::class,'page.edit');
         $app->get('/read/content/:uid/:format',\Content\Action\ReadAction::class,'content.read');
         $app->get('/write/content/:uid',\Content\Action\WriteAction::class,'content.write');
+//        $app->get('/write/content/:uid',\Content\Action\WriteAction::class,'page.list');
 
         // user actions
-//        $app->get('/user/create',\Auth\Action\CreateUserAction::class,'user.create');
-//        $app->get('/user/read/:uid',\Auth\Action\ReadUserAction::class,'user.read');
-//        $app->get('/user/update/:uid',\Auth\Action\UpdateUserAction::class,'user.update');
-//        $app->get('/user/delete/:uid',\Auth\Action\DeleteUserAction::class,'user.delete');
+        $app->get('/user/create',\User\Action\CreateAction::class,'user.create');
+        $app->post('/user/create/process',\User\Action\CreateProcessAction::class,'user.create.process');
+//        $app->get('/user/read/:uid',\User\Action\ReadAction::class,'user.read');
+        $app->get('/user/edit/:uid',\User\Action\UpdateAction::class,'user.update');
+        $app->get('/user/delete/:uid',\User\Action\DeleteAction::class,'user.delete');
 //        $app->get('/user/import',\Auth\Action\ImportUserAction::class,'user.import');
 //        $app->get('/user/export',\Auth\Action\ExportUserAction::class,'user.export');
 //        $app->get('/user/list',\Auth\Action\ListUserAction::class,'user.list');

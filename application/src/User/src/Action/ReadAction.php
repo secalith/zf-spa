@@ -1,6 +1,6 @@
 <?php
 
-namespace Auth\Action;
+namespace User\Action;
 
 use TableData\TableDataAwareInterface;
 use TableData\TableDataAwareTrait;
@@ -17,7 +17,7 @@ use Zend\Expressive\ZendView\ZendViewRenderer;
 use View\Controller\PageViewAwareInterface;
 use View\Controller\PageViewAwareTrait;
 
-class ReadUserAction implements ServerMiddlewareInterface, PageViewAwareInterface, TableDataAwareInterface
+class ReadAction implements ServerMiddlewareInterface, PageViewAwareInterface, TableDataAwareInterface
 {
     use TableDataAwareTrait;
     use PageViewAwareTrait;
@@ -45,28 +45,6 @@ class ReadUserAction implements ServerMiddlewareInterface, PageViewAwareInterfac
 
         $data = [];
 
-        if ($this->router instanceof Router\AuraRouter) {
-            $data['routerName'] = 'Aura.Router';
-            $data['routerDocs'] = 'http://auraphp.com/packages/2.x/Router.html';
-        } elseif ($this->router instanceof Router\FastRouteRouter) {
-            $data['routerName'] = 'FastRoute';
-            $data['routerDocs'] = 'https://github.com/nikic/FastRoute';
-        } elseif ($this->router instanceof Router\ZendRouter) {
-            $data['routerName'] = 'Zend Router';
-            $data['routerDocs'] = 'https://docs.zendframework.com/zend-router/';
-        }
-
-        if ($this->template instanceof PlatesRenderer) {
-            $data['templateName'] = 'Plates';
-            $data['templateDocs'] = 'http://platesphp.com/';
-        } elseif ($this->template instanceof TwigRenderer) {
-            $data['templateName'] = 'Twig';
-            $data['templateDocs'] = 'http://twig.sensiolabs.org/documentation';
-        } elseif ($this->template instanceof ZendViewRenderer) {
-            $data['templateName'] = 'Zend View';
-            $data['templateDocs'] = 'https://docs.zendframework.com/zend-view/';
-        }
-
         $data['pageView'] = $this->getPageView();
 
         $data['pageData'] = $this->getTableData('users');
@@ -81,7 +59,7 @@ class ReadUserAction implements ServerMiddlewareInterface, PageViewAwareInterfac
         $this->template->addDefaultParam(Template\TemplateRendererInterface::TEMPLATE_ALL,'pageView',$data['pageView']);
         $this->template->addDefaultParam(Template\TemplateRendererInterface::TEMPLATE_ALL,'pageData',$data['pageData']);
 //
-        return new HtmlResponse($this->template->render('user::list', $data['pageView']));
+        return new HtmlResponse($this->template->render('user::read', $data['pageView']));
     }
 
     /**

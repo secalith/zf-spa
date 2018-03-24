@@ -22,7 +22,6 @@ class AuthManager
         if ($this->authService->getIdentity()!=null) {
             throw new \Exception('Already logged in');
         }
-echo 9;var_dump($this->authService->getAdapter()->setEmail($email));
         // Authenticate with login/password.
         $this->authService->getAdapter()
             ->setEmail($email)

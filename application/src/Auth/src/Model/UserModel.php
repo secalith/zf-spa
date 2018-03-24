@@ -10,6 +10,7 @@ class UserModel
 {
     public $uid;
     public $email;
+    public $password;
 
     /**
      * @return mixed
@@ -46,6 +47,26 @@ class UserModel
         $this->email = $email;
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param mixed $password
+     * @return UserModel
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+        return $this;
+    }
+
+
 
     public function exchangeArray($data)
     {

@@ -5,8 +5,9 @@ namespace Auth\Action;
 use Psr\Container\ContainerInterface;
 use Zend\Expressive\Router\RouterInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
+use Zend\Db\Adapter\AdapterInterface;
 
-class CreateUserFactory
+class LoginFactory
 {
     public function __invoke(ContainerInterface $container)
     {
@@ -15,13 +16,11 @@ class CreateUserFactory
             ? $container->get(TemplateRendererInterface::class)
             : null;
 
-        $requestedAction = new CreateUserAction($router,$template);
+        $authService = $container->get(\Zend\Authentication\AuthenticationService::class);
 
-        // get users and pass to the requested ctrl as list
-        $dbResult = $container->get("User\\Table")->listAll();
+        var_dump($authService->hasIdentity());
 
-//        var_dump($dbResult);
 
-        return $requestedAction;
+        return new LoginAction($router, $template);
     }
 }

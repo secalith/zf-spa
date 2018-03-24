@@ -80,7 +80,7 @@ class OpenTagHelper extends AbstractHelper
                 $attributes['data-wrapper'] = 'main';
                 $attributes['data-type'] = $item->getType();
             }
-            if( ! empty($attributes)) {
+            if( ! empty($attributes) && is_array($attributes)) {
                 foreach($attributes as $attrName=>$attrValue) {
                     $attrCombined = '';
                     if(is_string($attrValue)){

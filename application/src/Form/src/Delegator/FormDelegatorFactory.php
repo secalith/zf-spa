@@ -37,6 +37,7 @@ class FormDelegatorFactory implements DelegatorFactoryInterface
         if (array_key_exists('application', $config)
             && array_key_exists('form', $config['application']['module'])
             && array_key_exists($currentRouteName, $config['application']['module']['form'])) {
+
             // get 'forms' config by the routeName
             if (array_key_exists('post', $config['application']['module']['form'][$currentRouteName])) {
                 // Load the form by the RouteName into local variable
@@ -48,7 +49,6 @@ class FormDelegatorFactory implements DelegatorFactoryInterface
                         $formDeclarationClass = $formDeclaration['fdqn'];
                         if (is_string($formDeclarationClass)) {
                             $f = new $formDeclarationClass();
-                            echo $f->getName();
                             // as the called action is FormAware, add the current form to it
                             $callback = call_user_func($callback)->addForm($f, $formDeclaration['name']);
                         }

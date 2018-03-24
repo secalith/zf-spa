@@ -1,9 +1,11 @@
 <?php
 
-namespace Auth\Action;
+namespace User\Action;
 
 use TableData\TableDataAwareInterface;
 use TableData\TableDataAwareTrait;
+use Form\FormAwareInterface;
+use Form\FormAwareTrait;
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface as ServerMiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -17,10 +19,11 @@ use Zend\Expressive\ZendView\ZendViewRenderer;
 use View\Controller\PageViewAwareInterface;
 use View\Controller\PageViewAwareTrait;
 
-class LoginAction implements ServerMiddlewareInterface, PageViewAwareInterface, TableDataAwareInterface
+class CreateProcessAction implements ServerMiddlewareInterface, PageViewAwareInterface, FormAwareInterface
 {
-    use TableDataAwareTrait;
+    //use TableDataAwareTrait;
     use PageViewAwareTrait;
+    use FormAwareTrait;
 
     private $router;
 
@@ -36,11 +39,6 @@ class LoginAction implements ServerMiddlewareInterface, PageViewAwareInterface, 
 
     public function process(ServerRequestInterface $request, DelegateInterface $delegate)
     {
-
-        $formPostData = $request->getParsedBody();
-
-//        var_dump($formPostData);
-
         if (! $this->template) {
             return new JsonResponse([
                 'welcome' => 'Congratulations! You have installed the zend-expressive skeleton application.',
@@ -74,7 +72,13 @@ class LoginAction implements ServerMiddlewareInterface, PageViewAwareInterface, 
 
         $data['pageView'] = $this->getPageView();
 
-        $data['pageData'] = $this->getTableData('users');
+        $forms = $this->getForms();
+        if($forms) {
+
+        }
+        $data['pageForms'] = $this->getForms();
+//        echo get_class($forms);
+//        $data['pageData'] = $this->getTableData('users');
 //        var_dump($data['pageView']);
 
 //        $templateName = sprintf(
@@ -85,8 +89,9 @@ class LoginAction implements ServerMiddlewareInterface, PageViewAwareInterface, 
 
         $this->template->addDefaultParam(Template\TemplateRendererInterface::TEMPLATE_ALL,'pageView',$data['pageView']);
         $this->template->addDefaultParam(Template\TemplateRendererInterface::TEMPLATE_ALL,'pageData',$data['pageData']);
+        $this->template->addDefaultParam(Template\TemplateRendererInterface::TEMPLATE_ALL,'pageForms',$data['pageForms']);
 //
-        return new HtmlResponse($this->template->render('user::list', $data['pageView']));
+        return new HtmlResponse($this->template->render('user::create', $data['pageView']));
     }
 
     /**

@@ -2,20 +2,22 @@
 $this->headLink()
     ->prependStylesheet('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css')
     ->prependStylesheet('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css')
-    ->appendStylesheet('/assets/styles/summernote.css')
 ;
 
 
 $this->inlineScript()
     ->prependFile('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js')
     ->prependFile('https://code.jquery.com/jquery-2.1.4.min.js')
-    ->appendFile('/assets/scripts/summernote.js')
 ;
 
 
-if(1==1) {
-    $this->inlineScript()->prependFile('/assets/scripts/editor.js');
-    $this->headLink()->appendStylesheet('/assets/styles//mode-edit.css');
+if(null!==$this->hasIdentity()) {
+    $this->inlineScript()->prependFile('/assets/scripts/editor.js')
+        ->appendFile('/assets/scripts/summernote.js')
+    ;
+    $this->headLink()->appendStylesheet('/assets/styles/mode-edit.css')
+        ->appendStylesheet('/assets/styles/summernote.css')
+    ;
 }
 
 ?>
@@ -59,9 +61,10 @@ if(1==1) {
     </div>
 
     <footer class="app-footer">
-            <?=(isset($pageView)&&null!==$pageView->getVariable('area'))?$this->displayArea($pageView->getVariable('area')->getArea('footer')):null;?>
+        <?=(null!==$this->hasIdentity() && null!==$pageView  && false!==$this->hasIdentity())?"<a href='".$this->url('page.edit',['uid'=>$pageView->getVariable('page')->getRoute()])."'>Edit this page</a>":''; ?>
+        <?=(isset($pageView)&&null!==$pageView->getVariable('area'))?$this->displayArea($pageView->getVariable('area')->getArea('footer')):null;?>
     </footer>
-
+<?php if(null!==$this->hasIdentity() && false!==$this->hasIdentity()):?>
     <div class="modal fade" id="updateModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -80,6 +83,7 @@ if(1==1) {
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+<?php endif;?>
     <?php
 //    $this->mainMenu()->setItems([
 //        [
@@ -126,6 +130,7 @@ if(1==1) {
         //$('.summernote').summernote();
     });
 </script>
+
 
 
 </body>

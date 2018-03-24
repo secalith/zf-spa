@@ -36,6 +36,7 @@ $aggregator = new ConfigAggregator([
     Content\ConfigProvider::class,
     Form\ConfigProvider::class,
     Auth\ConfigProvider::class,
+    User\ConfigProvider::class,
     View\ConfigProvider::class,
     TableData\ConfigProvider::class,
 //    Navigation\ConfigProvider::class,

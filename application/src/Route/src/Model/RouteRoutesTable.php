@@ -6,7 +6,7 @@ use Common\Model\CommonTableGateway;
 use Route\Entity\RouteRoutesEntity as Entity;
 use Zend\Db\TableGateway\TableGateway;
 
-class RouteRoutesTable extends CommonTableGateway
+class RouteRoutesTable
 {
     protected $cache_namespace = "routeRoutes_model_table";
 

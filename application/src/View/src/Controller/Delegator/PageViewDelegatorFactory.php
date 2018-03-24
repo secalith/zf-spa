@@ -97,6 +97,9 @@ class PageViewDelegatorFactory implements DelegatorFactoryInterface
                                                     ->fetchAllBy(['block' => $rootBlock->getUid(), 'parent_uid'=>$rootBlockContentData->getUid()]);
                                                 if( ! empty($rootBlockContentChild)) {
                                                     foreach ($rootBlockContentChild as $rootBlockContentChildData) {
+
+//                                                        $formAttributes = json_decode($rootBlockContentChildData->getAttributes());
+
                                                         $areaView->getArea($area)->getBlock($rootBlock)->getContent($rootBlockContentData)->setContent($rootBlockContentChildData);
                                                     }
                                                 }

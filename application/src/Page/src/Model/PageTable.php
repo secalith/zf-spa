@@ -12,7 +12,7 @@ use Auth\Model\UserModel as Model;
 use Zend\Db\Sql\Select;
 use Zend\Db\TableGateway\TableGateway;
 
-class PageTable extends CommonTable
+class PageTable
 {
     protected $tableGateway;
     protected $cache;

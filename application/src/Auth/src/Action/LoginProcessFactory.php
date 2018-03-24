@@ -17,15 +17,16 @@ class LoginProcessFactory
             ? $container->get(TemplateRendererInterface::class)
             : null;
 
+        /* @var \Zend\Authentication\AuthenticationService $authService */
         $authService = $container->get(\Zend\Authentication\AuthenticationService::class);
 
-        $authAdapter = '';
+//        if($authService->hasIdentity()) {
+//            var_dump($authService->getIdentity());
+//        }
 
         $authManager = $container->get(\Auth\Service\AuthManager::class);
 
-        $requestedService = new LoginProcessAction($router, $template, $authManager);
-
-
+        $requestedService = new LoginProcessAction($router, $template, $authManager,$authService);
 
         return $requestedService;
     }

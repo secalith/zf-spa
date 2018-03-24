@@ -1,13 +1,12 @@
 <?php
 
-namespace Auth\Action;
+namespace User\Action;
 
 use Psr\Container\ContainerInterface;
 use Zend\Expressive\Router\RouterInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
-use Zend\Db\Adapter\AdapterInterface;
 
-class LoginFactory
+class ReadFactory
 {
     public function __invoke(ContainerInterface $container)
     {
@@ -16,6 +15,8 @@ class LoginFactory
             ? $container->get(TemplateRendererInterface::class)
             : null;
 
-        return new LoginAction($router, $template);
+        $requestedAction = new ReadAction($router,$template);
+
+        return $requestedAction;
     }
 }

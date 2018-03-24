@@ -9,7 +9,7 @@ namespace Content\Model;
 use Common\Model\CommonTableGateway;
 use Zend\Db\TableGateway\TableGateway;
 
-class ContentTable extends CommonTableGateway
+class ContentTable
 {
     protected $cache_namespace = "content_model_table";
 

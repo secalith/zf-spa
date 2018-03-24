@@ -102,6 +102,23 @@ class ContentModel
         return json_decode($this->attributes,true);
     }
 
+    public function getAttribute($name)
+    {
+        $attributes = json_decode($this->attributes,true);
+        if(array_key_exists($name,$attributes)) {
+            return $attributes[$name];
+        }
+        return null;
+    }
+
+    public function setAttribute($name,$value)
+    {
+        $attributes = json_decode($this->attributes,true);
+        $attributes[$name] = $value;
+        $this->attributes = json_encode($attributes);
+        return $this;
+    }
+
     /**
      * @param mixed $attributes
      * @return NavigationModel

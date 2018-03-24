@@ -5,7 +5,7 @@ namespace Template\Model;
 use Common\Model\CommonTableGateway;
 use Zend\Db\TableGateway\TableGateway;
 
-class TemplateTable extends CommonTableGateway
+class TemplateTable
 {
     protected $cache_namespace = "template_model_table";
 

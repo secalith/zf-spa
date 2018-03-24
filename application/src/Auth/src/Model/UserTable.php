@@ -12,7 +12,7 @@ use Auth\Model\UserModel as Model;
 use Zend\Db\Sql\Select;
 use Zend\Db\TableGateway\TableGateway;
 
-class UserTable extends CommonTable
+class UserTable// extends CommonTable
 {
     protected $tableGateway;
     protected $cache;
@@ -117,17 +117,17 @@ class UserTable extends CommonTable
         $this->tableGateway->delete(array('uid' => $uid));
     }
 
-    public function fetchBy($value, $name = "uid")
+    public function fetchBy($value, $name = "uid",$muteException=false)
     {
         $rowset = $this->tableGateway->select(array($name => $value));
         $row = $rowset->current();
-        if (!$row) {
-//            throw new \Exception("Could not find row $value");
+        if ($muteException===false&&!$row) {
+            throw new \Exception("Could not find row $value");
         }
         return $row;
     }
 
-    public function fetchBya($value, $name = "uid")
+    public function fetchBya($value, $name = "uid",$muteException=false)
     {
         $this->cache_namespacee = $this->cache_namespace . "_by_".$name."_".$value;
         //$this->cache->removeItem($this->cache_namespacee);

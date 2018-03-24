@@ -13,7 +13,7 @@ use TableData\TableDataAwareInterface;
  *
  * @package View\Controller
  */
-class DataViewDelegatorFactory implements DelegatorFactoryInterface
+class CollectionViewDelegatorFactory implements DelegatorFactoryInterface
 {
 
     /**
@@ -29,9 +29,11 @@ class DataViewDelegatorFactory implements DelegatorFactoryInterface
         if ( ! call_user_func($callback) instanceof TableDataAwareInterface) {
             return call_user_func($callback);
         } else {
+            // get dataSource configuration
+
 
             $dbResult = $container->get("User\\Table")->listAll();
-
+//var_dump($dbResult);
             $callback = call_user_func($callback)->addTableData($dbResult,'users');
         }
 

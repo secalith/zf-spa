@@ -2,137 +2,107 @@
 
 namespace Auth\Action;
 
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
-use Zend\Authentication\Result;
-use Zend\Uri\Uri;
-use Auth\Form\LoginForm;
-use Auth\Entity\User;
+use TableData\TableDataAwareInterface;
+use TableData\TableDataAwareTrait;
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface as ServerMiddlewareInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Zend\Diactoros\Response\HtmlResponse;
+use Zend\Diactoros\Response\JsonResponse;
+use Zend\Expressive\Router;
+use Zend\Expressive\Template;
+use Zend\Expressive\Plates\PlatesRenderer;
+use Zend\Expressive\Twig\TwigRenderer;
+use Zend\Expressive\ZendView\ZendViewRenderer;
+use View\Controller\PageViewAwareInterface;
+use View\Controller\PageViewAwareTrait;
 
-/**
- * This controller is responsible for letting the user to log in and log out.
- */
-class LoginAction extends AbstractActionController
+class LoginAction implements ServerMiddlewareInterface, PageViewAwareInterface, TableDataAwareInterface
 {
-    /**
-     * Entity manager.
-     * @var Doctrine\ORM\EntityManager
-     */
-    private $entityManager;
+    use TableDataAwareTrait;
+    use PageViewAwareTrait;
 
-    /**
-     * Auth manager.
-     * @var User\Service\AuthManager
-     */
-    private $authManager;
+    private $router;
 
-    /**
-     * Auth service.
-     * @var \Zend\Authentication\AuthenticationService
-     */
-    private $authService;
+    private $template;
 
-    /**
-     * User manager.
-     * @var User\Service\UserManager
-     */
-    private $userManager;
+    private $page_view;
 
-    /**
-     * Constructor.
-     */
-    public function __construct($entityManager, $authManager, $authService, $userManager)
+    public function __construct(Router\RouterInterface $router, Template\TemplateRendererInterface $template = null)
     {
-        $this->entityManager = $entityManager;
-        $this->authManager = $authManager;
-        $this->authService = $authService;
-        $this->userManager = $userManager;
+        $this->router   = $router;
+        $this->template = $template;
     }
 
-    /**
-     * Authenticates user given email address and password credentials.
-     */
-    public function loginAction()
+    public function proscess(ServerRequestInterface $request, DelegateInterface $delegate)
     {
-        // Retrieve the redirect URL (if passed). We will redirect the user to this
-        // URL after successfull login.
-        $redirectUrl = (string)$this->params()->fromQuery('redirectUrl', '');
-        if (strlen($redirectUrl)>2048) {
-            throw new \Exception("Too long redirectUrl argument passed");
+
+       echo 7;
+
+        if (! $this->template) {
+            return new JsonResponse([
+                'welcome' => 'Congratulations! You have installed the zend-expressive skeleton application.',
+                'docsUrl' => 'https://docs.zendframework.com/zend-expressive/',
+            ]);
         }
 
-        // Check if we do not have users in database at all. If so, create
-        // the 'Admin' user.
-        $this->userManager->createAdminUserIfNotExists();
+        $data = [];
 
-        // Create login form
-        $form = new LoginForm();
-        $form->get('redirect_url')->setValue($redirectUrl);
-
-        // Store login status.
-        $isLoginError = false;
-
-        // Check if user has submitted the form
-        if ($this->getRequest()->isPost()) {
-
-            // Fill in the form with POST data
-            $data = $this->params()->fromPost();
-
-            $form->setData($data);
-
-            // Validate form
-            if($form->isValid()) {
-
-                // Get filtered and validated data
-                $data = $form->getData();
-
-                // Perform login attempt.
-                $result = $this->authManager->login($data['email'],
-                    $data['password'], $data['remember_me']);
-
-                // Check result.
-                if ($result->getCode()==Result::SUCCESS) {
-
-                    // Get redirect URL.
-                    $redirectUrl = $this->params()->fromPost('redirect_url', '');
-
-                    if (!empty($redirectUrl)) {
-                        // The below check is to prevent possible redirect attack
-                        // (if someone tries to redirect user to another domain).
-                        $uri = new Uri($redirectUrl);
-                        if (!$uri->isValid() || $uri->getHost()!=null)
-                            throw new \Exception('Incorrect redirect URL: ' . $redirectUrl);
-                    }
-
-                    // If redirect URL is provided, redirect the user to that URL;
-                    // otherwise redirect to Home page.
-                    if(empty($redirectUrl)) {
-                        return $this->redirect()->toRoute('home');
-                    } else {
-                        $this->redirect()->toUrl($redirectUrl);
-                    }
-                } else {
-                    $isLoginError = true;
-                }
-            } else {
-                $isLoginError = true;
-            }
+        if ($this->router instanceof Router\AuraRouter) {
+            $data['routerName'] = 'Aura.Router';
+            $data['routerDocs'] = 'http://auraphp.com/packages/2.x/Router.html';
+        } elseif ($this->router instanceof Router\FastRouteRouter) {
+            $data['routerName'] = 'FastRoute';
+            $data['routerDocs'] = 'https://github.com/nikic/FastRoute';
+        } elseif ($this->router instanceof Router\ZendRouter) {
+            $data['routerName'] = 'Zend Router';
+            $data['routerDocs'] = 'https://docs.zendframework.com/zend-router/';
         }
 
-        return new ViewModel([
-            'form' => $form,
-            'isLoginError' => $isLoginError,
-            'redirectUrl' => $redirectUrl
-        ]);
+        if ($this->template instanceof PlatesRenderer) {
+            $data['templateName'] = 'Plates';
+            $data['templateDocs'] = 'http://platesphp.com/';
+        } elseif ($this->template instanceof TwigRenderer) {
+            $data['templateName'] = 'Twig';
+            $data['templateDocs'] = 'http://twig.sensiolabs.org/documentation';
+        } elseif ($this->template instanceof ZendViewRenderer) {
+            $data['templateName'] = 'Zend View';
+            $data['templateDocs'] = 'https://docs.zendframework.com/zend-view/';
+        }
+
+        $data['pageView'] = $this->getPageView();
+
+        $data['pageData'] = $this->getTableData('users');
+//        var_dump($data['pageView']);
+
+//        $templateName = sprintf(
+//            "%s::%s",
+//            $data['pageView']->getVariable('template')->getLocation(),
+//            $data['pageView']->getVariable('template')->getName()
+//        );
+
+        $this->template->addDefaultParam(Template\TemplateRendererInterface::TEMPLATE_ALL,'pageView',$data['pageView']);
+        $this->template->addDefaultParam(Template\TemplateRendererInterface::TEMPLATE_ALL,'pageData',$data['pageData']);
+//
+        return new HtmlResponse($this->template->render('user::list', $data['pageView']));
     }
 
     /**
-     * The "logout" action performs logout operation.
+     * @return mixed
      */
-    public function logoutAction()
+    public function getPageView()
     {
-        $this->authManager->logout();
-
-        return $this->redirect()->toRoute('login');
+        return $this->page_view;
     }
+
+    /**
+     * @param mixed $page_view
+     * @return HomePageAction
+     */
+    public function setPageView($page_view)
+    {
+        $this->page_view = $page_view;
+        return $this;
+    }
+
 }
