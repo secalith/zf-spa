@@ -119,7 +119,11 @@ class UserTable// extends CommonTable
 
     public function fetchBy($value, $name = "uid",$muteException=false)
     {
-        $rowset = $this->tableGateway->select(array($name => $value));
+        if(is_array($value)){
+            $rowset = $this->tableGateway->select($value);
+        } else {
+            $rowset = $this->tableGateway->select(array($name => $value));
+        }
         $row = $rowset->current();
         if ($muteException===false&&!$row) {
             throw new \Exception("Could not find row $value");

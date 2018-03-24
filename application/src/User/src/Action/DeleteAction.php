@@ -16,9 +16,12 @@ use Zend\Expressive\Twig\TwigRenderer;
 use Zend\Expressive\ZendView\ZendViewRenderer;
 use View\Controller\PageViewAwareInterface;
 use View\Controller\PageViewAwareTrait;
+use Form\FormAwareInterface;
+use Form\FormAwareTrait;
 
-class ReadAction implements ServerMiddlewareInterface, PageViewAwareInterface, TableDataAwareInterface
+class DeleteAction implements ServerMiddlewareInterface, PageViewAwareInterface, TableDataAwareInterface, FormAwareInterface
 {
+    use FormAwareTrait;
     use TableDataAwareTrait;
     use PageViewAwareTrait;
 
@@ -45,6 +48,7 @@ class ReadAction implements ServerMiddlewareInterface, PageViewAwareInterface, T
 
         $data = [];
 
+        $data['pageForms'] = $this->getForms();
         $data['pageView'] = $this->getPageView();
         $data['pageData'] = $this->getTableData('user');
 
@@ -57,7 +61,7 @@ class ReadAction implements ServerMiddlewareInterface, PageViewAwareInterface, T
         $this->template->addDefaultParam(Template\TemplateRendererInterface::TEMPLATE_ALL,'pageView',$data['pageView']);
         $this->template->addDefaultParam(Template\TemplateRendererInterface::TEMPLATE_ALL,'pageData',$data['pageData']);
 //
-        return new HtmlResponse($this->template->render('user::read', $data));
+        return new HtmlResponse($this->template->render('user::delete', $data));
     }
 
     /**

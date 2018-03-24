@@ -58,6 +58,11 @@ class ConfigProvider extends CommonConfigProvider
                     \View\Controller\Delegator\PageViewDelegatorFactory::class,
                     \TableData\Action\Delegator\ItemViewDelegatorFactory::class,
                 ],
+                \User\Action\DeleteAction::class => [
+                    \Form\Delegator\FormDelegatorFactory::class,
+                    \View\Controller\Delegator\PageViewDelegatorFactory::class,
+                    \TableData\Action\Delegator\ItemViewDelegatorFactory::class,
+                ],
                 \User\Action\ListAction::class => [
                     \View\Controller\Delegator\PageViewDelegatorFactory::class,
                     \TableData\Action\Delegator\CollectionViewDelegatorFactory::class,
@@ -122,17 +127,12 @@ class ConfigProvider extends CommonConfigProvider
                         'post' => [
                             [
                                 'name' => 'user_delete',
-                                'fdqn' => \User\Form\CreateForm::class,
+                                'fdqn' => \User\Form\DeleteForm::class,
                             ],
                         ],
                     ],
                 ], // form
                 'data_view' => [
-                    'user.list' => [
-                        'service' => "User\\Table",
-                        'method' => 'listAll',
-                        'data_param' => 'users',
-                    ],
                     'user.read' => [
                         'service' => "User\\Table",
                         'method' => 'getItem',
@@ -142,15 +142,27 @@ class ConfigProvider extends CommonConfigProvider
                                 'param_name' => 'uid',
                                 'param_name_proxy' => 'uid',
                                 'service' => \Common\Helper\RouteHelper::class,
-                                'method' => 'getRouteResult',
-                                'params' => [
-                                    [
-                                        'param_name' => 'uid',
-                                        'param_name_proxy' => 'uid',
-                                    ],
-                                ],
+                                'method' => 'getMatchedParam',
                             ],
                         ],
+                    ],
+                    'user.delete' => [
+                        'service' => "User\\Table",
+                        'method' => 'getItem',
+                        'data_param' => 'user',
+                        'params' => [
+                            [
+                                'param_name' => 'uid',
+                                'param_name_proxy' => 'uid',
+                                'service' => \Common\Helper\RouteHelper::class,
+                                'method' => 'getMatchedParam',
+                            ],
+                        ],
+                    ],
+                    'user.list' => [
+                        'service' => "User\\Table",
+                        'method' => 'listAll',
+                        'data_param' => 'users',
                     ],
                 ], // data_view
             ], // module

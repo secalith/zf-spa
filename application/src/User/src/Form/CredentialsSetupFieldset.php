@@ -20,6 +20,35 @@ class CredentialsSetupFieldset extends Fieldset implements InputFilterProviderIn
 
         $this->add(array(
             'type' => 'Zend\Form\Element\Radio',
+            'name' => 'credentials_3d_security',
+            'options' => array(
+                'label' => '3d Security',
+                'value_options' => array(
+                    '0' => 'Disabled',
+                    '1' => 'Enabled',
+                ),
+            )
+        ));
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Text',
+            'name' => 'credentials_3d_security_mobile',
+            'options' => array(
+                'label' => 'Mobile',
+            )
+        ));
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Radio',
+            'name' => 'allow_oauth',
+            'options' => array(
+                'label' => 'Allow Open Access?',
+                'value_options' => array(
+                    'manual' => 'No',
+                    'email' => 'Yes, allow user to login with external services.',
+                ),
+            )
+        ));
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Radio',
             'name' => 'password_setup',
             'options' => array(
                 'label' => 'Password',

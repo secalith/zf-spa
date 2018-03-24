@@ -5,7 +5,7 @@ namespace User\Form;
 use Zend\Form\Element;
 use \Zend\Form\Form;
 
-class CreateForm extends Form
+class DeleteForm extends Form
 {
 
     public function __construct()
@@ -13,12 +13,17 @@ class CreateForm extends Form
 
         parent::__construct();
 
-        $this->add([
-            'type' => 'User\Form\CreateFieldset',
-            'options' => [
-                'use_as_base_fieldset' => true,
-            ],
-        ]);
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Radio',
+            'name' => 'allow_oauth',
+            'options' => array(
+                'label' => 'Remove or deactivate?',
+                'value_options' => array(
+                    'deactivate' => 'Deactivate',
+                    'remove' => 'Permanently remove',
+                ),
+            )
+        ));
 
 
         $this->add(new Element\Csrf('security'));

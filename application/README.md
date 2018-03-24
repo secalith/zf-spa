@@ -16,8 +16,56 @@ Routemap:
 * 0.11  Multi Data Storage
 * 0.12  Cache
 
-### Prerequisites ###
+## User Module ##
 
+### User Create ###
+It is possible to create already activated (and reado-to-use) User. Also, it is possible to create user with email address not activated, address in such case should be verified by the owner.
+In both cases it is possible to turn on or off the 3D Security.
+
+Emails sent upon manual account creation (by another user):
+* (optional) comfirmation email
+* (optional) password request email
+
+SMS sent
+* (optional) mobile verification
+
+## Form Module ##
+
+## TableData Module ##
+
+##### TableData\Action\Delegator\CollectionViewDelegatorFacotry ####
+##### TableData\Action\Delegator\ItemViewDelegatorFacotry ####
+
+example configuration:
+```php
+'data_view' => [
+// This one will be picked by ItemViewDelegatorFactory
+    'user.list' => [ // name of the Route
+        'service' => "User\\Table", // which service to call data from?
+        'method' => 'listAll', // which method in the service to call?
+        'data_param' => 'users', // index for $dataView, which is accessible accross the templates
+    ],
+// the following one will be processed by CollectionViewDelegatorFactory
+    'user.read' => [
+        'service' => "User\\Table",
+        'method' => 'getItem',
+        'data_param' => 'user',
+        'params' => [
+            [
+                'param_name' => 'uid', // name for the param used to obtain the parameter for the original service
+                'param_name_proxy' => 'uid', // the name under which the value is known for the initial service
+                'service' => \Common\Helper\RouteHelper::class,
+                'method' => 'getMatchedParam',
+            ],
+        ],
+    ],
+], // data_view
+```
+In the example we obtain user data for the user.read page. the database result generated with the config above is accessible inside ALL? templates as $pageData 
+
+There is too much magic going on. As the project is in prototype stage it is kinda of acceptable. Definitely should be broken into dataSource module/submodule.
+
+### Prerequisites ###
 * PHP-7.1 installed
 * PHP extensions: intl, xml, mbstring, dom
 * uses local *sqlite* database by default

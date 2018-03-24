@@ -45,29 +45,20 @@ class ItemViewDelegatorFactory implements DelegatorFactoryInterface
                         foreach($routeConfig['params'] as $param){
                             $paramService = $param['service'];
                             $paramMethod = $param['method'];
-                            $pResult = [];
-                            if(array_key_exists('params',$param)){
-                                foreach($param['params'] as $p){
-                                    $pResult[$p['param_name_proxy']] = $container->get($param['service'])->{$param['method']}($p['param_name']);
-                                }
-                                var_dump($pResult);
-                            } else {
-
-                            }
+                            $pResult[$param['param_name_proxy']] = $container->get($paramService)->{$paramMethod}($param['param_name']);
                         }
+
+                        $dbResult = $requestedService->{$requestedMethod}($pResult);
+
+                        $callback = call_user_func($callback)->addTableData($dbResult,$routeConfig['data_param']);
+
                     } else {
                         $dbResult = $container->get($requestedService)->{$requestedMethod}();
 
                         $callback = call_user_func($callback)->addTableData($dbResult,$routeConfig['data_param']);
                     }
-                    var_dump($routeConfig);
                 }
             }
-
-            var_dump($matchedParams);
-
-
-//var_dump($dbResult);
         }
 
         if ($callback instanceof TableDataAwareInterface) {

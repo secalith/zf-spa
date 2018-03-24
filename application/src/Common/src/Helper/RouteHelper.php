@@ -48,4 +48,10 @@ class RouteHelper
     {
         return $this->routeResult;
     }
+
+    public function getMatchedParam($paramName)
+    {
+        $matchedParams = $this->routeResult->getMatchedParams();
+        return $matchedParams[$paramName];
+    }
 }
