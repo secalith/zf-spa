@@ -37,12 +37,12 @@ class ConfigProvider extends CommonConfigProvider
     {
         return [
             'factories' => [
-                \User\Action\ListAction::class => Action\ListFactory::class,
                 \User\Action\CreateAction::class => Action\CreateFactory::class,
                 \User\Action\CreateProcessAction::class => Action\CreateProcessFactory::class,
                 \User\Action\ReadAction::class => Action\ReadFactory::class,
                 \User\Action\UpdateAction::class => Action\UpdateFactory::class,
                 \User\Action\DeleteAction::class => Action\DeleteFactory::class,
+                \User\Action\ListAction::class => Action\ListFactory::class,
                 "User\\Table" => \User\Service\Factory\UserTableServiceFactory::class,
                 "User\\Gateway" => \User\Service\Factory\UserTableGatewayFactory::class,
             ],
@@ -55,6 +55,11 @@ class ConfigProvider extends CommonConfigProvider
                     \TableData\Action\Delegator\CollectionViewDelegatorFactory::class,
                 ],
                 \User\Action\ReadAction::class => [
+                    \View\Controller\Delegator\PageViewDelegatorFactory::class,
+                    \TableData\Action\Delegator\ItemViewDelegatorFactory::class,
+                ],
+                \User\Action\UpdateAction::class => [
+                    \Form\Delegator\FormDelegatorFactory::class,
                     \View\Controller\Delegator\PageViewDelegatorFactory::class,
                     \TableData\Action\Delegator\ItemViewDelegatorFactory::class,
                 ],

@@ -9,6 +9,7 @@ function myAsyncFunction(url) {
 });
 }
 
+// Update content
 class Update {
     constructor() {
 

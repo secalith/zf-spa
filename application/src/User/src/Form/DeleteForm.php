@@ -25,6 +25,16 @@ class DeleteForm extends Form
             )
         ));
 
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Checkbox',
+            'name' => 'email_confirmation',
+            'options' => array(
+                'label' => 'Send Confirmation email',
+                'use_hidden_element' => true,
+                'checked_value' => '1',
+                'unchecked_value' => '0'
+            )
+        ));
 
         $this->add(new Element\Csrf('security'));
 

@@ -1,0 +1,11 @@
+<h2>Edit User</h2>
+
+<a href="<?=$this->url('user.list')?>">User List</a>
+
+<?php if($pageForms): ?>
+    <?php foreach($pageForms as $form):?>
+        <?php $form->prepare(); ?>
+        <?=$this->plugin('form')($form); ?>
+    <?php endforeach;?>
+<?php endif;?>
+

@@ -17,11 +17,6 @@ class UpdateFactory
 
         $requestedAction = new UpdateAction($router,$template);
 
-        // get users and pass to the requested ctrl as list
-        $dbResult = $container->get("User\\Table")->listAll();
-
-//        var_dump($dbResult);
-
         return $requestedAction;
     }
 }

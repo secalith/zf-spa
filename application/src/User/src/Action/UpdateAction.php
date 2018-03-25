@@ -91,7 +91,7 @@ class UpdateAction implements ServerMiddlewareInterface, PageViewAwareInterface,
         $this->template->addDefaultParam(Template\TemplateRendererInterface::TEMPLATE_ALL,'pageData',$data['pageData']);
         $this->template->addDefaultParam(Template\TemplateRendererInterface::TEMPLATE_ALL,'pageForms',$data['pageForms']);
 //
-        return new HtmlResponse($this->template->render('user::create', $data['pageView']));
+        return new HtmlResponse($this->template->render('user::update', $data['pageView']));
     }
 
     /**

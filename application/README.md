@@ -16,20 +16,23 @@ Routemap:
 * 0.11  Multi Data Storage
 * 0.12  Cache
 
-## User Module ##
 
-### User Create ###
-It is possible to create already activated (and reado-to-use) User. Also, it is possible to create user with email address not activated, address in such case should be verified by the owner.
-In both cases it is possible to turn on or off the 3D Security.
 
-Emails sent upon manual account creation (by another user):
-* (optional) comfirmation email
-* (optional) password request email
+### Prerequisites ###
+* PHP-7.1 installed
+* PHP extensions: intl, xml, mbstring, dom
+* uses local *sqlite* database by default
 
-SMS sent
-* (optional) mobile verification
 
-## Form Module ##
+
+
+## Page Concept ###
+### Page Module ###
+
+## Form Contept ##
+
+### Form Module ###
+There are several ways of using the forms. One invloves the zf2-style factory backed forms, forms from config->forms specification or the secalith-spa way which involves using build-in form wizard/daemon
 
 ## TableData Module ##
 
@@ -65,7 +68,18 @@ In the example we obtain user data for the user.read page. the database result g
 
 There is too much magic going on. As the project is in prototype stage it is kinda of acceptable. Definitely should be broken into dataSource module/submodule.
 
-### Prerequisites ###
-* PHP-7.1 installed
-* PHP extensions: intl, xml, mbstring, dom
-* uses local *sqlite* database by default
+## User Module ##
+
+### User Create ###
+It is possible to create already activated (and reado-to-use) User. Also, it is possible to create user with email address not activated, address in such case should be verified by the owner.
+In both cases it is possible to turn on or off the 3D Security.
+
+Emails sent upon manual account creation (by another user):
+* (optional) comfirmation email
+* (optional) password request email
+
+SMS sent
+* (optional) mobile verification
+
+
+## Custom JS ##
