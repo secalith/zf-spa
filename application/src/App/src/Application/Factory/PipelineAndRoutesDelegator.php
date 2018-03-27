@@ -93,6 +93,11 @@ class PipelineAndRoutesDelegator
 //        $app->get('/user/export',\Auth\Action\ExportUserAction::class,'user.export');
 //        $app->get('/user/list',\Auth\Action\ListUserAction::class,'user.list');
 
+        $app->get('/messenger/chat/status',\Messenger\Action\ChatStatusAction::class,'messenger.chat.status');
+        $app->post('/messenger/chat/create',\User\Action\CreateAction::class,'messenger.chat.create');
+        $app->get('/messenger/chat/read',\User\Action\CreateAction::class,'messenger.chat.read');
+
+
         return $app;
     }
 }

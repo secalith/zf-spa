@@ -15,7 +15,7 @@ class DeleteForm extends Form
 
         $this->add(array(
             'type' => 'Zend\Form\Element\Radio',
-            'name' => 'allow_oauth',
+            'name' => 'remove_deactivate',
             'options' => array(
                 'label' => 'Remove or deactivate?',
                 'value_options' => array(
@@ -23,6 +23,11 @@ class DeleteForm extends Form
                     'remove' => 'Permanently remove',
                 ),
             )
+        ));
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Hidden',
+            'name' => 'uid',
         ));
 
         $this->add(array(

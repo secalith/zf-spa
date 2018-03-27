@@ -14,9 +14,14 @@ $this->inlineScript()
 if(null!==$this->hasIdentity()) {
     $this->inlineScript()->prependFile('/assets/scripts/editor.js')
         ->appendFile('/assets/scripts/summernote.js')
+        ->appendFile('/assets/scripts/html.js')
+        ->appendFile('/assets/scripts/timeout.js')
+        ->appendFile('/assets/scripts/chat.js')
     ;
     $this->headLink()->appendStylesheet('/assets/styles/mode-edit.css')
         ->appendStylesheet('/assets/styles/summernote.css')
+        ->appendStylesheet('/assets/styles/chat.css')
+        ->appendStylesheet('/assets/styles/common.css')
     ;
 }
 
@@ -64,6 +69,11 @@ if(null!==$this->hasIdentity()) {
         <?=(null!==$this->hasIdentity() && null!==$pageView  && false!==$this->hasIdentity())?"<a href='".$this->url('page.edit',['uid'=>$pageView->getVariable('page')->getRoute()])."'>Edit this page</a>":''; ?>
         <?=(isset($pageView)&&null!==$pageView->getVariable('area'))?$this->displayArea($pageView->getVariable('area')->getArea('footer')):null;?>
     </footer>
+
+    <?php echo $this->partial('messenger::chat_window', array(
+        'from' => 'Team Framework',
+        'subject' => 'view partials')); ?>
+
 <?php if(null!==$this->hasIdentity() && false!==$this->hasIdentity()):?>
     <div class="modal fade" id="updateModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
@@ -123,6 +133,10 @@ if(null!==$this->hasIdentity()) {
     ?>
     <?php echo $this->inlineScript(); ?>
 <script>
+    var chat = new Chat('chat');
+<?php if(null!==$this->hasIdentity() && false!==$this->hasIdentity()):?>
+    chat.setIdentity('<?=$this->getIdentity();?>');
+<?php endif; ?>
     window.onbeforeunload = function (e) {
         console.log(e);
     }

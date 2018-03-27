@@ -39,6 +39,7 @@ $aggregator = new ConfigAggregator([
     User\ConfigProvider::class,
     View\ConfigProvider::class,
     TableData\ConfigProvider::class,
+    Messenger\ConfigProvider::class,
 //    Navigation\ConfigProvider::class,
 
     // Load application config in a pre-defined order in such a way that local settings

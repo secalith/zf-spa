@@ -4,6 +4,17 @@
 <a href="<?=$this->url('user.update',['uid'=>1]);?>" class="btn btn-default">Edit</a>
 <a href="<?=$this->url('user.delete',['uid'=>1])?>" class="btn btn-default">Delete</a>
 
-<?php
-var_dump($pageData);
-?>
+<div class="row">
+    <div class="col-sm-2">
+        Full Name
+    </div>
+    <div class="col-sm-9">
+        <?=$pageData->full_name;?>
+    </div>
+    <div class="col-sm-2">
+        Email
+    </div>
+    <div class="col-sm-9">
+        <?=$pageData->email;?>
+    </div>
+</div>

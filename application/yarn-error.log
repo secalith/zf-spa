@@ -1,8 +1,8 @@
 Arguments: 
-  /usr/bin/node /usr/share/yarn/bin/yarn.js add jquery.scrolbar --save
+  /usr/bin/node /usr/share/yarn/bin/yarn.js install
 
 PATH: 
-  /home/jamjan/bin:/home/jamjan/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+  /home/vagrant/bin:/home/vagrant/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
 
 Yarn version: 
   1.5.1
@@ -23,20 +23,19 @@ npm manifest:
       "test": "test"
     },
     "dependencies": {
-      "bower": "^1.8.2",
-      "yarn": "^1.5.1",
-      "jquery": "^3.3.1",
       "bootstrap": "^3.0.0",
-      "components-font-awesome": "^5.0.6",
-      "summernote": "^0.8.10"
+      "jquery": "^3.3.1",
+      "jquery.scrollbar": "^0.2.11",
+      "summernote": "^0.8.10",
+      "yarn": "^1.5.1"
     },
     "devDependencies": {
-      "grunt-contrib-less": "^1.4.1",
       "grunt": "^1.0.1",
-      "grunt-contrib-copy": "*",
       "grunt-contrib-clean": "*",
       "grunt-contrib-concat": "*",
+      "grunt-contrib-copy": "*",
       "grunt-contrib-cssmin": "*",
+      "grunt-contrib-less": "^1.4.1",
       "grunt-contrib-uglify": "*",
       "grunt-contrib-watch": "*"
     },
@@ -724,6 +723,10 @@ Lockfile:
     version "0.1.2"
     resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
   
+  jquery.scrollbar@^0.2.11:
+    version "0.2.11"
+    resolved "https://registry.yarnpkg.com/jquery.scrollbar/-/jquery.scrollbar-0.2.11.tgz#e91bd4a97d83859463024d26e730dc36676ab59d"
+  
   jquery@^3.3.1:
     version "3.3.1"
     resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
@@ -1339,11 +1342,4 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/yarn/-/yarn-1.5.1.tgz#e8680360e832ac89521eb80dad3a7bc27a40bab4"
 
 Trace: 
-  Error: Couldn't find package "jquery.scrolbar" on the "npm" registry.
-      at new MessageError (/usr/share/yarn/lib/cli.js:186:110)
-      at NpmResolver.<anonymous> (/usr/share/yarn/lib/cli.js:51625:15)
-      at Generator.next (<anonymous>)
-      at step (/usr/share/yarn/lib/cli.js:98:30)
-      at /usr/share/yarn/lib/cli.js:109:13
-      at <anonymous>
-      at process._tickCallback (internal/process/next_tick.js:188:7)
+  Error: EACCES: permission denied, scandir '/home/vagrant/.config/yarn/link'

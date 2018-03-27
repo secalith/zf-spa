@@ -1,6 +1,9 @@
 <h2>Edit User</h2>
 
-<a href="<?=$this->url('user.list')?>">User List</a>
+<a href="<?=$this->url('user.list')?>" class="btn btn-default">List</a>
+<a href="<?=$this->url('user.read',['uid'=>1])?>" class="btn btn-default">Details</a>
+<a href="<?=$this->url('user.delete',['uid'=>1])?>" class="btn btn-default">Delete</a>
+
 
 <?php if($pageForms): ?>
     <?php foreach($pageForms as $form):?>

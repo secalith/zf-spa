@@ -2,17 +2,25 @@
 <span>Action:</span>
 <a href="<?=$this->url('user.list')?>" class="btn btn-default">List</a>
 <a href="<?=$this->url('user.update',['uid'=>1]);?>" class="btn btn-default">Edit</a>
-<a href="<?=$this->url('user.delete',['uid'=>1])?>" class="btn btn-default">Delete</a>
 
 <h3>Are you sure you want to delete the user?</h3>
-
+<div class="row">
+    <div class="col-sm-2">
+        Full Name
+    </div>
+    <div class="col-sm-9">
+        <?=$pageData->full_name;?>
+    </div>
+    <div class="col-sm-2">
+        Email
+    </div>
+    <div class="col-sm-9">
+        <?=$pageData->email;?>
+    </div>
+</div>
 <?php if($pageForms): ?>
     <?php foreach($pageForms as $form):?>
         <?php $form->prepare(); ?>
         <?=$this->plugin('form')($form); ?>
     <?php endforeach;?>
 <?php endif;?>
-
-<?php
-var_dump($pageData);
-?>

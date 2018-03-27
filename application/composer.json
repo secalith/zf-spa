@@ -54,7 +54,8 @@
             "User\\": "src/User/src/",
             "View\\": "src/View/src/",
             "Navigation\\": "src/Navigation/src/",
-            "TableData\\": "src/TableData/src/"
+            "TableData\\": "src/TableData/src/",
+            "Messenger\\": "src/Messenger/src/"
         }
     },
     "autoload-dev": {
