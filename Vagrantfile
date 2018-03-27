@@ -98,7 +98,7 @@ sudo apt-get install nodejs -y
 sudo apt-get install build-essential -y
 #sudo apt-get install npm -y
 #sudo npm install yarn
-#sudo npm install grunt-cli
+sudo npm install -g grunt-cli
 
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
@@ -109,7 +109,8 @@ sudo apt-get update && sudo apt-get install yarn
 # Install nodejs dependencies
 cd /var/www/application
 sudo yarn install
-#grunt
+
+grunt
 
 # Reset home directory of vagrant user
 if ! grep -q "cd /var/www" /home/vagrant/.profile; then

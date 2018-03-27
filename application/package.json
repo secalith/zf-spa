@@ -8,19 +8,20 @@
   },
   "dependencies": {
     "bootstrap": "^3.0.0",
+    "grunt-cli": "^1.2.0",
     "jquery": "^3.3.1",
     "jquery.scrollbar": "^0.2.11",
     "summernote": "^0.8.10",
     "yarn": "^1.5.1"
   },
   "devDependencies": {
-    "grunt": "^1.0.1",
+    "grunt": "^1.0.2",
     "grunt-contrib-clean": "*",
     "grunt-contrib-concat": "*",
     "grunt-contrib-copy": "*",
     "grunt-contrib-cssmin": "*",
     "grunt-contrib-less": "^1.4.1",
-    "grunt-contrib-uglify": "*",
+    "grunt-contrib-uglify-es": "*",
     "grunt-contrib-watch": "*"
   },
   "scripts": {

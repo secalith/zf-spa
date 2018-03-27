@@ -1,27 +1,18 @@
 <?php
-$this->headLink()
-    ->prependStylesheet('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css')
-    ->prependStylesheet('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css')
-;
 
+// Inlcude common Styles
+$this->headLink() ->prependStylesheet('/assets/styles/styles.min.css');
+$this->headLink() ->prependStylesheet('/assets/styles/common.min.css');
 
-$this->inlineScript()
-    ->prependFile('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js')
-    ->prependFile('https://code.jquery.com/jquery-2.1.4.min.js')
-;
-
+$this->inlineScript()->prependFile('/assets/scripts/modules.min.js');
+$this->inlineScript()->appendFile('/assets/scripts/common.min.js');
 
 if(null!==$this->hasIdentity()) {
-    $this->inlineScript()->prependFile('/assets/scripts/editor.js')
-        ->appendFile('/assets/scripts/summernote.js')
-        ->appendFile('/assets/scripts/html.js')
-        ->appendFile('/assets/scripts/timeout.js')
-        ->appendFile('/assets/scripts/chat.js')
+    $this->inlineScript()
+        ->appendFile('/assets/scripts/editor.min.js')
     ;
-    $this->headLink()->appendStylesheet('/assets/styles/mode-edit.css')
-        ->appendStylesheet('/assets/styles/summernote.css')
-        ->appendStylesheet('/assets/styles/chat.css')
-        ->appendStylesheet('/assets/styles/common.css')
+    $this->headLink()
+        ->appendStylesheet('/assets/styles/editor.min.css')
     ;
 }
 
