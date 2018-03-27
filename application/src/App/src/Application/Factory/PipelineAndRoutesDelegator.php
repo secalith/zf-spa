@@ -65,6 +65,9 @@ class PipelineAndRoutesDelegator
                 case '\User\Action\ListAction':
                     $app->get($item->getRoute(), \User\Action\ListAction::class, $item->getName());
                     break;
+                case '\Page\Action\ListAction':
+                    $app->get($item->getRoute(), \Page\Action\ListAction::class, $item->getName());
+                    break;
                 default:
                 case '\Page\Action\PageAction':
                     $app->get($item->getRoute(), \Page\Action\PageAction::class, $item->getName());
@@ -75,7 +78,7 @@ class PipelineAndRoutesDelegator
         }
 
         // content actions
-        $app->get('/page/list',\Page\Action\PageAction::class,'page.list');
+//        $app->get('/page/list',\Page\Action\PageAction::class,'page.list');
 //        $app->get('/user/list',\User\Action\ListAction::class,'user.list');
         $app->get('/user/account',\Page\Action\PageAction::class,'user.account');
         $app->get('/edit/page/:uid',\Page\Action\EditPageAction::class,'page.edit');

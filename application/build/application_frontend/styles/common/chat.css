@@ -5,10 +5,28 @@
     background:#999999;
     min-width:240px;
 }
-#chat-content {
+
+#chat-wrapper .chat-tab-maximize {
+    display:none;
+}
+#chat-wrapper.chat-display-minimized .chat-tab-maximize {
+    display:inline-block;
+}
+#chat-wrapper .chat-tab-minimize {
+    display:inline-block;
+}
+#chat-wrapper.chat-display-minimized .chat-tab-minimize {
+    display:none;
+}
+#chat-wrapper.chat-display-minimized #chat-body {
+    display:none;
+}
+
+#chat-wrapper #chat-body {
+    display:block;
     padding:5px;
 }
-#chat-history {
+#chat-content {
     min-height:240px;
     background-color: #eee;
 }

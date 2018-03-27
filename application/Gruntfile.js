@@ -146,10 +146,23 @@ module.exports = function(grunt) {
                     ]
                 }
             }
+        },
+        watch: {
+            src: {
+                files: [
+                    'Gruntfile.js',
+                    './build/application_frontend/styles/common/*.css',
+                    './build/application_frontend/styles/editor/*.css',
+                    './build/application_frontend/scripts/common/*.js',
+                    './build/application_frontend/scripts/editor/*.js'
+                ],
+                tasks: ['default']
+            }
         }
     });
 
     // Load the plugin that provides the "uglify" task.
+    grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
@@ -184,6 +197,7 @@ module.exports = function(grunt) {
         'cssmin:application_editor',
         'clean:css_all',
 
-        'clean:tmp'
+        'clean:tmp',
+        'watch'
     ]);
 };

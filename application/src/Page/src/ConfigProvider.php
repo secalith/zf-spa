@@ -42,9 +42,25 @@ class ConfigProvider extends CommonConfigProvider
                                 ],
                             ],
                         ],
-                    ],
-                ],
+                    ], // route
+                    'data_view' => [
+                        'page.list' => [
+                            'service' => "Page\\Table",
+                            'method' => 'fetchAll',
+                            'data_param' => 'pages',
+                        ],
+                    ], // data_view
+                ], // module
             ], // application
+        ];
+    }
+
+    public function getTemplates()
+    {
+        return [
+            'paths' => [
+                'page' => [__DIR__ . '/../templates/page'],
+            ],
         ];
     }
 
@@ -56,7 +72,39 @@ class ConfigProvider extends CommonConfigProvider
                 "Page\\Gateway" => \Page\Service\Factory\PageTableGatewayFactory::class,
                 "Page\\Service" => \Page\Service\Factory\PageServiceFactory::class,
                 \Page\Action\PageAction::class => Action\PageFactory::class,
+                \Page\Action\ListAction::class => Action\ListFactory::class,
                 Action\EditPageAction::class => Action\EditPageFactory::class,
+            ],
+            'delegators' => [
+
+//                \User\Action\CreateAction::class => [
+//                    \Form\Delegator\FormDelegatorFactory::class,
+//                    \Form\Delegator\FormFactoryDelegatorFactory::class,
+//                    \View\Controller\Delegator\PageViewDelegatorFactory::class,
+//                    \TableData\Action\Delegator\CollectionViewDelegatorFactory::class,
+//                ],
+//                \User\Action\ReadAction::class => [
+//                    \View\Controller\Delegator\PageViewDelegatorFactory::class,
+//                    \TableData\Action\Delegator\ItemViewDelegatorFactory::class,
+//                ],
+//                \User\Action\UpdateAction::class => [
+//                    \Form\Delegator\FormDelegatorFactory::class,
+//                    \View\Controller\Delegator\PageViewDelegatorFactory::class,
+//                    \TableData\Action\Delegator\ItemViewDelegatorFactory::class,
+//                ],
+//                \User\Action\DeleteAction::class => [
+//                    \Form\Delegator\FormDelegatorFactory::class,
+//                    \View\Controller\Delegator\PageViewDelegatorFactory::class,
+//                    \TableData\Action\Delegator\ItemViewDelegatorFactory::class,
+//                ],
+                \Page\Action\ListAction::class => [
+                    \View\Controller\Delegator\PageViewDelegatorFactory::class,
+                    \TableData\Action\Delegator\CollectionViewDelegatorFactory::class,
+                ],
+//                \User\Action\ReadAction::class => [
+//                    \View\Controller\Delegator\PageViewDelegatorFactory::class,
+//                    \TableData\Action\Delegator\CollectionViewDelegatorFactory::class,
+//                ],
             ],
         ];
     }

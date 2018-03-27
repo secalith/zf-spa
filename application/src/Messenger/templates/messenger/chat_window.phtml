@@ -1,17 +1,29 @@
-<div class="chat-enable chat-minimized" id="chat-wrapper">
+<div class="chat-enable chat-display-minimized" id="chat-wrapper">
     <div id="chat-tab">
         <h4>
             <span>Chat</span>
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-            <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
+            <a class="chat-tab-maximize pull-right" href="#">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            </a>
+            <a class="chat-tab-minimize pull-right" href="#">
+                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+            </a>
+            <a href="/messenger/chat">
+                <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
+            </a>
             <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
         </h4>
     </div>
-    <div id="chat-content">
-        <div id="chat-history">
+    <div id="chat-body">
+        <div id="chat-content">
             <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate pull-right"></span>
         </div>
+        <label class="pull-right">
+            <span>send with Enter</span>
+            <input id="chat-option-enter_send" type="checkbox" name="key_enter_send" />
+        </label>
+        <div class="clearfix"></div>
+
         <hr />
         <input id="chat-text" type="text" />
         <input id="chat-submit-btn" class="btn-submit btn btn-default" type="submit" value="Send" />

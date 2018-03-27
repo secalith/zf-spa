@@ -30,7 +30,6 @@ class ItemViewDelegatorFactory implements DelegatorFactoryInterface
             return call_user_func($callback);
         } else {
             // get dataSource configuration
-
             $currentRouteName = $container->get(\Common\Helper\RouteHelper::class)->getMatchedRouteName();
             $matchedParams = $container->get(\Common\Helper\RouteHelper::class)->getRouteResult()->getMatchedParams();
 
@@ -53,7 +52,7 @@ class ItemViewDelegatorFactory implements DelegatorFactoryInterface
                         $callback = call_user_func($callback)->addTableData($dbResult,$routeConfig['data_param']);
 
                     } else {
-                        $dbResult = $container->get($requestedService)->{$requestedMethod}();
+                        $dbResult = $requestedService->{$requestedMethod}();
 
                         $callback = call_user_func($callback)->addTableData($dbResult,$routeConfig['data_param']);
                     }
