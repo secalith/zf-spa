@@ -19,6 +19,11 @@ CREATE TABLE "user" (
 );
 INSERT INTO `user` VALUES (1,'jan@secalith.uk','jan','$2y$10$AcX/A1kuOuurYrppr1ecMOB3YhAab7ABMjuVmDVO6VTsiYT5AUQ96',1,'',NULL,NULL),
  (2,'accounts@secalith.uk','accounts','$2y$10$AcX/A1kuOuurYrppr1ecMOB3YhAab7ABMjuVmDVO6VTsiYT5AUQ96',1,'',NULL,NULL);
+CREATE TABLE "total_message" (
+	`uid`	varchar(255) NOT NULL,
+	`total_messages`	INTEGER,
+	PRIMARY KEY(uid)
+);
 CREATE TABLE template (label TEXT, uid text PRIMARY KEY, name text, type text, location text);
 INSERT INTO `template` VALUES (NULL,'template-001','home-page','view','app'),
  (NULL,'template-100','template_full','filesystem','template'),
@@ -26,7 +31,8 @@ INSERT INTO `template` VALUES (NULL,'template-001','home-page','view','app'),
  (NULL,'template-201','user_create','filesystem','user'),
  (NULL,'template-202','update','filesystem','user'),
  (NULL,'template-203','delete','filesystem','user'),
- (NULL,'template-204','list','filesystem','user');
+ (NULL,'template-204','list','filesystem','user'),
+ (NULL,'template-301','list','filesystem','page');
 CREATE TABLE seo (description TEXT, page_uid TEXT, title TEXT, keywords TEXT, uid TEXT);
 INSERT INTO `seo` VALUES ('homepage description','page-001','eCancer Homepage','keyword-1, keyword-2','seo-001'),
  ('/authenticate','b1360a73-3ded-4a51-93d1-dce5887d9b70','/authenticate','/authenticate','c1f591ec-f2b9-414b-ba53-9b097ed0496f'),
@@ -90,7 +96,8 @@ INSERT INTO `route_routes` VALUES ('0','{''defaults'':{}}','/','display','index'
  ('0','{}','/user/read/:uid','display','index','\User\Action\ReadAction','route','user','route-route-user.read','route-user.read','user.read','{}','{}'),
  ('0','{}','/user/edit/:uid','display','index','\User\Action\UpdateAction','route','user','route-route-user.update','route-user.update','user.update','{}','{}'),
  ('0','{}','/user/delete/:uid','display','index','\User\Action\DeleteAction','route','user','route-route-user.delete','route-user.delete','user.delete','{}','{}'),
- ('0','{}','/user/list','display','index','\User\Action\ListAction','route','user','route-route-page.list','route-user.list','user.list','{}','{}');
+ ('0','{}','/user/list','display','index','\User\Action\ListAction','route','user','route-route-page.list','route-user.list','user.list','{}','{}'),
+ (NULL,'{}','/page/list','display','index','\Page\Action\ListAction','route','page','route-route-page.list','route-page.list','page.list','{}','{}');
 CREATE TABLE route_acl (
     "route_name" VARCHAR(64) NOT NULL,
     "role" VARCHAR(64) NOT NULL,
@@ -155,7 +162,8 @@ INSERT INTO `route` VALUES ('route-001','home'),
  ('route-user.read','user.read'),
  ('route-user.update','user.update'),
  ('route-user.delete','user.delete'),
- ('route-user.list','user.list');
+ ('route-user.list','user.list'),
+ ('route-page.list','page.list');
 CREATE TABLE rbac_users (
     "user_uid" TEXT,
     "role_uid" TEXT
@@ -182,7 +190,8 @@ INSERT INTO `page` VALUES ('1','/','page-001','home','template-001','route-001')
  ('0','/logout','page-logout','logout',NULL,'route-logout'),
  ('0','/user/read/:uid','page-user.read','user.read','template-201','route-user.read'),
  ('0','/user/edit/:uid','page-user.update','user.update','template-202','route-user.update'),
- ('0','/user/delete/:uid','page-user.delete','user.delete','template-203','route-user.delete');
+ ('0','/user/delete/:uid','page-user.delete','user.delete','template-203','route-user.delete'),
+ ('0','/page/list','page-page.list','page.list','template-301','route-page.list');
 CREATE TABLE navigation (
     "route" TEXT,
     "uid" TEXT,
@@ -192,6 +201,12 @@ CREATE TABLE navigation (
 , "parent" TEXT   DEFAULT (0));
 INSERT INTO `navigation` VALUES ('homepage','main_menu-homepage-001','Home','en_gb','main_menu','0'),
  ('login','main_menu-journal-001','Journal','en_gb','user_menu','0');
+CREATE TABLE `messages` (
+	`identifier_coversation_message_number`	varchar(255) NOT NULL,
+	`message`	TEXT,
+	`from`	INTEGER,
+	PRIMARY KEY(identifier_coversation_message_number)
+);
 CREATE TABLE menu_item (item_order NUMERIC, location TEXT, status NUMERIC, label TEXT, menu_uid TEXT, uid TEXT PRIMARY KEY);
 INSERT INTO `menu_item` VALUES (1,'http://ecancerpatient.org',1,'ecancerpatient','menu-001','menu_item_001'),
  (2,'/en/',1,'English','menu-001','menu_item_002'),
@@ -291,7 +306,15 @@ Also, we would let you to watch you live the Email Queue Application in action.'
  ('content-062','block-050',3,'template-001','text','{"href":"[::{\"url\":{\"page.update\":{\"url\":\"uid\"}}}::]"}','{"html_tag":"a"}','{"wrapper":{"outer":{"parameters":{"html_tag":"li"}}}}','Edit this Page','0'),
  ('content-063','block-050',4,'template-001','text','{"href":"[::{\"url\":\"page.list\"}::]"}','{"html_tag":"a"}','{"wrapper":{"outer":{"parameters":{"html_tag":"li"}}}}','Pages','0'),
  ('content-064','block-050',5,'template-001','text','{"href":"[::{\"url\":\"user.list\"}::]"}','{"html_tag":"a"}','{"wrapper":{"outer":{"parameters":{"html_tag":"li"}}}}','Users','0'),
- ('content-065','block-050',6,'template-001','text','{"href":"[::{\"url\":\"user.account\"}::]"}','{"html_tag":"a"}','{"wrapper":{"outer":{"parameters":{"html_tag":"li"}}}}','Logged in as <strong>[::viewHelper:getIdentity::]</strong>','0');
+ ('content-065','block-050',6,'template-001','text','{"href":"[::{\"url\":\"user.account\"}::]"}','{"html_tag":"a"}','{"wrapper":{"outer":{"parameters":{"html_tag":"li"}}}}','Logged in as <strong>[::viewHelper:getIdentity::]</strong>','0'),
+ ('content-500','block-500',3,NULL,'link','{"href":"/page/list"}','{"html_tag":"a"}','{"wrapper":{"outer":{"parameters":{"html_tag":"li"},"attributes":{"role":"presentation"}}}}','Pages','0'),
+ ('content-501','block-500',4,NULL,'link','{"href":"/user/list"}','{"html_tag":"a"}','{"wrapper":{"outer":{"parameters":{"html_tag":"li"},"attributes":{"role":"presentation"}}}}','Users','0'),
+ ('content-502','block-500',5,NULL,'separator','{"class":"separator clreafix"}','{"html_tag":"hr"}','{"wrapper":{"outer":{"parameters":{"html_tag":"li"}}}}',NULL,'0'),
+ ('content-503','block-500',6,NULL,'link','{"href":"/logout"}','{"html_tag":"a"}','{"wrapper":{"outer":{"parameters":{"html_tag":"li"},"attributes":{"role":"presentation"}}}}','Logout','0'),
+ ('content-504','block-500',1,NULL,'link','{"href":"[::{\"url\":{\"page.update\":{\"url\":\"uid\"}}}::]"}','{"html_tag":"a"}','{"wrapper":{"outer":{"parameters":{"html_tag":"li"}}}}','Edit this Page','0'),
+ ('content-505','block-500',2,NULL,'separator','{"class":"separator clreafix"}','{"html_tag":"hr"}','{"wrapper":{"outer":{"parameters":{"html_tag":"li"}}}}',NULL,'0'),
+ ('content-506','block-500',0,NULL,'link','{"id":"menu-admin-toggle-btn","class":"btn btn-default"}','{"html_tag":"a"}','{"wrapper":{"outer":{"parameters":{"html_tag":"li"}}}}','Hide Menu >>','0'),
+ ('content-499','block-501',1,NULL,'link','{"id":"menu-admin-toggle-show-btn","class":"btn btn-default"}','{"html_tag":"a"}','{"wrapper":{"outer":{"parameters":{"html_tag":"li"}}}}','Admin Menu','0');
 CREATE TABLE "configuration" (module TEXT, name text(32), value text);
 INSERT INTO `configuration` VALUES (NULL,'title','eCancer Content'),
  (NULL,'description','Single Page Application 01'),
@@ -338,7 +361,10 @@ INSERT INTO `block` VALUES ('block-001','area-001','{"class":{"0":"navbar-brand"
  ('block-032','area-0091','{}','{}','{}','app::navigation::simple',NULL,1,'sk','0',' '),
  ('block-033','area-200','{}','{}','{}','form::fqdn','template-200',1,'ssa','0','[::content:content-051::][::form:form-003::][::content:content-052::]'),
  ('block-034','area-201','{}','{}','{}','form::fqdn','template-201',NULL,NULL,'0',' '),
- ('block-050','area-009','{"class":"nav navbar-nav navbar-right"}','{"html_tag":"ul"}','{}','block::list','template-001',3,'dye','0',' ');
+ ('block-050','area-009','{"class":"nav navbar-nav navbar-right"}','{"html_tag":"ul"}','{}','block::list','template-001',3,'dye','0',' '),
+ ('block-500','area-500','{"class":"nav nav-pills","id":"admin-menu-list"}','{"html_tag":"ul"}','{}','block::list','',1,'xxx','block-502',' '),
+ ('block-501','area-500','{"class":"nav nav-pills","id":"admin-menu-list-trigger"}','{"html_tag":"ul"}','{}','block::list',' ',0,'dd','0',' '),
+ ('block-502','area-500','{"id":"menu-admin-wrapper"}','{"html_tag":"div"}','{}','content',NULL,NULL,'dsdssav','0','[::block:block-500::]');
 CREATE TABLE "area" (
   "uid" text NULL,
   "template" text NULL,
@@ -355,7 +381,8 @@ INSERT INTO `area` VALUES ('area-001','template-001','logo_area','{}','{}','{}',
  ('area-004','template-001','footer','{"class":{"0":"container"}}','{"html_tag":"div"}','{}','global'),
  ('area-009','template-001','menu_main','{"class":{"0":"collapse navbar-collapse"}}','{"html_tag":"div"}','{}','global'),
  ('area-200','template-200','content_main','{}','{}','{}','page'),
- ('area-201','template-201','content_main','{}','{}','{}','page');
+ ('area-201','template-201','content_main','{}','{}','{}','page'),
+ ('area-500','template-500','admin_menu','{"id":"admin-menu-area"}','{"html_tag":"div"}','{}','global');
 CREATE TABLE acl
 (
     uid VARCHAR(64) PRIMARY KEY,

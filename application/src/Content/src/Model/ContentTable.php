@@ -32,7 +32,7 @@ class ContentTable
                 $result = $this->cache->getItem($cacheNamespace);
             } else {
                 $result = null;
-                $resultSet = $this->tableGateway->select([$name=>$value]);
+                $resultSet = $this->tableGateway->select([$name=>$value])->order("order ASC");
                 foreach ($resultSet as $item) {
                     if(method_exists($item,"getName")) {
                         $result[$item->getName()] = $item;
@@ -46,9 +46,15 @@ class ContentTable
         } else {
             $result = null;
             if(is_array($value)){
-                $resultSet = $this->tableGateway->select($value);
+                $select = $this->tableGateway->getSql()->select();
+                foreach($value as $column=>$value){
+                    $select->where->equalTo($column, $value);
+                }
+                $select->order("order ASC");
+                $resultSet = $this->tableGateway->selectWith($select);
+//                $resultSet = $this->tableGateway->select($value)->order("order ASC");
             } else {
-                $resultSet = $this->tableGateway->select([$name=>$value]);
+                $resultSet = $this->tableGateway->select([$name=>$value])->order("order ASC");
             }
 
             if($resultSet->count() > 0) {

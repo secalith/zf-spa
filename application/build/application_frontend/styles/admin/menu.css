@@ -1,0 +1,33 @@
+.admin-menu-visible #menu-admin-wrapper {
+    display:block;
+}
+#menu-admin-wrapper {
+    display:none;
+}
+#admin-menu-list-trigger {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+}
+.admin-menu-visible #admin-menu-list-trigger {
+    display:none;
+}
+#admin-menu-area {
+    position:fixed;
+    top:0px;
+    right:0px;
+    z-index: 10000;
+}
+/*#menu-admin-wrapper {*/
+.admin-menu-visible #admin-menu-area {
+    position:fixed;
+    top:0px;
+    right:0px;
+    width:250px;
+    height:100%;
+    background-color:#ccc;
+}
+#admin-menu-list li {
+    display:block;
+    width:100%;
+}

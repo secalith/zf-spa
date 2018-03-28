@@ -10,9 +10,11 @@ $this->inlineScript()->appendFile('/assets/scripts/common.min.js');
 if(null!==$this->hasIdentity()) {
     $this->inlineScript()
         ->appendFile('/assets/scripts/editor.min.js')
+        ->appendFile('/assets/scripts/admin.min.js')
     ;
     $this->headLink()
         ->appendStylesheet('/assets/styles/editor.min.css')
+        ->appendStylesheet('/assets/styles/admin.min.css')
     ;
 }
 
@@ -34,7 +36,7 @@ if(null!==$this->hasIdentity()) {
         .app-footer { padding-bottom: 1em; }
     </style>
 </head>
-<body class="app">
+<body class="app<?=(null!==$this->hasIdentity() && false!==$this->hasIdentity())?' mode-admin':null;?>">
     <header class="app-header">
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container">
@@ -61,11 +63,16 @@ if(null!==$this->hasIdentity()) {
         <?=(isset($pageView)&&null!==$pageView->getVariable('area'))?$this->displayArea($pageView->getVariable('area')->getArea('footer')):null;?>
     </footer>
 
+
+
     <?php echo $this->partial('messenger::chat_window', array(
         'from' => 'Team Framework',
         'subject' => 'view partials')); ?>
 
 <?php if(null!==$this->hasIdentity() && false!==$this->hasIdentity()):?>
+
+    <?=(isset($pageView)&&null!==$pageView->getVariable('area'))?$this->displayArea($pageView->getVariable('area')->getArea('admin_menu')):null;?>
+
     <div class="modal fade" id="updateModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -125,6 +132,7 @@ if(null!==$this->hasIdentity()) {
     <?php echo $this->inlineScript(); ?>
 <script>
     var chat = new Chat('chat');
+    var adminMenu = new AdminMenu('adminMenu');
 <?php if(null!==$this->hasIdentity() && false!==$this->hasIdentity()):?>
     chat.setIdentity('<?=$this->getIdentity();?>');
 <?php endif; ?>

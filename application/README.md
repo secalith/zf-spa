@@ -29,6 +29,12 @@ Routemap:
 ## Page Concept ###
 ### Page Module ###
 
+### Content Concept ###
+if content attribute contains href, then in may be parsed with url helper on the servers side. Also, you may definde the data source with matchedRoute parameters;
+
+### Content Module ###
+
+
 ## Form Contept ##
 
 ### Form Module ###

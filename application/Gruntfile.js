@@ -54,13 +54,32 @@ module.exports = function(grunt) {
                 expand: true,
                 flatten: true,
                 src: [
-                    './build/application_frontend/styles/editor/editor.css'
+                    './build/application_frontend/styles/editor/*.css'
+                ]
+            },
+            css_application_admin: {
+                dest: './build/tmp/styles/',
+                expand: true,
+                flatten: true,
+                src: [
+                    './build/application_frontend/styles/admin/*.css'
                 ]
             },
             // Copy application_js to common location
             js_application_editor: {
                 expand: true,
                 cwd: './build/application_frontend/scripts/editor',
+                dest: './build/tmp/scripts/',
+                flatten: true,
+                filter: 'isFile',
+                src: [
+                    '*.js'
+                ]
+            },
+            // Copy application_js to common location
+            js_application_admin: {
+                expand: true,
+                cwd: './build/application_frontend/scripts/admin',
                 dest: './build/tmp/scripts/',
                 flatten: true,
                 filter: 'isFile',
@@ -96,6 +115,13 @@ module.exports = function(grunt) {
                     expand: false,
                     src: ['./build/tmp/styles/*.css','!./build/tmp/styles/*.min.css'],
                     dest: './public/assets/styles/editor.min.css'
+                }]
+            },
+            application_admin: {
+                files: [{
+                    expand: false,
+                    src: ['./build/tmp/styles/*.css','!./build/tmp/styles/*.min.css'],
+                    dest: './public/assets/styles/admin.min.css'
                 }]
             }
         },
@@ -145,6 +171,14 @@ module.exports = function(grunt) {
                         '!./build/tmp/scripts/*.min.js'
                     ]
                 }
+            },
+            js_application_admin: {
+                files: {
+                    './public/assets/scripts/admin.min.js': [
+                        './build/tmp/scripts/*.js',
+                        '!./build/tmp/scripts/*.min.js'
+                    ]
+                }
             }
         },
         watch: {
@@ -153,8 +187,10 @@ module.exports = function(grunt) {
                     'Gruntfile.js',
                     './build/application_frontend/styles/common/*.css',
                     './build/application_frontend/styles/editor/*.css',
+                    './build/application_frontend/styles/admin/*.css',
                     './build/application_frontend/scripts/common/*.js',
-                    './build/application_frontend/scripts/editor/*.js'
+                    './build/application_frontend/scripts/editor/*.js',
+                    './build/application_frontend/scripts/admin/*.js'
                 ],
                 tasks: ['default']
             }
@@ -187,14 +223,19 @@ module.exports = function(grunt) {
         'uglify:js_application_editor',
         'clean:js_all',
 
+        // admin JS
+        'copy:js_application_admin',
+        'uglify:js_application_admin',
+        'clean:js_all',
+
         'copy:css_modules',
         'cssmin:modules',
         'clean:css_all',
         'copy:css_application_common',
         'cssmin:application_common',
         'clean:css_all',
-        'copy:css_application_editor',
-        'cssmin:application_editor',
+        'copy:css_application_admin',
+        'cssmin:application_admin',
         'clean:css_all',
 
         'clean:tmp',
