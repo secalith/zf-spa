@@ -69,7 +69,7 @@ class Chat {
 
     // Periodically check for new messages
     setTimer(){
-        var intervalID = setInterval(window[this.callbackName].readMessages, 1000); // Will alert every second.
+        var intervalID = setInterval(window[this.callbackName].readMessages, 5000); // Will alert every second.
     }
 
     submitMessage(){
@@ -123,9 +123,9 @@ class ChatWindow {
             if (keyCode == '13'){
                 // Enter pressed. check if option enterSend is checked
                 if(true===window['chat'].plugins.html.isChecked(window['chat'].plugins.chatWindow.optEnterSend)){
-
-                } else {
                     window['chat'].submitMessage();
+                } else {
+
                 }
 
                 return false;

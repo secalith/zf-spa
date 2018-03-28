@@ -52,7 +52,7 @@ class ItemViewDelegatorFactory implements DelegatorFactoryInterface
                         $callback = call_user_func($callback)->addTableData($dbResult,$routeConfig['data_param']);
 
                     } else {
-                        $dbResult = $requestedService->{$requestedMethod}();
+                        $dbResult = $requestedService.$dbResult->{$requestedMethod}();
 
                         $callback = call_user_func($callback)->addTableData($dbResult,$routeConfig['data_param']);
                     }

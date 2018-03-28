@@ -16,6 +16,7 @@ class ConfigProvider extends CommonConfigProvider
         return [
             'dependencies' => $this->getDependencies(),
             'templates'    => $this->getTemplates(),
+            'application' => $this->getApplicationConfig(),
         ];
     }
 
@@ -24,6 +25,7 @@ class ConfigProvider extends CommonConfigProvider
         return [
             'factories'  => [
                 \Messenger\Action\ChatStatusAction::class => Action\ChatStatusFactory::class,
+                \Messenger\Action\ChatCreateAction::class => Action\ChatCreateFactory::class,
             ],
         ];
     }
@@ -39,6 +41,51 @@ class ConfigProvider extends CommonConfigProvider
             'paths' => [
                 'messenger'    => [__DIR__ . '/../templates/messenger'],
             ],
+        ];
+    }
+
+    public function getApplicationConfig()
+    {
+        return [
+            'module' => [
+                'route' => [
+                    'message' => [
+                        'database' => [
+                            'db' => [
+                                'table' => 'messages',
+                            ],
+                        ],
+                        'gateway' => [
+                            "adapter" => "Application\Db\LocalAdapter",
+//                                "adapter" => "Application\Db\DatabaseAdapter",
+                            'service' => ["name"=>"Message\\Gateway",],
+                            'hydrator' => [
+                                "class" => \Common\Hydrator\CommonTableEntityHydrator::class,
+                                "map" => [
+                                    "uid" => "uid",
+                                    "email" => "email",
+                                    "full_name" => "full_name",
+                                    "password" => "password",
+                                    "status" => "status",
+                                    "date_created" => "date_created",
+                                    "pwd_reset_token" => "pwd_reset_token",
+                                    "pwd_reset_token_creation_date" => "pwd_reset_token_creation_date",
+                                ],
+                            ],
+                        ], // gateway
+                    ], // message
+                ], // route
+                'form' => [
+                    'message.chat.create' => [
+                        'post' => [
+                            [
+                                'name' => 'message_chat_create',
+                                'fdqn' => \Message\Form\CreateChatForm::class,
+                            ],
+                        ],
+                    ],
+                ], // form
+            ], // module
         ];
     }
 

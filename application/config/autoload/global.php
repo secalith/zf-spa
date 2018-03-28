@@ -12,6 +12,12 @@ return [
                 'username' => 'spa_dev',
                 'password' => 'EchCovIlbonesE7'
             ],
+            'Application\Db\UserDatabaseAdapter' => [
+                'driver' => 'Pdo_Mysql',
+                'dsn'    => 'mysql:dbname=spa_user;host=kj36968-001.dbaas.ovh.net;port=35266;',
+                'username' => 'spa_dev',
+                'password' => 'EchCovIlbonesE7'
+            ],
         ],
     ],
 ];

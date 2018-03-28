@@ -20,6 +20,7 @@ class ContentModel
     public $options;
     public $template;
     public $type;
+    public $status;
 
 
     /**
@@ -205,6 +206,24 @@ class ContentModel
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param mixed $status
+     * @return ContentModel
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+        return $this;
+    }
+
     public function exchangeArray($data)
     {
         $this->uid     = (!empty($data['uid'])) ? $data['uid'] : null;
@@ -213,6 +232,7 @@ class ContentModel
         $this->template = (!empty($data['template'])) ? $data['template'] : null;
         $this->type = (!empty($data['type'])) ? $data['type'] : null;
         $this->content = (!empty($data['content'])) ? $data['content'] : null;
+        $this->status = (!empty($data['status'])) ? $data['status'] : null;
         $this->attributes = (!empty($data['attributes'])) ? $data['attributes'] : null;
         $this->setAttributes($this->getAttributes());
         $this->parameters = (!empty($data['parameters'])) ? $data['parameters'] : null;
@@ -250,6 +270,9 @@ class ContentModel
         }
         if (null!==$this->getOptions()) {
             $properties['options'] = $this->getOptions();
+        }
+        if (null!==$this->getStatus()) {
+            $properties['status'] = $this->getStatus();
         }
         return $properties;
     }

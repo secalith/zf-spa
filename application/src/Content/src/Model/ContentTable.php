@@ -49,6 +49,7 @@ class ContentTable
                 $select = $this->tableGateway->getSql()->select();
                 foreach($value as $column=>$value){
                     $select->where->equalTo($column, $value);
+                    $select->where->and->equalTo('status', 1);
                 }
                 $select->order("order ASC");
                 $resultSet = $this->tableGateway->selectWith($select);

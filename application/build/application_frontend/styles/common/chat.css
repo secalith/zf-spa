@@ -46,3 +46,6 @@
     min-height:240px;
     background-color: #eee;
 }
+#chat-blank-btn {
+    height: 14px;
+}
