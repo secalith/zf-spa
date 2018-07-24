@@ -1,0 +1,20 @@
+uid,area,attributes,parameters,options,type,template,order,name,parent_uid,content
+block-001,area-001,"{""class"":{""0"":""navbar-brand""},""href"":""/""}","{""html_tag"":""a""}",{},content,template-001,1,a,0, 
+block-013,area-007,"{""class"":""col-md-4""}","{""html_tag"":""div""}",{},content,template-001,1,ww,block-017, 
+block-015,area-007,"{""class"":""col-md-4""}","{""html_tag"":""div""}",{},content,template-001,2,dd,block-017, 
+block-016,area-007,"{""class"":""col-md-4""}","{""html_tag"":""div""}",{},content,template-001,3,dds,block-017, 
+block-017,area-007,"{""class"":""row""}","{""html_tag"":""div""}",{},content,template-001,1,sssss,0,[::block:block-013::][::block:block-015::][::block:block-016::]
+block-018,area-007,"{""class"":""row""}","{""html_tag"":""div""}",{},content,template-001,2,ddss,0,[::block:block-019::][::block:block-020::][::block:block-021::]
+block-019,area-007,"{""class"":""col-md-4""}","{""html_tag"":""div""}",{},content,template-001,1,dh,block-018, 
+block-020,area-007,"{""class"":""col-md-4""}","{""html_tag"":""div""}",{},content,template-001,2,jxdf,block-018, 
+block-021,area-007,"{""class"":""col-md-4""}","{""html_tag"":""div""}",{},content,template-001,3,ssa,block-018, 
+block-012,area-006,{},{},{},content,template-001,1,dddsjf,0, 
+block-030,area-004,{},{},{},content,template-001,1,dfdghj,0, 
+block-031,area-009,"{""class"":""nav navbar-nav""}","{""html_tag"":""ul""}",{},block::list,template-001,2,ddar,0,
+block-032,area-0091,{},{},{},app::navigation::simple,,1,sk,0, 
+block-033,area-200,{},{},{},form::fqdn,template-200,1,ssa,0,[::content:content-051::][::form:form-003::][::content:content-052::]
+block-034,area-201,{},{},{},form::fqdn,template-201,,,0, 
+block-050,area-009,"{""class"":""nav navbar-nav navbar-right""}","{""html_tag"":""ul""}",{},block::list,template-001,3,dye,0, 
+block-500,area-500,"{""class"":""nav nav-pills"",""id"":""admin-menu-list""}","{""html_tag"":""ul""}",{},block::list,,1,xxx,block-502, 
+block-501,area-500,"{""class"":""nav nav-pills"",""id"":""admin-menu-list-trigger""}","{""html_tag"":""ul""}",{},block::list, ,0,dd,0, 
+block-502,area-500,"{""id"":""menu-admin-wrapper""}","{""html_tag"":""div""}",{},content,,,dsdssav,0,[::block:block-500::]

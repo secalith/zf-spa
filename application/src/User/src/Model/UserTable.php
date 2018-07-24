@@ -34,8 +34,6 @@ class UserTable// extends CommonTable
 //        $sqlSelect->columns(array('column_name'));
 //        $sqlSelect->join('route_routes', 'route_routes.route_uid = page.route', array(), 'inner');
 
-
-
         $sqlSelect->order('name' . ' ' . $order);
 
         $resultSet = $this->tableGateway->selectWith($sqlSelect);

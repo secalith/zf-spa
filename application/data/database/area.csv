@@ -1,0 +1,9 @@
+uid,template,machine_name,attributes,parameters,options,scope
+area-001,template-001,logo_area,{},{},{},global
+area-006,template-001,content_main_jumbotron,"{""class"":{""0"":""jumbotron""}}","{""html_tag"":""div""}",{},page
+area-007,template-001,content_main,{},"{""html_tag"":""div""}",{},page
+area-004,template-001,footer,"{""class"":{""0"":""container""}}","{""html_tag"":""div""}",{},global
+area-009,template-001,menu_main,"{""class"":{""0"":""collapse navbar-collapse""}}","{""html_tag"":""div""}",{},global
+area-200,template-200,content_main,{},{},{},page
+area-201,template-201,content_main,{},{},{},page
+area-500,template-500,admin_menu,"{""id"":""admin-menu-area""}","{""html_tag"":""div""}",{},global

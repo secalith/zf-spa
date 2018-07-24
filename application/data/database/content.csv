@@ -1,0 +1,58 @@
+uid,block,order,template,type,attributes,parameters,options,content,parent_uid,status
+content-001,block-001,1,template-001,image,"{""src"":""/zf-logo.png"",""alt"":""SPA""}","{""html_tag"":""img""}",{},,0,1
+content-017,block-012,1,template-001,text,{},"{""html_tag"":""h1""}",{},[::content:content-044::] in minutes!,0,1
+content-018,block-012,1,template-001,text,{},"{""html_tag"":""p""}",{},Prow scuttle parrel provost Sail ho shrouds spirits boom mizzenmast yardarm. Pinnace holystone mizzenmast quarter crow's nest nipperkin grog yardarm hempen halter furl. Swab barque interloper chantey doubloon starboard grog black jack gangway rutters.,0,1
+content-019,block-013,1,template-001,text,"{""href"":""https://docs.zendframework.com/zend-expressive/getting-started/features/""}","{""html_tag"":""a""}","{""wrapper"":{""outer"":{""parameters"":{""html_tag"":""h2""} }}}",[::content:content-021::] Lean & Agile,0,1
+content-021,block-013,1,template-001,icon,"{""class"":{""0"":""fa"",""1"":""fa fa-refresh""}}","{""html_tag"":""i""}",{}, ,content-019,1
+content-022,block-013,2,template-001,text,{},"{""html_tag"":""p""}",{},"Expressive is fast, small and perfect for rapid application development, prototyping and api's. You decide how you extend it and choose the best packages from major framework or standalone projects.",0,1
+content-023,block-015,1,template-001,text,"{""href"":""https://github.com/zendframework/zend-diactoros""}","{""html_tag"":""a""}","{""wrapper"":{""outer"":{""parameters"":{""html_tag"":""h2""} }}}",[::content:content-024::] Built-in RWD Themes,0,1
+content-024,block-015,1,template-001,icon,"{""class"":{""0"":""fa"",""1"":""fa fa-exchange""}}","{""html_tag"":""i""}",{}, ,content-023,1
+content-025,block-015,2,template-001,text,{},"{""html_tag"":""p""}",{},"HTTP messages are the foundation of web development. Web browsers and HTTP clients such as cURL create HTTP request messages that are sent to a web server, which provides an HTTP response message. Server-side code receives an HTTP request message, and returns an HTTP response message.",0,1
+content-026,block-016,1,template-001,text,{},"{""html_tag"":""a""}","{""wrapper"":{""outer"":{""parameters"":{""html_tag"":""h2""} }}}",[::content:content-027::] Advanced Forms,0,1
+content-027,block-016,1,template-001,icon,"{""class"":{""0"":""fa"",""1"":""fa fa-cube""}}","{""html_tag"":""i""}",{}, ,content-026,1
+content-028,block-016,2,template-001,text,{},"{""html_tag"":""p""}",{},Expressive promotes and advocates the usage of Dependency Injection/Inversion of Control containers when writing your applications. Expressive supports multiple containers which typehints against [::content:content-039::].,0,1
+content-029,block-019,1,template-001,text,{},"{""html_tag"":""a""}","{""wrapper"":{""outer"":{""parameters"":{""html_tag"":""h2""} }}}",[::content:content-030::] Caching System,0,1
+content-030,block-019,1,template-001,icon,"{""class"":{""0"":""fa"",""1"":""fa fa-dot-circle-o""}}","{""html_tag"":""i""}",{}, ,content-029,1
+content-031,block-019,2,template-001,text,{},"{""html_tag"":""p""}",{},"Middleware is code that exists between the request and response, and which can take the incoming request, perform actions based on it, and either complete the response or pass delegation on to the next middleware in the queue. Your application is easily extended with custom middleware created by yourself or [::content:content-038::].",0,1
+content-032,block-020,1,template-001,text,{},"{""html_tag"":""a""}","{""wrapper"":{""outer"":{""parameters"":{""html_tag"":""h2""} }}}",[::content:content-033::] Various Data Storage,0,1
+content-033,block-020,1,template-001,icon,"{""class"":{""0"":""fa"",""1"":""fa fa-plane""}}","{""html_tag"":""i""}",{}, ,content-032,1
+content-034,block-020,2,template-001,text,{},"{""html_tag"":""p""}",{},"We provide you with SQL database out of the box. It is possible for you to store your application in the Amazon Cloud. In case you decide to resign from our services for some reason, you will be able to access your data! Storing your data in the cloud would require you to use third party paid services.",0,1
+content-035,block-021,1,template-001,text,{},"{""html_tag"":""a""}","{""wrapper"":{""outer"":{""parameters"":{""html_tag"":""h2""} }}}",[::content:content-036::] Email Queueing,0,1
+content-036,block-021,1,template-001,icon,"{""class"":{""0"":""fa"",""1"":""fa fa-files-o""}}","{""html_tag"":""i""}",{}, ,content-035,1
+content-037,block-021,2,template-001,text,{},"{""html_tag"":""p""}",{},"Our Single Page Application hs built-in email sender application which allows you to edit email templates!<br />
+Also, we would let you to watch you live the Email Queue Application in action.",0,1
+content-038,block-019,1,template-001,text,"{""href"":""https://docs.zendframework.com/zend-expressive/getting-started/features/"",""target"":""_blank""}","{""html_tag"":""a""}",{},others,content-031,1
+content-039,block-016,1,template-001,text,"{""href"":""https://github.com/container-interop/container-interop"",""target"":""_blank""}","{""html_tag"":""a""}",{},container-interop,content-028,1
+content-040,block-020,1,template-001,text,"{""href"":""https://docs.zendframework.com/zend-router/"",""target"":""_blank""}","{""html_tag"":""a""}","{""wrapper"":{""outer"":{""parameters"":{""html_tag"":""p""} }}}",See more about Data Storage options.,0,1
+content-041,block-021,1,template-001,text,"{""href"":""https://docs.zendframework.com/zend-view/"",""target"":""_blank""}","{""html_tag"":""a""}","{""wrapper"":{""outer"":{""parameters"":{""html_tag"":""p""} }}}",Read more about the Email Queue Application.,0,1
+content-042,block-030,1,template-001,text,{},"{""html_tag"":""hr""}",{}, ,0,1
+content-043,block-030,2,template-001,text,{},"{""html_tag"":""p""}",{},© Secalith Ltd ; company@secalith.uk ; 01179773002,0,1
+content-044,block-012,,template-001,text,"{""href"":""http://google.uk""}","{""html_tag"":""a""}",{},Create Survey,content-017,1
+content-045,,3,template-001,icon,"{""class"":""fa fa-wrench""}","{""html_tag"":""i""}",{}, ,0,1
+content-046,block-031,1,template-001,text,"{""href"":""https://docs.zendframework.com/zend-expressive/"",""target"":""_blank""}","{""html_tag"":""a""}","{""wrapper"":{""outer"":{""parameters"":{""html_tag"":""li""}}}}",[::content:content-049::] Docs,0,1
+content-047,block-031,2,template-001,text,"{""href"":""https://github.com/zendframework/zend-expressive"",""target"":""_blank""}","{""html_tag"":""a""}","{""wrapper"":{""outer"":{""parameters"":{""html_tag"":""li""}}}}",[::content:content-050::] Contribute,0,1
+content-048,block-031,3,template-001,text,"{""href"":""/"",""target"":""_blank""}","{""html_tag"":""a""}","{""wrapper"":{""outer"":{""parameters"":{""html_tag"":""li""}}}}",Ping Test,0,1
+content-049,block-031,1,template-001,text,"{""class"":{""0"":""fa"",""1"":""fa fa-book""}}","{""html_tag"":""i""}",{}, ,content-046,1
+content-050,block-031,1,template-001,text,"{""class"":{""0"":""fa"",""1"":""fa-wrench""}}","{""html_tag"":""i""}",{}, ,content-047,1
+content-051,block-033,1,template-200,text,{},"{""html_tag"":""h2""}",{},Login,0,1
+content-052,block-033,3,template-200,text,{},{},{},Or use the one of the services:,0,1
+content-060,block-050,1,template-001,text,"{""href"":""/login""}","{""html_tag"":""a""}","{""wrapper"":{""outer"":{""parameters"":{""html_tag"":""li""}}}}",Login,0,1
+content-061,block-050,2,template-001,text,"{""href"":""/logout""}","{""html_tag"":""a""}","{""wrapper"":{""outer"":{""parameters"":{""html_tag"":""li""}}}}",Logout,0,1
+content-062,block-050,3,template-001,text,"{""href"":""[::{\""url\"":{\""page.update\"":{\""url\"":\""uid\""}}}::]""}","{""html_tag"":""a""}","{""wrapper"":{""outer"":{""parameters"":{""html_tag"":""li""}}}}",Edit this Page,0,0
+content-063,block-050,4,template-001,text,"{""href"":""[::{\""url\"":\""page.list\""}::]""}","{""html_tag"":""a""}","{""wrapper"":{""outer"":{""parameters"":{""html_tag"":""li""}}}}",Pages,0,0
+content-064,block-050,5,template-001,text,"{""href"":""[::{\""url\"":\""user.list\""}::]""}","{""html_tag"":""a""}","{""wrapper"":{""outer"":{""parameters"":{""html_tag"":""li""}}}}",Users,0,0
+content-065,block-050,6,template-001,text,"{""href"":""[::{\""url\"":\""user.account\""}::]""}","{""html_tag"":""a""}","{""wrapper"":{""outer"":{""parameters"":{""html_tag"":""li""}}}}",Logged in as <strong>[::viewHelper:getIdentity::]</strong>,0,1
+content-500,block-500,6,,link,"{""href"":""/page/list""}","{""html_tag"":""a""}","{""wrapper"":{""outer"":{""parameters"":{""html_tag"":""li""},""attributes"":{""role"":""presentation""}}}}",Pages,0,1
+content-501,block-500,7,,link,"{""href"":""/user/list""}","{""html_tag"":""a""}","{""wrapper"":{""outer"":{""parameters"":{""html_tag"":""li""},""attributes"":{""role"":""presentation""}}}}",Users,0,1
+content-502,block-500,10,,separator,"{""class"":""separator clreafix""}","{""html_tag"":""hr""}","{""wrapper"":{""outer"":{""parameters"":{""html_tag"":""li""}}}}",,0,1
+content-503,block-500,12,,link,"{""href"":""/logout""}","{""html_tag"":""a""}","{""wrapper"":{""outer"":{""parameters"":{""html_tag"":""li""},""attributes"":{""role"":""presentation""}}}}",Logout,0,1
+content-504,block-500,1,,link,"{""href"":""[::{\""url\"":{\""page.update\"":{\""url\"":\""uid\""}}}::]""}","{""html_tag"":""a""}","{""wrapper"":{""outer"":{""parameters"":{""html_tag"":""li""}}}}",Edit this Page,0,1
+content-505,block-500,2,,separator,"{""class"":""separator clreafix""}","{""html_tag"":""hr""}","{""wrapper"":{""outer"":{""parameters"":{""html_tag"":""li""}}}}",,0,1
+content-506,block-500,0,,link,"{""id"":""menu-admin-toggle-btn"",""class"":""btn btn-default""}","{""html_tag"":""a""}","{""wrapper"":{""outer"":{""parameters"":{""html_tag"":""li""}}}}",Hide Menu >>,0,1
+content-499,block-501,1,,link,"{""id"":""menu-admin-toggle-show-btn"",""class"":""btn btn-default""}","{""html_tag"":""a""}","{""wrapper"":{""outer"":{""parameters"":{""html_tag"":""li""}}}}",Admin Menu,0,1
+content-507,block-500,3,,link,"{""href"":""/bookings/list""}","{""html_tag"":""a""}","{""wrapper"":{""outer"":{""parameters"":{""html_tag"":""li""}}}}",Bookings,0,1
+content-508,block-500,4,,link,"{""href"":""/messages/list""}","{""html_tag"":""a""}","{""wrapper"":{""outer"":{""parameters"":{""html_tag"":""li""}}}}",Messages,0,1
+content-509,block-500,7,,link,"{""href"":""/settings/list""}","{""html_tag"":""a""}","{""wrapper"":{""outer"":{""parameters"":{""html_tag"":""li""}}}}",Configuration,0,1
+content-510,block-500,9,,link,"{""href"":""/application""}","{""html_tag"":""a""}","{""wrapper"":{""outer"":{""parameters"":{""html_tag"":""li""}}}}",Application,0,1
+content-511,block-500,11,,link,"{""href"":""/user/account""}","{""html_tag"":""a""}","{""wrapper"":{""outer"":{""parameters"":{""html_tag"":""li""}}}}",My Account,0,1
+content-512,block-500,5,,link,"{""href"":""/gallery/list""}","{""html_tag"":""a""}","{""wrapper"":{""outer"":{""parameters"":{""html_tag"":""li""}}}}",Gallery,0,1

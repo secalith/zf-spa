@@ -47,7 +47,7 @@ class ConfigProvider extends CommonConfigProvider
                                     ],
                                 ],
                             ],
-                        ],
+                        ], // area
                     ],
                 ],
             ], // application

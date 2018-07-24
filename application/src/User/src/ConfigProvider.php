@@ -92,9 +92,9 @@ class ConfigProvider extends CommonConfigProvider
                             ],
                         ],
                         'gateway' => [
-//                            "adapter" => "Application\Db\LocalAdapter",
+                            "adapter" => "Application\Db\LocalAdapter",
 //                            "adapter" => "Application\Db\DatabaseAdapter",
-                            "adapter" => "Application\Db\UserDatabaseAdapter",
+//                            "adapter" => "Application\Db\UserDatabaseAdapter",
                             'service' => ["name"=>"User\\Gateway",],
                             'hydrator' => [
                                 "class" => \Common\Hydrator\CommonTableEntityHydrator::class,
@@ -171,6 +171,9 @@ class ConfigProvider extends CommonConfigProvider
                         'data_param' => 'users',
                     ],
                 ], // data_view
+                'data_source' => [
+
+                ], // data_source
             ], // module
         ];
     }

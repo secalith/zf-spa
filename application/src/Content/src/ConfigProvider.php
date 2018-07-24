@@ -31,8 +31,8 @@ class ConfigProvider extends CommonConfigProvider
                                 ],
                             ],
                             'gateway' => [
-//                                "adapter" => "Application\Db\DatabaseAdapter",
                                 "adapter" => "Application\Db\LocalAdapter",
+//                                "adapter" => "Application\Db\DatabaseAdapter",
                                 'service' => ["name"=>"Content\\Gateway"],
                                 'hydrator' => [
                                     "class" => \Common\Hydrator\CommonTableEntityHydrator::class,
